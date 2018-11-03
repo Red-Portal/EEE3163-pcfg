@@ -1,0 +1,172 @@
+# Input 
+NET "m_reset_b"				LOC = "AA14";
+NET "m_clk"					LOC = "B16";
+#NET "m_top_signal_b"			LOC = "P6";
+#NET "m_top_cmd"			LOC = "AH23" | IOSTANDARD = LVCMOS33; // BLUE TOOTH
+#NET "m_top_select"			LOC = "AG23" | IOSTANDARD = LVCMOS33; // BLUE TOOTH
+#NET "m_top_data_in<0>"			LOC = "AB19" | IOSTANDARD = LVCMOS33; // BLUE TOOTH DATA
+#NET "m_top_data_in<1>"			LOC = "AC19" | IOSTANDARD = LVCMOS33;
+#NET "m_top_data_in<2>"			LOC = "AB18" | IOSTANDARD = LVCMOS33;
+#NET "m_top_data_in<3>"			LOC = "AA19" | IOSTANDARD = LVCMOS33;
+#NET "m_top_data_in<4>"			LOC = "AJ17" | IOSTANDARD = LVCMOS33;
+#NET "m_top_data_in<5>"			LOC = "AG26" | IOSTANDARD = LVCMOS33;
+#NET "m_top_data_in<6>"			LOC = "AD24" | IOSTANDARD = LVCMOS33;
+#NET "m_top_data_in<7>"			LOC = "AF25" | IOSTANDARD = LVCMOS33;
+
+#NET "m_top_MSG_ACK"			LOC = "AF23" | IOSTANDARD = LVCMOS33;#PC2
+
+#NET "PC<0>"			LOC = "AC23"  | IOSTANDARD = LVCMOS33;
+#NET "PC<1>"			LOC = "AC20"  | IOSTANDARD = LVCMOS33;
+#NET "PC<2>"			LOC = "AF19" | IOSTANDARD = LVCMOS33;
+#NET "PC<3>"			LOC = "AD19" | IOSTANDARD = LVCMOS33;
+#NET "PC<4>"			LOC = "AE17" | IOSTANDARD = LVCMOS33;
+
+#NET "PB<0>"			LOC = "AF20" | IOSTANDARD = LVCMOS33;#PF
+#NET "PB<1>"			LOC = "AD20" | IOSTANDARD = LVCMOS33;
+#NET "PB<2>"			LOC = "AE21" | IOSTANDARD = LVCMOS33;
+#NET "PB<3>"			LOC = "AE20" | IOSTANDARD = LVCMOS33;
+#NET "PB<4>"			LOC = "AC18" | IOSTANDARD = LVCMOS33;
+#NET "PB<5>"			LOC = "AB21" | IOSTANDARD = LVCMOS33;
+#NET "PB<6>"			LOC = "AF18" | IOSTANDARD = LVCMOS33;
+#NET "PB<7>"			LOC = "AE18" | IOSTANDARD = LVCMOS33;
+
+#NET "m_top_MSG_data<0>"			LOC = "AJ18" | IOSTANDARD = LVCMOS33;#PB
+#NET "m_top_MSG_data<1>"			LOC = "AJ19" | IOSTANDARD = LVCMOS33;
+#NET "m_top_MSG_data<2>"			LOC = "AJ21" | IOSTANDARD = LVCMOS33;
+#NET "m_top_MSG_data<3>"			LOC = "AJ20" | IOSTANDARD = LVCMOS33;
+#NET "m_top_MSG_data<4>"			LOC = "AG22" | IOSTANDARD = LVCMOS33;
+#NET "m_top_MSG_data<5>"			LOC = "AH19" | IOSTANDARD = LVCMOS33;
+#NET "m_top_MSG_data<6>"			LOC = "AG20" | IOSTANDARD = LVCMOS33;
+#NET "m_top_MSG_data<7>"			LOC = "AG19" | IOSTANDARD = LVCMOS33;
+
+#NET "PD<0>"			LOC = "AK22" | IOSTANDARD = LVCMOS33;
+#NET "PD<1>"			LOC = "AK23" | IOSTANDARD = LVCMOS33;
+#NET "PD<2>"			LOC = "AD21" | IOSTANDARD = LVCMOS33;
+#NET "PD<3>"			LOC = "AC22" | IOSTANDARD = LVCMOS33;
+#NET "PD<4>"			LOC = "AB16" | IOSTANDARD = LVCMOS33;
+#NET "PD<5>"			LOC = "AK18" | IOSTANDARD = LVCMOS33;
+#NET "PD<6>"			LOC = "AK19" | IOSTANDARD = LVCMOS33;
+#NET "PD<7>"			LOC = "AK20" | IOSTANDARD = LVCMOS33;
+
+#NET "PE<0>"			LOC = "AE19" | IOSTANDARD = LVCMOS33;
+#NET "PE<1>"			LOC = "AF22" | IOSTANDARD = LVCMOS33;
+#NET "PE<2>"			LOC = "AJ22" | IOSTANDARD = LVCMOS33;
+#NET "PE<3>"			LOC = "AJ23" | IOSTANDARD = LVCMOS33;
+
+#NET "m_top_MSG_INT"			LOC = "AD16" | IOSTANDARD = LVCMOS33;#INT4 PE4
+
+#NET "PE<4>"			LOC = "AC16" | IOSTANDARD = LVCMOS33;
+#NET "PE<5>"			LOC = "AJ24" | IOSTANDARD = LVCMOS33;
+#NET "PE<6>"			LOC = "AH17" | IOSTANDARD = LVCMOS33;
+
+#NET "PG<0>"			LOC = "AK24" | IOSTANDARD = LVCMOS33;
+#NET "PG<1>"			LOC = "AJ27" | IOSTANDARD = LVCMOS33;
+#NET "PG<2>"			LOC = "AK27" | IOSTANDARD = LVCMOS33;
+#NET "PG<3>"			LOC = "AH20" | IOSTANDARD = LVCMOS33;
+#NET "PG<4>"			LOC = "AH21" | IOSTANDARD = LVCMOS33;
+
+#NET "blue_reset"			LOC = "AK28" | IOSTANDARD = LVCMOS33;
+
+#NET "can<0>"			LOC = "AJ26" | IOSTANDARD = LVCMOS33;
+#NET "can<1>"			LOC = "AK26" | IOSTANDARD = LVCMOS33;
+
+NET "m_address<0>" LOC = "A18";
+NET "m_address<1>" LOC = "B19";
+NET "m_address<2>" LOC = "A19";
+NET "m_address<3>" LOC = "B20";
+NET "m_address<4>" LOC = "A20";
+NET "m_address<5>" LOC = "B21";
+NET "m_address<6>" LOC = "C21";
+NET "m_address<7>" LOC = "A22";
+NET "m_address<8>" LOC = "H23";
+
+NET "m_data<0>" LOC = "K16";
+NET "m_data<1>" LOC = "J16";
+NET "m_data<2>" LOC = "H16";
+NET "m_data<3>" LOC = "G17";
+NET "m_data<4>" LOC = "G16";
+NET "m_data<5>" LOC = "F17";
+NET "m_data<6>" LOC = "E16";
+NET "m_data<7>" LOC = "D16";
+
+
+
+NET "m_cmd_data" LOC = "H20";
+NET "m_ren" LOC = "G21";
+NET "m_wen" LOC = "G20";
+#NET "usb_CTL3" LOC = "C20";
+#NET "usb_CTL4" LOC = "J22";
+NET "m_OE_b" LOC = "A27";
+
+#NET "m_ready" LOC = "E22";
+#NET "usb_RDY1" LOC = "E23";
+#NET "usb_RDY2" LOC = "D20";
+#NET "usb_RDY3" LOC = "D19";
+#NET "usb_RDY4" LOC = "E20";
+#NET "usb_RDY5" LOC = "F20";
+
+#NET "usb_PA<0>" LOC = "B22";
+#NET "usb_PA<1>" LOC = "A23";
+#NET "usb_PA<2>" LOC = "B23";
+#NET "usb_PA<3>" LOC = "A24";
+#NET "usb_PA<4>" LOC = "B24";
+#NET "usb_PA<5>" LOC = "B25";
+#NET "usb_PA<6>" LOC = "A26";
+#NET "usb_PA<7>" LOC = "B26";
+
+#NET "usb_PE<0>" LOC = "C25";
+#NET "usb_PE<1>" LOC = "D24";
+#NET "usb_PE<2>" LOC = "C24";
+#NET "usb_PE<3>" LOC = "F23";
+#NET "usb_PE<4>" LOC = "D23";
+#NET "usb_PE<5>" LOC = "D22";
+#NET "usb_PE<6>" LOC = "F21";
+
+#NET "usb_clkout" LOC = "H22";
+#NET "usb_IFCLK" LOC = "B17";
+#NET "usb_T0" LOC = "G19";
+#NET "usb_T1" LOC = "C19";
+#NET "usb_T2" LOC = "H19";
+
+#NET "usb_RXD0" LOC = "A16";
+#NET "usb_TXD0" LOC = "K19";
+#NET "usb_RXD1" LOC = "J19";
+#NET "usb_TXD1" LOC = "C17";
+
+
+
+NET "m_led<0>" LOC = "AB12";
+NET "m_led<1>" LOC = "AE10";
+NET "m_led<2>" LOC = "AD11";
+NET "m_led<3>" LOC = "AH10";
+NET "m_led<4>" LOC = "AD12";
+NET "m_led<5>" LOC = "AC12";
+NET "m_led<6>" LOC = "AC11";
+NET "m_led<7>" LOC = "AE9";
+
+NET "m_ADC_data<0>" LOC = "E1"; # ADC -> 9283
+NET "m_ADC_data<1>" LOC = "F2";
+NET "m_ADC_data<2>" LOC = "G1";
+NET "m_ADC_data<3>" LOC = "G2";
+NET "m_ADC_data<4>" LOC = "H1";
+NET "m_ADC_data<5>" LOC = "H2";
+NET "m_ADC_data<6>" LOC = "J1";
+NET "m_ADC_data<7>" LOC = "J2";
+
+#NET "m_AD9283_PWRDWN" LOC = "F5";
+NET "m_AD9283_clk"	LOC = "P2";
+
+NET "m_DAC_data<0>" LOC = "L4"; # DAC -> 9708
+NET "m_DAC_data<1>" LOC = "M4";
+NET "m_DAC_data<2>" LOC = "M3";
+NET "m_DAC_data<3>" LOC = "L3";
+NET "m_DAC_data<4>" LOC = "M2";
+NET "m_DAC_data<5>" LOC = "L2";
+NET "m_DAC_data<6>" LOC = "M1";
+NET "m_DAC_data<7>" LOC = "L1";
+
+NET "m_DAC_clk" LOC = "R1";
+
+NET "m_TP<0>" LOC = "AG5";
+NET "m_TP<1>" LOC = "AH6";
+#NET "m_TP<2>" LOC = "AG7";
