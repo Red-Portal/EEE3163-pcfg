@@ -51,7 +51,7 @@ PORT( ---------------------------------------------INPUT
 		
 		m_data : INOUT std_logic_vector(7 downto 0);
 		
-		-------------------------------------------------simulation¿ß«— port
+		-------------------------------------------------simulation port
 		
 		m_led : OUT std_logic_vector(7 downto 0);
 		m_TP	: out std_logic_vector(1 downto 0)
@@ -113,8 +113,8 @@ begin
 
 
 --clks
-m_DAC_clk<=			;--- « ø‰«— clock ø¨∞·«œººø‰
-m_AD9283_clk<=		;--- « ø‰«— clock ø¨∞·«œººø‰
+m_DAC_clk<=			;---  ø clock œº
+m_AD9283_clk<=		;---  ø clock œºx
 
 
 -----------================  don't change this ==================-------------------
@@ -140,7 +140,7 @@ clk_gen : TOP_8254 port map(
            m_gate1   => s_m_8254_gate1,
            m_gate2   => s_m_8254_gate2,
            m_addr    =>m_address(1 downto 0),
-           m_cs_b    =>not s_pcs_addr,		-- ø©±‚ø° µÈæÓ∞• Ω√±◊≥Œ ¿ﬂ ¡§¿««ÿ∫∏ººø‰.
+           m_cs_b    =>not s_pcs_addr,		-- ‚ø° Ó∞• √±◊≥  ÿ∫.
            m_wr_b    =>not m_wen,
 		   m_out0    =>sys_clk,
            m_out1    =>open,
@@ -153,8 +153,8 @@ s_m_8254_gate2	<= '1';
 
 
 --for debug
-m_TP(0)	<= s_clk; --test point. for s_clk     ¿Ã∞…∑Œ √§¡°«œ¥œ±Ò πŸ≤Ÿ∏È ¿˝¥Î æ»µ 
-m_TP(1)	<= sys_clk;--test for 8254 output.   ¿Ã∞…∑Œ √§¡°«œ¥œ±Ò πŸ≤Ÿ∏È ¿˝¥Î æ»µ 
+m_TP(0)	<= s_clk; --test point. for s_clk     Ã∞…∑ √§œ¥œ± Ÿ≤Ÿ∏  »µ
+m_TP(1)	<= sys_clk;--test for 8254 output.   Ã∞…∑ √§œ¥œ± Ÿ≤Ÿ∏  »µ
 m_led(7) <=s_reset_b;
 -----------======================================================--------------------
 
