@@ -106,7 +106,7 @@ BEGIN
     wait for clock_period*2;
     d <= '1';
     wait for clock_period*10;
-
+    d <= '0';
     clear <= '1';
     wait for clock_period*5;
     clear <= '0';

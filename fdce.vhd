@@ -38,12 +38,12 @@ entity fdce is
 end fdce;
 architecture behavior of fdce is
 begin
-  clk_proc: process (clk, clear)
+  clk_proc: process (clock, clear)
   begin
-    if clear = '0' then
+    if clear = '1' then
       q <= '0';
-    elsif rising_edge(clk) and clock_enable = '1'  then
-        q <= d;
+    elsif rising_edge(clock) and clock_enable = '1'  then
+      q <= d;
     end if;
   end process;
 end behavior;
