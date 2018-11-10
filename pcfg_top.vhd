@@ -29,34 +29,34 @@ use UNISIM.vcomponents.all;
 
 
 entity PCFG_TOP is
-PORT( ---------------------------------------------INPUT
-	 	m_reset_b : IN std_logic;								
-		m_clk : IN std_logic;		
-		m_address : IN std_logic_vector(8 downto 0);		
-		m_cmd_data : IN std_logic;
-		m_OE_b : IN std_logic;
-		m_wen : IN std_logic;
-		m_ren : IN std_logic;
-		
-		m_ADC_data : IN std_logic_vector(7 downto 0);	--adc input
-		
-		---------------------------------------------OUTPUT	
-		
-		m_DAC_data : OUT std_logic_vector(7 downto 0);	--dac output
-		m_DAC_clk : OUT std_logic;
-		
-		m_AD9283_clk : OUT std_logic;	
-		
-		-------------------------------------------------INOUT
-		
-		m_data : INOUT std_logic_vector(7 downto 0);
-		
-		-------------------------------------------------simulation port
-		
-		m_led : OUT std_logic_vector(7 downto 0);
-		m_TP	: out std_logic_vector(1 downto 0)
-		
-		);
+  PORT( ---------------------------------------------INPUT
+    m_reset_b  : IN std_logic;
+    m_clk      : IN std_logic;
+    m_address  : IN std_logic_vector(8 downto 0);
+    m_cmd_data : IN std_logic;
+    m_OE_b     : IN std_logic;
+    m_wen      : IN std_logic;
+    m_ren      : IN std_logic;
+
+    m_ADC_data : IN std_logic_vector(7 downto 0);  --adc input
+
+    ---------------------------------------------OUTPUT 
+
+    m_DAC_data : OUT std_logic_vector(7 downto 0);  --dac output
+    m_DAC_clk  : OUT std_logic;
+
+    m_AD9283_clk : OUT std_logic;
+
+    -------------------------------------------------INOUT
+
+    m_data : INOUT std_logic_vector(7 downto 0);
+
+    -------------------------------------------------simulation port
+
+    m_led : OUT std_logic_vector(7 downto 0);
+    m_TP  : out std_logic_vector(1 downto 0)
+    
+    );
 end PCFG_TOP;
 
 
@@ -68,7 +68,7 @@ architecture Behavioral of PCFG_TOP is
 
 ---=========== COMPONENT ===================
 
-component TOP_8254 is
+  component TOP_8254 is
     Port ( m_clk0    : in  STD_LOGIC;
            m_clk1    : in  STD_LOGIC;
            m_clk2    : in  STD_LOGIC;
@@ -81,31 +81,31 @@ component TOP_8254 is
            m_addr    : in  STD_LOGIC_VECTOR (1 downto 0);
            m_cs_b    : in  STD_LOGIC;
            m_wr_b    : in  STD_LOGIC;
-          
-		   m_out0    : out  STD_LOGIC;
+           
+           m_out0    : out  STD_LOGIC;
            m_out1    : out  STD_LOGIC;
            m_out2    : out  STD_LOGIC);
-end component;
+  end component;
 
 
-signal s_clk : std_logic;
+  signal s_clk : std_logic;
 --=== signals
 
 ---8254
-signal s_m_8254_gate0				: std_logic; 
-signal s_m_8254_gate1				: std_logic; 
-signal s_m_8254_gate2				: std_logic; 
+  signal s_m_8254_gate0 : std_logic;
+  signal s_m_8254_gate1 : std_logic;
+  signal s_m_8254_gate2 : std_logic;
 
-signal s_dout_en : std_logic;
-signal s_pcs_addr  : std_logic;
+  signal s_dout_en  : std_logic;
+  signal s_pcs_addr : std_logic;
 
-signal sys_clk : std_logic;
+  signal sys_clk : std_logic;
 
-signal s_reset_b : std_logic;
+  signal s_reset_b : std_logic;
 
-signal s_din : std_logic_vector(7 downto 0);
-signal outlatch_dout : std_logic_vector(7 downto 0);
-signal s_led : std_logic_vector(6 downto 0);
+  signal s_din         : std_logic_vector(7 downto 0);
+  signal outlatch_dout : std_logic_vector(7 downto 0);
+  signal s_led         : std_logic_vector(6 downto 0);
 
 
 
@@ -113,55 +113,55 @@ begin
 
 
 --clks
-m_DAC_clk<=			;--- ʿ clock ϼ
-m_AD9283_clk<=		;--- ʿ clock ϼx
+  m_DAC_clk<=			;--- ʿ clock ϼ
+  m_AD9283_clk<=		;--- ʿ clock ϼx
 
 
 -----------================  don't change this ==================-------------------
 
 
 --global iobuf
-s_clk_g : IBUFG generic map (IOSTANDARD => "DEFAULT")
-port map(I=>m_clk,O=>s_clk);
+  s_clk_g : IBUFG generic map (IOSTANDARD => "DEFAULT")
+    port map(I=>m_clk,O=>s_clk);
 
 --tri state
-s_din<=m_data;
-m_data<=outlatch_dout when s_dout_en='1' else (others=>'Z');
+  s_din<=m_data;
+  m_data<=outlatch_dout when s_dout_en='1' else (others=>'Z');
 
 
-clk_gen : TOP_8254 port map( 
-			m_clk0  =>s_clk,
-           m_clk1    =>s_clk,
-           m_clk2    =>s_clk,
-           m_clk_ctr =>s_clk,
-           m_reset   =>not m_reset_b,
-           m_data   =>s_din,
-           m_gate0   => s_m_8254_gate0,
-           m_gate1   => s_m_8254_gate1,
-           m_gate2   => s_m_8254_gate2,
-           m_addr    =>m_address(1 downto 0),
-           m_cs_b    =>not s_pcs_addr,		-- ⿡  ñ׳  غ.
-           m_wr_b    =>not m_wen,
-		   m_out0    =>sys_clk,
-           m_out1    =>open,
-           m_out2    =>open
-		   );
-		   
-s_m_8254_gate0	<= '1';
-s_m_8254_gate1	<= '1';
-s_m_8254_gate2	<= '1';
+  clk_gen : TOP_8254 port map( 
+    m_clk0    => s_clk,
+    m_clk1    => s_clk,
+    m_clk2    => s_clk,
+    m_clk_ctr => s_clk,
+    m_reset   => not m_reset_b,
+    m_data    => s_din,
+    m_gate0   => s_m_8254_gate0,
+    m_gate1   => s_m_8254_gate1,
+    m_gate2   => s_m_8254_gate2,
+    m_addr    => m_address(1 downto 0),
+    m_cs_b    => not s_pcs_addr,        -- ⿡  ñ׳  غ.
+    m_wr_b    => not m_wen,
+    m_out0    => sys_clk,
+    m_out1    => open,
+    m_out2    => open
+    );
+  
+  s_m_8254_gate0	<= '1';
+  s_m_8254_gate1	<= '1';
+  s_m_8254_gate2	<= '1';
 
 
 --for debug
-m_TP(0)	<= s_clk; --test point. for s_clk     ̰ɷ äϴϱ ٲٸ  ȵ
-m_TP(1)	<= sys_clk;--test for 8254 output.   ̰ɷ äϴϱ ٲٸ  ȵ
-m_led(7) <=s_reset_b;
+  m_TP(0)	<= s_clk; --test point. for s_clk     ̰ɷ äϴϱ ٲٸ  ȵ
+  m_TP(1)	<= sys_clk;--test for 8254 output.   ̰ɷ äϴϱ ٲٸ  ȵ
+  m_led(7) <=s_reset_b;
 -----------======================================================--------------------
 
 
-m_led(6 downto 0)<=s_led(6 downto 0);
-		
-	
+  m_led(6 downto 0)<=s_led(6 downto 0);
+  
+  
 
 end Behavioral;
 
