@@ -1,6 +1,6 @@
 ----------------------------------------------------------------------------------
 -- Company: SPS
--- Engineer: Jang Jintae
+-- Engineer: Jang Jintae GIT DESKTOP TEST 181110
 -- 
 -- Create Date:    20:59:42 08/18/2018
 -- Design Name: 	
@@ -140,7 +140,7 @@ begin
     m_gate1   => s_m_8254_gate1,
     m_gate2   => s_m_8254_gate2,
     m_addr    => m_address(1 downto 0),
-    m_cs_b    => not s_pcs_addr,        -- ⿡  ñ׳  غ.
+    m_cs_b    => not s_pcs_addr,        -- ��ñ׳  غ.
     m_wr_b    => not m_wen,
     m_out0    => sys_clk,
     m_out1    => open,
