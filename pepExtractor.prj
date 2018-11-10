@@ -1,1 +1,2 @@
-work	"fdce.vhd"
+work	"top_8254.vhd"
+work	"tw_8254_cnt.vhd"

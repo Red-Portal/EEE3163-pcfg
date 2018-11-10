@@ -44,6 +44,10 @@
     <transform xil_pn:end_ts="1541416194" xil_pn:in_ck="6267741918921139810" xil_pn:name="TRAN_copyAbstractToPostAbstractSimulation" xil_pn:start_ts="1541416194">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
+      <status xil_pn:value="OutOfDateForInputs"/>
+      <status xil_pn:value="OutOfDateForOutputs"/>
+      <status xil_pn:value="InputChanged"/>
+      <status xil_pn:value="OutputChanged"/>
       <outfile xil_pn:name="fdce.vhd"/>
       <outfile xil_pn:name="fdce_test.vhd"/>
       <outfile xil_pn:name="memory_block_test.vhd"/>
@@ -71,7 +75,11 @@
     <transform xil_pn:end_ts="1541416196" xil_pn:in_ck="4708127344753272068" xil_pn:name="TRAN_copyPostAbstractToPreSimulation" xil_pn:start_ts="1541416196">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
+      <status xil_pn:value="OutOfDateForInputs"/>
       <status xil_pn:value="OutOfDateForPredecessor"/>
+      <status xil_pn:value="OutOfDateForOutputs"/>
+      <status xil_pn:value="InputChanged"/>
+      <status xil_pn:value="OutputChanged"/>
       <outfile xil_pn:name="fdce.vhd"/>
       <outfile xil_pn:name="fdce_test.vhd"/>
       <outfile xil_pn:name="ipcore_dir/memory_block.vhd"/>
@@ -84,25 +92,25 @@
     <transform xil_pn:end_ts="1541416198" xil_pn:in_ck="4708127344753272068" xil_pn:name="TRAN_ISimulateBehavioralModelRunFuse" xil_pn:prop_ck="1675779192448747576" xil_pn:start_ts="1541416196">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
+      <status xil_pn:value="OutOfDateForInputs"/>
       <status xil_pn:value="OutOfDateForProperties"/>
       <status xil_pn:value="OutOfDateForPredecessor"/>
       <status xil_pn:value="OutOfDateForOutputs"/>
+      <status xil_pn:value="InputChanged"/>
       <status xil_pn:value="OutputChanged"/>
-      <outfile xil_pn:name="TW_8254_CNT_beh.prj"/>
-      <outfile xil_pn:name="TW_8254_CNT_isim_beh.exe"/>
+      <status xil_pn:value="OutputRemoved"/>
       <outfile xil_pn:name="fuse.log"/>
-      <outfile xil_pn:name="isim"/>
-      <outfile xil_pn:name="xilinxsim.ini"/>
     </transform>
     <transform xil_pn:end_ts="1541416198" xil_pn:in_ck="-67091026258022576" xil_pn:name="TRAN_ISimulateBehavioralModel" xil_pn:prop_ck="-7626324054816449403" xil_pn:start_ts="1541416198">
       <status xil_pn:value="SuccessfullyRun"/>
-      <status xil_pn:value="ReadyToRun"/>
+      <status xil_pn:value="NotReadyToRun"/>
+      <status xil_pn:value="OutOfDateForInputs"/>
       <status xil_pn:value="OutOfDateForProperties"/>
       <status xil_pn:value="OutOfDateForPredecessor"/>
       <status xil_pn:value="OutOfDateForOutputs"/>
+      <status xil_pn:value="InputRemoved"/>
       <status xil_pn:value="OutputChanged"/>
-      <outfile xil_pn:name="TW_8254_CNT_isim_beh.wdb"/>
-      <outfile xil_pn:name="isim.cmd"/>
+      <status xil_pn:value="OutputRemoved"/>
     </transform>
     <transform xil_pn:name="TRAN_SubProjectAbstractToPreProxy">
       <status xil_pn:value="SuccessfullyRun"/>
