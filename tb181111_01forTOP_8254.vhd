@@ -124,9 +124,8 @@ BEGIN
    stim_proc: process
    begin		
       -- hold reset state for 100 ns.
-      wait for 100 ns;	
+      wait for 60 us; --wait for a long long time
 
-      wait for m_clk_ctr_period*10;
 
       -- insert stimulus here 
 		m_reset <= '1';
@@ -163,16 +162,16 @@ BEGIN
 --		m_addr <= "00";
 		
 		------wait for it...
---		wait for m_clk_ctr_period*2;
+		wait for m_clk_ctr_period*3;
 --		m_data <= "00000000";
 
 
 
-		----counter 0, WR : : A=140H D=02H
+		----counter 0, WR : : A=140H D=08H
 		m_addr <= "00";
 		
 		wait for m_clk_ctr_period;
-		m_data <= "00000010";
+		m_data <= "00001000";
 		m_cs_b <= '0';
 		
 		wait for m_clk_ctr_period;
@@ -194,7 +193,6 @@ BEGIN
 		m_addr <= "00";
 		
 		wait for m_clk_ctr_period;
-		m_data <= "00000000";
 		m_cs_b <= '0';
 		
 		wait for m_clk_ctr_period;		
