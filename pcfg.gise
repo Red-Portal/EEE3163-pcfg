@@ -22,31 +22,32 @@
   <sourceproject xmlns="http://www.xilinx.com/XMLSchema" xil_pn:fileType="FILE_XISE" xil_pn:name="pcfg.xise"/>
 
   <files xmlns="http://www.xilinx.com/XMLSchema">
+    <file xil_pn:fileType="FILE_LSO" xil_pn:name=".lso"/>
+    <file xil_pn:fileType="FILE_XST_PROJECT" xil_pn:name="TOP_8254.prj"/>
+    <file xil_pn:fileType="FILE_XST_STX" xil_pn:name="TOP_8254.stx"/>
+    <file xil_pn:fileType="FILE_XST" xil_pn:name="TOP_8254.xst"/>
     <file xil_pn:fileType="FILE_XST_PROJECT" xil_pn:name="TW_8254_CNT_beh.prj"/>
     <file xil_pn:branch="BehavioralSim" xil_pn:fileType="FILE_ISIM_EXE" xil_pn:name="TW_8254_CNT_isim_beh.exe"/>
     <file xil_pn:fileType="FILE_ISIM_MISC" xil_pn:name="TW_8254_CNT_isim_beh.wdb"/>
     <file xil_pn:fileType="FILE_XST_PROJECT" xil_pn:name="TW_8254_CNT_stx_beh.prj"/>
     <file xil_pn:branch="BehavioralSim" xil_pn:fileType="FILE_ISIM_EXE" xil_pn:name="fdce_test_isim_beh.exe"/>
     <file xil_pn:fileType="FILE_XST_PROJECT" xil_pn:name="fdce_test_stx_beh.prj"/>
-    <file xil_pn:fileType="FILE_LOG" xil_pn:name="fuse.log"/>
     <file xil_pn:fileType="FILE_LOG" xil_pn:name="ipcore_dir/coregen.log"/>
-    <file xil_pn:fileType="FILE_DIRECTORY" xil_pn:name="isim"/>
     <file xil_pn:branch="BehavioralSim" xil_pn:fileType="FILE_CMD" xil_pn:name="isim.cmd"/>
-    <file xil_pn:branch="BehavioralSim" xil_pn:fileType="FILE_LOG" xil_pn:name="isim.log"/>
     <file xil_pn:fileType="FILE_XST_PROJECT" xil_pn:name="memory_block_test_stx_beh.prj"/>
-    <file xil_pn:fileType="FILE_XST_PROJECT" xil_pn:name="tb181111_01forTOP_8254_beh.prj"/>
     <file xil_pn:branch="BehavioralSim" xil_pn:fileType="FILE_ISIM_EXE" xil_pn:name="tb181111_01forTOP_8254_isim_beh.exe"/>
     <file xil_pn:fileType="FILE_ISIM_MISC" xil_pn:name="tb181111_01forTOP_8254_isim_beh.wdb"/>
     <file xil_pn:fileType="FILE_XST_PROJECT" xil_pn:name="tb181111_01forTOP_8254_stx_beh.prj"/>
     <file xil_pn:branch="BehavioralSim" xil_pn:fileType="FILE_INI" xil_pn:name="xilinxsim.ini"/>
+    <file xil_pn:fileType="FILE_DIRECTORY" xil_pn:name="xst"/>
   </files>
 
   <transforms xmlns="http://www.xilinx.com/XMLSchema">
-    <transform xil_pn:end_ts="1541920563" xil_pn:name="TRAN_copyInitialToAbstractSimulation" xil_pn:start_ts="1541920563">
+    <transform xil_pn:end_ts="1541933958" xil_pn:name="TRAN_copyInitialToAbstractSimulation" xil_pn:start_ts="1541933958">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
     </transform>
-    <transform xil_pn:end_ts="1541920563" xil_pn:in_ck="890035240929544545" xil_pn:name="TRAN_copyAbstractToPostAbstractSimulation" xil_pn:start_ts="1541920563">
+    <transform xil_pn:end_ts="1541933958" xil_pn:in_ck="890035240929544545" xil_pn:name="TRAN_copyAbstractToPostAbstractSimulation" xil_pn:start_ts="1541933958">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
       <outfile xil_pn:name="fdce.vhd"/>
@@ -58,25 +59,26 @@
       <outfile xil_pn:name="top_8254.vhd"/>
       <outfile xil_pn:name="tw_8254_cnt.vhd"/>
     </transform>
-    <transform xil_pn:end_ts="1541919229" xil_pn:name="TRAN_xawsToSimhdl" xil_pn:prop_ck="1021393803742629733" xil_pn:start_ts="1541919229">
+    <transform xil_pn:end_ts="1541933958" xil_pn:name="TRAN_xawsToSimhdl" xil_pn:prop_ck="1021393803742629733" xil_pn:start_ts="1541933958">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
     </transform>
-    <transform xil_pn:end_ts="1541919229" xil_pn:name="TRAN_schematicsToHdlSim" xil_pn:prop_ck="5043420560321013789" xil_pn:start_ts="1541919229">
+    <transform xil_pn:end_ts="1541933958" xil_pn:name="TRAN_schematicsToHdlSim" xil_pn:prop_ck="5043420560321013789" xil_pn:start_ts="1541933958">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
     </transform>
-    <transform xil_pn:end_ts="1541410880" xil_pn:in_ck="-5690301630505665878" xil_pn:name="TRAN_regenerateCoresSim" xil_pn:prop_ck="5637516411374166078" xil_pn:start_ts="1541410880">
+    <transform xil_pn:end_ts="1541933958" xil_pn:in_ck="-5690301630505665878" xil_pn:name="TRAN_regenerateCoresSim" xil_pn:prop_ck="5637516411374166078" xil_pn:start_ts="1541933958">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
       <outfile xil_pn:name="ipcore_dir/memory_block.ngc"/>
       <outfile xil_pn:name="ipcore_dir/memory_block.vhd"/>
     </transform>
-    <transform xil_pn:end_ts="1541920567" xil_pn:in_ck="890035240929544545" xil_pn:name="TRAN_copyPostAbstractToPreSimulation" xil_pn:start_ts="1541920567">
+    <transform xil_pn:end_ts="1541933958" xil_pn:in_ck="-2129080053764112765" xil_pn:name="TRAN_copyPostAbstractToPreSimulation" xil_pn:start_ts="1541933958">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
       <outfile xil_pn:name="fdce.vhd"/>
       <outfile xil_pn:name="fdce_test.vhd"/>
+      <outfile xil_pn:name="ipcore_dir/memory_block.vhd"/>
       <outfile xil_pn:name="memory_block_test.vhd"/>
       <outfile xil_pn:name="pcfg_top.vhd"/>
       <outfile xil_pn:name="tb181111_01forTOP_8254.vhd"/>
@@ -84,21 +86,16 @@
       <outfile xil_pn:name="top_8254.vhd"/>
       <outfile xil_pn:name="tw_8254_cnt.vhd"/>
     </transform>
-    <transform xil_pn:end_ts="1541920572" xil_pn:in_ck="-2129080053764112765" xil_pn:name="TRAN_ISimulateBehavioralModelRunFuse" xil_pn:prop_ck="-870092407038511961" xil_pn:start_ts="1541920567">
-      <status xil_pn:value="SuccessfullyRun"/>
+    <transform xil_pn:end_ts="1541933963" xil_pn:in_ck="-2129080053764112765" xil_pn:name="TRAN_ISimulateBehavioralModelRunFuse" xil_pn:prop_ck="-870092407038511961" xil_pn:start_ts="1541933958">
+      <status xil_pn:value="FailedRun"/>
       <status xil_pn:value="ReadyToRun"/>
-      <outfile xil_pn:name="fuse.log"/>
-      <outfile xil_pn:name="isim"/>
-      <outfile xil_pn:name="isim.log"/>
-      <outfile xil_pn:name="tb181111_01forTOP_8254_beh.prj"/>
-      <outfile xil_pn:name="tb181111_01forTOP_8254_isim_beh.exe"/>
-      <outfile xil_pn:name="xilinxsim.ini"/>
     </transform>
-    <transform xil_pn:end_ts="1541920572" xil_pn:in_ck="1337367949214963902" xil_pn:name="TRAN_ISimulateBehavioralModel" xil_pn:prop_ck="1143781331483450356" xil_pn:start_ts="1541920572">
-      <status xil_pn:value="SuccessfullyRun"/>
+    <transform xil_pn:end_ts="1541933156" xil_pn:in_ck="1337367949214963902" xil_pn:name="TRAN_ISimulateBehavioralModel" xil_pn:prop_ck="1143781331483450356" xil_pn:start_ts="1541933156">
+      <status xil_pn:value="AbortedRun"/>
       <status xil_pn:value="ReadyToRun"/>
+      <status xil_pn:value="OutOfDateForPredecessor"/>
+      <status xil_pn:value="OutOfDateForced"/>
       <outfile xil_pn:name="isim.cmd"/>
-      <outfile xil_pn:name="isim.log"/>
       <outfile xil_pn:name="tb181111_01forTOP_8254_isim_beh.wdb"/>
     </transform>
     <transform xil_pn:name="TRAN_SubProjectAbstractToPreProxy">

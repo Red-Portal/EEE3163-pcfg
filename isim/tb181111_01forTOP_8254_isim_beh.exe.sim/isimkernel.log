@@ -2,9 +2,9 @@ Command line:
    tb181111_01forTOP_8254_isim_beh.exe
      -simmode  gui
      -simrunnum  0
-     -socket  5399
+     -socket  6412
 
-Sun Nov 11 16:16:14 2018
+Sun Nov 11 19:45:58 2018
 
 
- Elaboration Time: 0.046875 sec
+ Elaboration Time: 0.09375 sec

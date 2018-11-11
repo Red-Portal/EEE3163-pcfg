@@ -65,14 +65,14 @@ ARCHITECTURE behavior OF tb181111_01forTOP_8254 IS
    signal m_clk1 : std_logic := '0';
    signal m_clk2 : std_logic := '0';
    signal m_clk_ctr : std_logic := '0'; -- used as clk below
-   signal m_reset : std_logic := '0';
+   signal m_reset : std_logic := '1';
    signal m_data : std_logic_vector(7 downto 0) := (others => '0');
    signal m_gate0 : std_logic := '0';
    signal m_gate1 : std_logic := '0';
    signal m_gate2 : std_logic := '0';
    signal m_addr : std_logic_vector(1 downto 0) := (others => '0');
-   signal m_cs_b : std_logic := '0';
-   signal m_wr_b : std_logic := '0';
+   signal m_cs_b : std_logic := '1';
+   signal m_wr_b : std_logic := '1';
 
  	--Outputs
    signal m_out0 : std_logic;
@@ -108,8 +108,14 @@ BEGIN
    m_clk_ctr_process :process
    begin
 		m_clk_ctr <= '0';
+		m_clk0 <= '0';
+		m_clk1 <= '0';
+		m_clk2 <= '0';
 		wait for m_clk_ctr_period/2;
 		m_clk_ctr <= '1';
+		m_clk0 <= '1';
+		m_clk1 <= '1';
+		m_clk2 <= '1';
 		wait for m_clk_ctr_period/2;
    end process;
  
@@ -123,10 +129,11 @@ BEGIN
       wait for m_clk_ctr_period*10;
 
       -- insert stimulus here 
-		
+		m_reset <= '1';
+		wait for m_clk_ctr_period*5;
 		
 		-- Doing some RESET things here...
-		m_reset <= '1';
+		m_reset <= '0';
 		m_gate0 <= '1';
 		m_gate1 <= '1';
 		m_gate2 <= '1';
@@ -140,65 +147,64 @@ BEGIN
 		----control word register : A=143H D=36H
 		m_addr <= "11";
 		
-		wait for m_clk_ctr_period*2;
+		wait for m_clk_ctr_period;
 		m_data <= "00110110";
-		m_cs_b <= '1';
+		m_cs_b <= '0';
+		
 		
 		wait for m_clk_ctr_period;
+		m_wr_b <= '0';
+			
+		wait for m_clk_ctr_period;
+		m_cs_b <= '1';
 		m_wr_b <= '1';
 		
-		wait for m_clk_ctr_period;
-		m_data <= "00000000";
-		m_cs_b <= '0';
-		m_wr_b <= '0';
-		
-		wait for m_clk_ctr_period*4;
-		m_addr <= "00";
+--		wait for m_clk_ctr_period*2;
+--		m_addr <= "00";
 		
 		------wait for it...
-		wait for m_clk_ctr_period*2;
+--		wait for m_clk_ctr_period*2;
+--		m_data <= "00000000";
 
 
 
 		----counter 0, WR : : A=140H D=02H
 		m_addr <= "00";
 		
-		wait for m_clk_ctr_period*2;
+		wait for m_clk_ctr_period;
 		m_data <= "00000010";
-		m_cs_b <= '1';
-		
-		wait for m_clk_ctr_period;
-		m_wr_b <= '1';
-		
-		wait for m_clk_ctr_period;
-		m_data <= "00000000";
 		m_cs_b <= '0';
+		
+		wait for m_clk_ctr_period;
 		m_wr_b <= '0';
 		
-		wait for m_clk_ctr_period*4;
+		wait for m_clk_ctr_period;
+		m_cs_b <= '1';
+		m_wr_b <= '1';
+
+		wait for m_clk_ctr_period*2;
 		m_addr <= "00";
 		
 		------wait for it...
 		wait for m_clk_ctr_period*2;
-
+		m_data <= "00000000";
 
 
 		----counter 0, WR : : A=140H D=00H
 		m_addr <= "00";
 		
-		wait for m_clk_ctr_period*2;
-		m_data <= "00000000";
-		m_cs_b <= '1';
-		
-		wait for m_clk_ctr_period;
-		m_wr_b <= '1';
-		
 		wait for m_clk_ctr_period;
 		m_data <= "00000000";
 		m_cs_b <= '0';
+		
+		wait for m_clk_ctr_period;		
 		m_wr_b <= '0';
 		
-		wait for m_clk_ctr_period*4;
+		wait for m_clk_ctr_period;
+		m_cs_b <= '1';
+		m_wr_b <= '1';
+		
+		wait for m_clk_ctr_period*2;
 		m_addr <= "00";
 		
 		

@@ -5,7 +5,10 @@
      behavior or data corruption.  It is strongly advised that
      users do not edit the contents of this file. -->
 <messages>
-<msg type="warning" file="Simulator" num="0" delta="unknown" >Unable to copy libPortabilityNOSH.dll to the simulation executable directory: <arg fmt="%s" index="1">boost::filesystem::copy_file: ￁￶￁ﾤﾵ￈ ﾰ￦ﾷￎﾸﾦ ￃﾣ￀ﾻ ﾼ￶ ﾾ￸ﾽ￀ﾴￏﾴ￙, &quot;isim\tb181111_01forTOP_8254_isim_beh.exe.sim\libPortability.dll&quot;</arg>.
+<msg type="error" file="Simulator" num="904" delta="unknown" >Unable to remove previous simulation file <arg fmt="%s" index="1">isim/tb181111_01forTOP_8254_isim_beh.exe.sim/tb181111_01forTOP_8254_isim_beh.exe</arg>. Please check if you have another instance of this simulation running on your system, terminate it and then recompile your design. System Error Message: <arg fmt="%s" index="2">boost::filesystem::remove: ﾾￗﾼﾼﾽﾺﾰﾡ ﾰￅﾺￎﾵￇﾾ￺ﾽ￀ﾴￏﾴ￙: &quot;isim\tb181111_01forTOP_8254_isim_beh.exe.sim\tb181111_01forTOP_8254_isim_beh.exe&quot;</arg>
+</msg>
+
+<msg type="error" file="Simulator" num="861" delta="unknown" >Failed to link the design
 </msg>
 
 </messages>

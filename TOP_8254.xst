@@ -1,0 +1,5 @@
+set -tmpdir "C:/Users/JUNE/Documents/GitHub/EEE3163-pcfg/xst/projnav.tmp"
+set -xsthdpdir "C:/Users/JUNE/Documents/GitHub/EEE3163-pcfg/xst"
+elaborate
+-ifn TOP_8254.prj
+-ifmt mixed
