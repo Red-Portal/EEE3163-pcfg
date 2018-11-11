@@ -5,5 +5,8 @@
      behavior or data corruption.  It is strongly advised that
      users do not edit the contents of this file. -->
 <messages>
+<msg type="warning" file="Simulator" num="0" delta="unknown" >Unable to copy libPortabilityNOSH.dll to the simulation executable directory: <arg fmt="%s" index="1">boost::filesystem::copy_file: ￁￶￁ﾤﾵ￈ ﾰ￦ﾷￎﾸﾦ ￃﾣ￀ﾻ ﾼ￶ ﾾ￸ﾽ￀ﾴￏﾴ￙, &quot;isim\tb181111_01forTOP_8254_isim_beh.exe.sim\libPortability.dll&quot;</arg>.
+</msg>
+
 </messages>
 

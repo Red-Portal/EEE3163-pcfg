@@ -1,0 +1,3 @@
+vhdl isim_temp "tw_8254_cnt.vhd"
+vhdl isim_temp "top_8254.vhd"
+vhdl isim_temp "tb181111_01forTOP_8254.vhd"

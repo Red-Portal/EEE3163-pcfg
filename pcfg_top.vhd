@@ -113,8 +113,11 @@ begin
 
 
 --clks
-  m_DAC_clk<=			;--- ʿ clock ϼ
-  m_AD9283_clk<=		;--- ʿ clock ϼx
+  m_DAC_clk<= m_clk0			;--- ʿ clock ϼ
+  m_AD9283_clk<= m_clk0		;--- ʿ clock ϼx
+------don't know the diff between two.
+------Originally inputs to both sig were blank. 
+------Just filled them w/ something to shut up error msg.(June)
 
 
 -----------================  don't change this ==================-------------------
