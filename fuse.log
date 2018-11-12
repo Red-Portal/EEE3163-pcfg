@@ -1,39 +1,29 @@
-Running: /opt/Xilinx/14.7/ISE_DS/ISE/bin/lin64/unwrapped/fuse -intstyle ise -incremental -o /home/msca8h/Projects/EEE3163-pcfg/counter_test_isim_beh.exe -prj /home/msca8h/Projects/EEE3163-pcfg/counter_test_beh.prj work.counter_test 
+Running: /opt/Xilinx/14.7/ISE_DS/ISE/bin/lin64/unwrapped/fuse -intstyle ise -incremental -o /home/msca8h/Projects/EEE3163-pcfg/memory_block_test_isim_beh.exe -prj /home/msca8h/Projects/EEE3163-pcfg/memory_block_test_beh.prj work.memory_block_test 
 ISim P.20131013 (signature 0xfbc00daa)
 Number of CPUs detected in this system: 8
 Turning on mult-threading, number of parallel sub-compilation jobs: 16 
 Determining compilation order of HDL files
-Parsing VHDL file "/home/msca8h/Projects/EEE3163-pcfg/ipcore_dir/counter.vhd" into library work
-Parsing VHDL file "/home/msca8h/Projects/EEE3163-pcfg/counter_test.vhd" into library work
+Parsing VHDL file "/home/msca8h/Projects/EEE3163-pcfg/ipcore_dir/memory_block.vhd" into library work
+Parsing VHDL file "/home/msca8h/Projects/EEE3163-pcfg/memory_block_test.vhd" into library work
 Starting static elaboration
 Completed static elaboration
-Fuse Memory Usage: 90360 KB
-Fuse CPU Usage: 1170 ms
+Fuse Memory Usage: 88028 KB
+Fuse CPU Usage: 960 ms
 Compiling package standard
 Compiling package std_logic_1164
 Compiling package textio
-Compiling package bip_utils_pkg_v2_0
 Compiling package std_logic_arith
 Compiling package std_logic_unsigned
-Compiling package xbip_counter_v2_0_pkg
-Compiling package c_counter_binary_v11_0_pkg
-Compiling package xbip_counter_v2_0_xst_comp
-Compiling package numeric_std
-Compiling package bip_usecase_utils_pkg_v2_0
-Compiling package c_addsub_pkg_v11_0
-Compiling package c_compare_v11_0_comp
-Compiling package c_mux_bus_v11_0_comp
-Compiling package c_reg_fd_v11_0_comp
-Compiling architecture behavioral of entity c_reg_fd_v11_0 [\c_reg_fd_v11_0(11,"0","0",1,0,1...]
-Compiling architecture behavioral of entity c_addsub_v11_0_legacy [\c_addsub_v11_0_legacy(11,11,11,...]
-Compiling architecture behavioral of entity c_counter_binary_v11_0_legacy [\c_counter_binary_v11_0_legacy("...]
-Compiling architecture behavioral of entity c_counter_binary_v11_0 [\c_counter_binary_v11_0(0,0,"spa...]
-Compiling architecture counter_a of entity counter [counter_default]
-Compiling architecture behavior of entity counter_test
+Compiling package std_logic_textio
+Compiling architecture output_stage_behavioral of entity BLK_MEM_GEN_V7_3_output_stage [\BLK_MEM_GEN_V7_3_output_stage("...]
+Compiling architecture softecc_output_reg_stage_behavioral of entity BLK_MEM_GEN_V7_3_softecc_output_reg_stage [\BLK_MEM_GEN_V7_3_softecc_output...]
+Compiling architecture mem_module_behavioral of entity BLK_MEM_GEN_V7_3_mem_module [\BLK_MEM_GEN_V7_3_mem_module("bl...]
+Compiling architecture behavioral of entity BLK_MEM_GEN_V7_3 [\BLK_MEM_GEN_V7_3("blk_mem_gen_v...]
+Compiling architecture memory_block_a of entity memory_block [memory_block_default]
+Compiling architecture behavior of entity memory_block_test
 Time Resolution for simulation is 1ps.
-Waiting for 1 sub-compilation(s) to finish...
-Compiled 26 VHDL Units
-Built simulation executable /home/msca8h/Projects/EEE3163-pcfg/counter_test_isim_beh.exe
-Fuse Memory Usage: 1212796 KB
-Fuse CPU Usage: 1430 ms
-GCC CPU Usage: 2740 ms
+Compiled 17 VHDL Units
+Built simulation executable /home/msca8h/Projects/EEE3163-pcfg/memory_block_test_isim_beh.exe
+Fuse Memory Usage: 1188864 KB
+Fuse CPU Usage: 1100 ms
+GCC CPU Usage: 970 ms

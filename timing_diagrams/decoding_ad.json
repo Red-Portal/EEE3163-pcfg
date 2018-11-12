@@ -3,10 +3,11 @@
 	{name: 'clk'                , wave: 'P.............'},
 	{name: 's_address[8:0]'     , wave: 'x2.........x..', data: ["176H"]},
 	{name: 'wen'                , wave: 'x0....1....x..'},
-	{name: 'm_data[8:0]'        , wave: '0.........10..'},
+	{name: 'm_data[8:0]'        , wave: 'z.....2....z..', data: ["DN"]},
 	{},
-	{name: 'ad_RAM0_addr'      , wave: '0...........10.'},
-	{name: 'reg_ad_count'      , wave: '0...........10.'},
+	{name: 'ad_RAM0_addr'       , wave: '0.......10....'},
+	{name: 'reg_ad_data_en'     , wave: '0......10.....'},
+	{name: 'reg_ad_data_q'      , wave: '0.......2.....', data: ["DN"]},
     ],
     config: { hscale: 1 }
 }
