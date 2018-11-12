@@ -30,23 +30,147 @@ use IEEE.STD_LOGIC_1164.ALL;
 --use UNISIM.VComponents.all;
 
 entity controller_ad is
-    Port ( sys_clk : in  STD_LOGIC;
-           s_clk : in  STD_LOGIC;
-           mux_ram0_sel : out  STD_LOGIC;
-           ad_ram_ena : out  STD_LOGIC;
-           ad_ram_wea : out  STD_LOGIC_VECTOR (0 downto 0);
-           ad_ram_enb : out  STD_LOGIC;
-           ram0_ena : out  STD_LOGIC;
-           ram0_wea : out  STD_LOGIC_VECTOR (0 downto 0);
-           reg_ad_data : in  STD_LOGIC_VECTOR (7 downto 0);
-           ad_ram0_addr : in  STD_LOGIC;
-           ad_latch_en : out  STD_LOGIC);
+  port (clr          : in std_logic;
+        sys_clk      : in  STD_LOGIC;
+        s_clk        : in  STD_LOGIC;
+        reg_ad_data  : in  STD_LOGIC_VECTOR (7 downto 0);
+        ad_ram0_addr : in  STD_LOGIC;
+        mux_ram0_sel : out STD_LOGIC;
+        ad_ram_ena   : out STD_LOGIC;
+        ad_ram_wea   : out STD_LOGIC_VECTOR (0 downto 0);
+        ad_ram_enb   : out STD_LOGIC;
+        ram0_ena     : out STD_LOGIC;
+        ram0_wea     : out STD_LOGIC_VECTOR (0 downto 0);
+        ad_latch_en  : out STD_LOGIC);
 end controller_ad;
 
 architecture Behavioral of controller_ad is
+  type state_t is (st_reset,
+                   st_ready,
+                   st_sync0,
+                   st_sync1,
+                   st_clearwait0,
+                   st_clearwait1,
+                   st_delay0,
+                   st_delay1
+                   st_ready0,
+                   st_ready1
+                   );
+
+  signal CS, NS : state_t;
+  
+  COMPONENT counter
+    PORT(
+      clk  : IN  std_logic;
+      ce   : IN  std_logic;
+      sclr : IN  std_logic;
+      q    : OUT std_logic_vector(10 downto 0)
+      );
+  END component;
+
+  signal ad_ram_ce   : std_logic;
+  signal ad_ram_sclr : std_logic;
+  signal ad_ram_q    : std_logic
 
 begin
+  -- Instantiate the Unit Under Test (UUT)
+  uut: counter PORT MAP (
+    s_clk       => clk,
+    ad_ram_ce   => ce,
+    ad_ram_sclr => sclr,
+    ad_ram_q    => q
+    );
 
+  clk_proc: process(s_clk, clr)
+  begin
+    if(clr = '1') then
+      CS <= st_reset;
+    elsif (rising_edge(s_clk)) then
+      CS <= NS;
+    end if;
+  end process;
+  
+  detect_proc: process(s_clk)
+  begin
+    mux_ram0_sel <= '0';
+    ad_ram_ena   <= '0';
+    ad_ram_wea   <= "0";
+    ad_ram_enb   <= '0';
+    ram0_ena     <= '0';
+    ram0_wea     <= "0";
+    ad_latch_en  <= '0';
+
+    case CS is
+      when st_reset =>
+        if(ad_ram0_addr = '1') then
+          NS <= st_ready;
+        else
+          NS <= st_reset;
+        end if;
+      when st_ready =>
+        if(sys_clk = '0') then
+          NS <= st_sync1;
+        else
+          NS <= st_sync0;
+        end if;
+
+      when st_sync0 =>
+        if(sys_clk = '1') then
+          NS <= st_clearwait0;
+          ad_ram_sclr <= '1';
+        else
+          NS <= st_sync0;
+        end if;
+
+      when st_sync1 =>
+        if(sys_clk = '0') then
+          NS <= st_delay;
+        else
+          NS <= st_sync1;
+        end if;
+
+      when st_clearwait0 =>
+        if(sys_clk = '1') then
+          NS <= st_clearwait1;
+        else
+          NS <= st_clearwait0;
+        end if;
+
+      when st_clearwait1 =>
+        if(sys_clk = '0') then
+          NS <= st_delay0;
+        else
+          NS <= st_clearwait1;
+        end if;
+
+      when st_delay0 =>
+        if(sys_clk = '1') then
+          NS <= st_delay1;
+        else
+          NS <= st_delay0;
+        end if;
+
+      when st_delay1 =>
+        if(sys_clk = '0') then
+          NS <= st_ready0;
+        else
+          NS <= st_delay1;
+        end if;
+
+      when st_ready0 =>
+        if(sys_clk = '1') then
+          NS <= st_ready1;
+        else
+          NS <= st_std;
+        end if;
+
+      when st_ready1 =>
+        NS <= st_reset;
+
+      when others =>
+        NS <= st_reset;
+    end case;
+  end process;
 
 end Behavioral;
 
