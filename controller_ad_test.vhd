@@ -43,8 +43,8 @@ ARCHITECTURE behavior OF controller_ad_test IS
     PORT(
       sys_clk        : IN  std_logic;
       s_clk          : IN  std_logic;
-      count_ram0_ce  : IN  std_logic;
-      count_ram0_clr : IN  std_logic;
+      count_ram0_ce  : out std_logic;
+      count_ram0_clr : out std_logic;
       mux_ram0_sel   : OUT std_logic;
       ad_ram_ena     : OUT std_logic;
       ad_ram_wea     : OUT std_logic_vector(0 downto 0);
