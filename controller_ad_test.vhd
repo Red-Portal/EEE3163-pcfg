@@ -119,13 +119,16 @@ BEGIN
   -- Stimulus process
   stim_proc: process
   begin		
-    -- hold reset state for 100 ns.
-    wait for 100 ns;	
+   -- hold reset state for 60 us.
+	wait for 60 us;	
 
-    wait for sys_clk_period*10;
 
-    -- insert stimulus here 
-
+	-- insert stimulus here 
+	ad_ram0_addr <= '1';
+	reg_ad_data <= "00010000";
+	
+	
+	
     wait;
   end process;
 
