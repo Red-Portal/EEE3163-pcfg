@@ -1,0 +1,41 @@
+{
+    signal: [
+	["clock",
+	 {name: 's_clk'            , wave: 'p..............'},
+	 {name: 'sys_clk'          , wave: 'h.l.h.l.h.l.h.l.h.l.'},
+	],
+	{},
+	["RAM0",
+	 {name: 'count_ram0_clr'   , wave: '0.10...........'},
+	 {name: 'count_ram0_ce'    , wave: '0..............'},
+	 {name: 'ad_ram0_addr'     , wave: '010............'},
+	 {name: 's_wen'            , wave: '0..............'},
+	 {name: 's_ren'            , wave: '010............'},
+	],
+	{},
+	["AD RAM",
+	 {name: 'ad_latch_en'      , wave: '0..1...........'},
+	 {name: 'count_ad_ram_clr' , wave: '0.10...........'},
+	 {name: 'count_ad_ram_ce'  , wave: '0..............'},
+	 {name: 'ad_ram_ena'       , wave: '0..1...0.......'},
+	 {name: 'ad_ram_wea'       , wave: '0..1...0.......'},
+	 {name: 'ad_ram_enb'       , wave: '0......10.....'},
+	],
+	["RAM0 mux",
+	 {name: 'ad_latch_en'      , wave: '0..1...........'},
+	],
+	{},
+	{name: 'ram0_enb'         , wave: '0..10..........'},
+
+	// system clock  : 140h, 143h
+	// reset         : 120h
+	// pc mode 0     : 180h
+	// pc mode 1     : 181h
+	// data transfer : 160h
+	// da_start      : 172h 
+	// da_stop       : 174h 
+	// ad            : 176h 
+	// filter        : 150h
+    ],
+    config: { hscale: 1 }
+}

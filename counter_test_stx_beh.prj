@@ -1,0 +1,2 @@
+vhdl isim_temp "ipcore_dir/counter.vhd"
+vhdl isim_temp "counter_test.vhd"

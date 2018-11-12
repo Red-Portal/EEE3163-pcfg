@@ -1,23 +1,39 @@
-Running: C:\Xilinx\14.7\ISE_DS\ISE\bin\nt64\unwrapped\fuse.exe -intstyle ise -incremental -o C:/Users/JUNE/Documents/GitHub/EEE3163-pcfg/tb181111_01forTOP_8254_isim_beh.exe -prj C:/Users/JUNE/Documents/GitHub/EEE3163-pcfg/tb181111_01forTOP_8254_beh.prj work.tb181111_01forTOP_8254 
-ISim P.20131013 (signature 0x7708f090)
+Running: /opt/Xilinx/14.7/ISE_DS/ISE/bin/lin64/unwrapped/fuse -intstyle ise -incremental -o /home/msca8h/Projects/EEE3163-pcfg/counter_test_isim_beh.exe -prj /home/msca8h/Projects/EEE3163-pcfg/counter_test_beh.prj work.counter_test 
+ISim P.20131013 (signature 0xfbc00daa)
 Number of CPUs detected in this system: 8
 Turning on mult-threading, number of parallel sub-compilation jobs: 16 
 Determining compilation order of HDL files
-Parsing VHDL file "C:/Users/JUNE/Documents/GitHub/EEE3163-pcfg/tw_8254_cnt.vhd" into library work
-Parsing VHDL file "C:/Users/JUNE/Documents/GitHub/EEE3163-pcfg/top_8254.vhd" into library work
-Parsing VHDL file "C:/Users/JUNE/Documents/GitHub/EEE3163-pcfg/tb181111_01forTOP_8254.vhd" into library work
+Parsing VHDL file "/home/msca8h/Projects/EEE3163-pcfg/ipcore_dir/counter.vhd" into library work
+Parsing VHDL file "/home/msca8h/Projects/EEE3163-pcfg/counter_test.vhd" into library work
 Starting static elaboration
 Completed static elaboration
+Fuse Memory Usage: 90360 KB
+Fuse CPU Usage: 1170 ms
 Compiling package standard
 Compiling package std_logic_1164
+Compiling package textio
+Compiling package bip_utils_pkg_v2_0
 Compiling package std_logic_arith
 Compiling package std_logic_unsigned
-Compiling architecture behavioral of entity TW_8254_CNT [tw_8254_cnt_default]
-Compiling architecture behavioral of entity TOP_8254 [top_8254_default]
-Compiling architecture behavior of entity tb181111_01fortop_8254
+Compiling package xbip_counter_v2_0_pkg
+Compiling package c_counter_binary_v11_0_pkg
+Compiling package xbip_counter_v2_0_xst_comp
+Compiling package numeric_std
+Compiling package bip_usecase_utils_pkg_v2_0
+Compiling package c_addsub_pkg_v11_0
+Compiling package c_compare_v11_0_comp
+Compiling package c_mux_bus_v11_0_comp
+Compiling package c_reg_fd_v11_0_comp
+Compiling architecture behavioral of entity c_reg_fd_v11_0 [\c_reg_fd_v11_0(11,"0","0",1,0,1...]
+Compiling architecture behavioral of entity c_addsub_v11_0_legacy [\c_addsub_v11_0_legacy(11,11,11,...]
+Compiling architecture behavioral of entity c_counter_binary_v11_0_legacy [\c_counter_binary_v11_0_legacy("...]
+Compiling architecture behavioral of entity c_counter_binary_v11_0 [\c_counter_binary_v11_0(0,0,"spa...]
+Compiling architecture counter_a of entity counter [counter_default]
+Compiling architecture behavior of entity counter_test
 Time Resolution for simulation is 1ps.
-WARNING:Simulator - Unable to copy libPortabilityNOSH.dll to the simulation executable directory: boost::filesystem::copy_file: 지정된 경로를 찾을 수 없습니다, "isim\tb181111_01forTOP_8254_isim_beh.exe.sim\libPortability.dll".
-Compiled 9 VHDL Units
-Built simulation executable C:/Users/JUNE/Documents/GitHub/EEE3163-pcfg/tb181111_01forTOP_8254_isim_beh.exe
-Fuse Memory Usage: 34464 KB
-Fuse CPU Usage: 515 ms
+Waiting for 1 sub-compilation(s) to finish...
+Compiled 26 VHDL Units
+Built simulation executable /home/msca8h/Projects/EEE3163-pcfg/counter_test_isim_beh.exe
+Fuse Memory Usage: 1212796 KB
+Fuse CPU Usage: 1430 ms
+GCC CPU Usage: 2740 ms

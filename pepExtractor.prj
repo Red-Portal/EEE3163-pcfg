@@ -1,2 +1,1 @@
-work	"top_8254.vhd"
-work	"tw_8254_cnt.vhd"
+work	"ipcore_dir/counter.vhd"

@@ -1,0 +1,23 @@
+{
+    signal: [
+	{name: 'CLK'            , wave: 'P..............'},
+	{name: 'pc_RAM0_addr'   , wave: '010............'},
+	{name: 's_wen'          , wave: '0..............'},
+	{name: 's_ren'          , wave: '010............'},
+	{},
+	{name: 'count_RAM0_ce'  , wave: '0.1...0........'},
+	{},
+	{name: 'RAM0_cs'        , wave: '0.1...0........'},
+
+	// system clock  : 140H, 143H
+	// reset         : 120H
+	// pc mode 0     : 180H
+	// pc mode 1     : 181H
+	// data transfer : 160H
+	// da_start      : 172H 
+	// da_stop       : 174H 
+	// ad            : 176H 
+	// filter        : 150H
+    ],
+    config: { hscale: 1 }
+}

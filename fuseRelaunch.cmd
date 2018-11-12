@@ -1,1 +1,1 @@
--intstyle "ise" -incremental -o "C:/Users/JUNE/Documents/GitHub/EEE3163-pcfg/tb181111_01forTOP_8254_isim_beh.exe" -prj "C:/Users/JUNE/Documents/GitHub/EEE3163-pcfg/tb181111_01forTOP_8254_beh.prj" "work.tb181111_01forTOP_8254" 
+-intstyle "ise" -incremental -o "/home/msca8h/Projects/EEE3163-pcfg/counter_test_isim_beh.exe" -prj "/home/msca8h/Projects/EEE3163-pcfg/counter_test_beh.prj" "work.counter_test" 
