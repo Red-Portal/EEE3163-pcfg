@@ -1,1 +1,1 @@
--intstyle "ise" -incremental -o "/home/msca8h/Projects/EEE3163-pcfg/address_decoder_test_isim_beh.exe" -prj "/home/msca8h/Projects/EEE3163-pcfg/address_decoder_test_beh.prj" "work.address_decoder_test" 
+-intstyle "ise" -incremental -o "/home/msca8h/Projects/EEE3163-pcfg/tb181111_01forTOP_8254_isim_beh.exe" -prj "/home/msca8h/Projects/EEE3163-pcfg/tb181111_01forTOP_8254_beh.prj" "work.tb181111_01forTOP_8254" 

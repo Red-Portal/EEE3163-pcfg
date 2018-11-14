@@ -1,0 +1,4 @@
+vhdl isim_temp "multiplexer_2to1.vhd"
+vhdl isim_temp "multiplexer_3to1.vhd"
+vhdl isim_temp "multiplexer_2to1_test.vhd"
+vhdl isim_temp "multiplexer_3to1_test.vhd"

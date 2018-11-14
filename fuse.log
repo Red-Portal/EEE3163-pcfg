@@ -1,23 +1,26 @@
-Running: /opt/Xilinx/14.7/ISE_DS/ISE/bin/lin64/unwrapped/fuse -intstyle ise -incremental -o /home/msca8h/Projects/EEE3163-pcfg/address_decoder_test_isim_beh.exe -prj /home/msca8h/Projects/EEE3163-pcfg/address_decoder_test_beh.prj work.address_decoder_test 
+Running: /opt/Xilinx/14.7/ISE_DS/ISE/bin/lin64/unwrapped/fuse -intstyle ise -incremental -o /home/msca8h/Projects/EEE3163-pcfg/tb181111_01forTOP_8254_isim_beh.exe -prj /home/msca8h/Projects/EEE3163-pcfg/tb181111_01forTOP_8254_beh.prj work.tb181111_01forTOP_8254 
 ISim P.20131013 (signature 0xfbc00daa)
 Number of CPUs detected in this system: 8
 Turning on mult-threading, number of parallel sub-compilation jobs: 16 
 Determining compilation order of HDL files
-Parsing VHDL file "/home/msca8h/Projects/EEE3163-pcfg/address_decoder.vhd" into library work
-Parsing VHDL file "/home/msca8h/Projects/EEE3163-pcfg/address_decoder_test.vhd" into library work
+Parsing VHDL file "/home/msca8h/Projects/EEE3163-pcfg/tw_8254_cnt.vhd" into library work
+Parsing VHDL file "/home/msca8h/Projects/EEE3163-pcfg/top_8254.vhd" into library work
+Parsing VHDL file "/home/msca8h/Projects/EEE3163-pcfg/tb181111_01forTOP_8254.vhd" into library work
 Starting static elaboration
 Completed static elaboration
-Fuse Memory Usage: 85048 KB
-Fuse CPU Usage: 1070 ms
+Fuse Memory Usage: 84936 KB
+Fuse CPU Usage: 1010 ms
 Compiling package standard
 Compiling package std_logic_1164
-Compiling package numeric_std
-Compiling architecture behavioral of entity address_decoder [address_decoder_default]
-Compiling architecture behavior of entity address_decoder_test
+Compiling package std_logic_arith
+Compiling package std_logic_unsigned
+Compiling architecture behavioral of entity TW_8254_CNT [tw_8254_cnt_default]
+Compiling architecture behavioral of entity TOP_8254 [top_8254_default]
+Compiling architecture behavior of entity tb181111_01fortop_8254
 Time Resolution for simulation is 1ps.
 Waiting for 1 sub-compilation(s) to finish...
-Compiled 6 VHDL Units
-Built simulation executable /home/msca8h/Projects/EEE3163-pcfg/address_decoder_test_isim_beh.exe
-Fuse Memory Usage: 1180900 KB
-Fuse CPU Usage: 1150 ms
-GCC CPU Usage: 1390 ms
+Compiled 9 VHDL Units
+Built simulation executable /home/msca8h/Projects/EEE3163-pcfg/tb181111_01forTOP_8254_isim_beh.exe
+Fuse Memory Usage: 1181556 KB
+Fuse CPU Usage: 1060 ms
+GCC CPU Usage: 340 ms
