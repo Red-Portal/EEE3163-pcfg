@@ -42,57 +42,57 @@ ARCHITECTURE behavior OF tb_pcfg IS
   
   COMPONENT PCFG_TOP
     PORT(
-      m_reset_b : IN  std_logic;
-      m_clk : IN  std_logic;
-      m_address : IN  std_logic_vector(8 downto 0);
-      m_cmd_data : IN  std_logic;
-      m_OE_b : IN  std_logic;
-      m_wen : IN  std_logic;
-      m_ren : IN  std_logic;
-      m_ADC_data : IN  std_logic_vector(7 downto 0);
-      m_DAC_data : OUT  std_logic_vector(7 downto 0);
-      m_DAC_clk : OUT  std_logic;
-      m_AD9283_clk : OUT  std_logic;
-      m_data : INOUT  std_logic_vector(7 downto 0);
-      m_led : OUT  std_logic_vector(7 downto 0);
-      m_TP : OUT  std_logic_vector(1 downto 0)
+      m_reset_b    : IN    std_logic;
+      m_clk        : IN    std_logic;
+      m_address    : IN    std_logic_vector(8 downto 0);
+      m_cmd_data   : IN    std_logic;
+      m_OE_b       : IN    std_logic;
+      m_wen        : IN    std_logic;
+      m_ren        : IN    std_logic;
+      m_ADC_data   : IN    std_logic_vector(7 downto 0);
+      m_DAC_data   : OUT   std_logic_vector(7 downto 0);
+      m_DAC_clk    : OUT   std_logic;
+      m_AD9283_clk : OUT   std_logic;
+      m_data       : INOUT std_logic_vector(7 downto 0);
+      m_led        : OUT   std_logic_vector(7 downto 0);
+      m_TP         : OUT   std_logic_vector(1 downto 0)
       );
   END COMPONENT;
   
 
   --Inputs
-  signal m_reset_b : std_logic := '0';
-  signal m_clk : std_logic := '0';
-  signal m_address : std_logic_vector(8 downto 0) := (others => '0');
-  signal m_cmd_data : std_logic := '0';
-  signal m_OE_b : std_logic := '1';
-  signal m_wen : std_logic := '0';
-  signal m_ren : std_logic := '0';
+  signal m_reset_b  : std_logic                    := '0';
+  signal m_clk      : std_logic                    := '0';
+  signal m_address  : std_logic_vector(8 downto 0) := (others => '0');
+  signal m_cmd_data : std_logic                    := '0';
+  signal m_OE_b     : std_logic                    := '1';
+  signal m_wen      : std_logic                    := '0';
+  signal m_ren      : std_logic                    := '0';
   signal m_ADC_data : std_logic_vector(7 downto 0) := (others => '0');
 
   --BiDirs
   signal m_data : std_logic_vector(7 downto 0);
 
   --Outputs
-  signal m_DAC_data : std_logic_vector(7 downto 0);
-  signal m_DAC_clk : std_logic;
+  signal m_DAC_data   : std_logic_vector(7 downto 0);
+  signal m_DAC_clk    : std_logic;
   signal m_AD9283_clk : std_logic;
-  signal m_led : std_logic_vector(7 downto 0);
-  signal m_TP : std_logic_vector(1 downto 0);
+  signal m_led        : std_logic_vector(7 downto 0);
+  signal m_TP         : std_logic_vector(1 downto 0);
   
   -- Clock period definitions
   constant m_clk_period : time := 25 ns;
   
   
   procedure CMD_WR(
-    Addr 						: in 	std_logic_vector(8 downto 0);
-    Data_in	 					: in	std_logic_vector(7 downto 0);
-    signal 		Address_tmp		: out	std_logic_vector(8 downto 0);
-    signal		Data_tmp		: out	std_logic_vector(7 downto 0);
-    signal		CMD_DATA_tmp	: out	std_logic;
-    signal		WEN_tmp			: out	std_logic;
-    signal		REN_tmp			: out	std_logic;
-    signal 		n_OE			: out std_logic) is
+    Addr                : in  std_logic_vector(8 downto 0);
+    Data_in             : in  std_logic_vector(7 downto 0);
+    signal Address_tmp  : out std_logic_vector(8 downto 0);
+    signal Data_tmp     : out std_logic_vector(7 downto 0);
+    signal CMD_DATA_tmp : out std_logic;
+    signal WEN_tmp      : out std_logic;
+    signal REN_tmp      : out std_logic;
+    signal n_OE         : out std_logic) is
   begin
     
     Address_tmp				<= Addr; 
@@ -115,13 +115,13 @@ ARCHITECTURE behavior OF tb_pcfg IS
   
   ----CMD_RD------------------------------------------------------------------
   procedure CMD_RD(
-    Addr						: in	std_logic_vector(8 downto 0);
-    signal 		Address_tmp		: out	std_logic_vector(8 downto 0);
-    signal 		Data_tmp		: inout	std_logic_vector(7 downto 0);
-    signal		CMD_DATA_tmp	: out	std_logic;
-    signal		WEN_tmp			: out	std_logic;
-    signal		REN_tmp			: out	std_logic;
-    signal		n_OE			: out	std_logic
+    Addr                : in    std_logic_vector(8 downto 0);
+    signal Address_tmp  : out   std_logic_vector(8 downto 0);
+    signal Data_tmp     : inout std_logic_vector(7 downto 0);
+    signal CMD_DATA_tmp : out   std_logic;
+    signal WEN_tmp      : out   std_logic;
+    signal REN_tmp      : out   std_logic;
+    signal n_OE         : out   std_logic
     ) is
   begin
     Address_tmp				<= Addr; 

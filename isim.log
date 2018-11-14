@@ -1,5 +1,5 @@
 ISim log file
-Running: /home/msca8h/Projects/EEE3163-pcfg/memory_block_test_isim_beh.exe -intstyle ise -gui -tclbatch isim.cmd -wdb /home/msca8h/Projects/EEE3163-pcfg/memory_block_test_isim_beh.wdb 
+Running: /home/msca8h/Projects/EEE3163-pcfg/address_decoder_test_isim_beh.exe -intstyle ise -gui -tclbatch isim.cmd -wdb /home/msca8h/Projects/EEE3163-pcfg/address_decoder_test_isim_beh.wdb 
 ISim P.20131013 (signature 0xfbc00daa)
 ----------------------------------------------------------------------
 INFO:Security:51 - The XILINXD_LICENSE_FILE environment variable is not set.
@@ -28,31 +28,4 @@ Time resolution is 1 ps
 # run 1000 ns
 Simulator is doing circuit initialization process.
 Finished circuit initialization process.
-at 387500 ps(1): Note: Block Memory Generator CORE Generator module is using a behavioral model FOR simulation which will not precisely model memory collision behavior. (/memory_block_test/uut/U0/native_mem_module/mem_module/).
-at 400 ns(1), Instance /memory_block_test/uut/U0/native_mem_module/mem_module/ : Warning: blk_mem_gen_v7_3 WARNING: collision detected: A write address: 00000000001, B read address: 00000000001
-
-at 450 ns(1), Instance /memory_block_test/uut/U0/native_mem_module/mem_module/ : Warning: blk_mem_gen_v7_3 WARNING: collision detected: A write address: 00000000001, B read address: 00000000001
-
-at 500 ns(1), Instance /memory_block_test/uut/U0/native_mem_module/mem_module/ : Warning: blk_mem_gen_v7_3 WARNING: collision detected: A write address: 00000000001, B read address: 00000000001
-
-at 550 ns(1), Instance /memory_block_test/uut/U0/native_mem_module/mem_module/ : Warning: blk_mem_gen_v7_3 WARNING: collision detected: A write address: 00000000001, B read address: 00000000001
-
-at 600 ns(1), Instance /memory_block_test/uut/U0/native_mem_module/mem_module/ : Warning: blk_mem_gen_v7_3 WARNING: collision detected: A write address: 00000000001, B read address: 00000000001
-
-at 650 ns(1), Instance /memory_block_test/uut/U0/native_mem_module/mem_module/ : Warning: blk_mem_gen_v7_3 WARNING: collision detected: A write address: 00000000001, B read address: 00000000001
-
-at 700 ns(1), Instance /memory_block_test/uut/U0/native_mem_module/mem_module/ : Warning: blk_mem_gen_v7_3 WARNING: collision detected: A write address: 00000000001, B read address: 00000000001
-
-at 750 ns(1), Instance /memory_block_test/uut/U0/native_mem_module/mem_module/ : Warning: blk_mem_gen_v7_3 WARNING: collision detected: A write address: 00000000001, B read address: 00000000001
-
-at 800 ns(1), Instance /memory_block_test/uut/U0/native_mem_module/mem_module/ : Warning: blk_mem_gen_v7_3 WARNING: collision detected: A write address: 00000000001, B read address: 00000000001
-
-at 850 ns(1), Instance /memory_block_test/uut/U0/native_mem_module/mem_module/ : Warning: blk_mem_gen_v7_3 WARNING: collision detected: A write address: 00000000001, B read address: 00000000001
-
-at 900 ns(1), Instance /memory_block_test/uut/U0/native_mem_module/mem_module/ : Warning: blk_mem_gen_v7_3 WARNING: collision detected: A write address: 00000000001, B read address: 00000000001
-
-at 950 ns(1), Instance /memory_block_test/uut/U0/native_mem_module/mem_module/ : Warning: blk_mem_gen_v7_3 WARNING: collision detected: A write address: 00000000001, B read address: 00000000001
-
-at 1 us(1), Instance /memory_block_test/uut/U0/native_mem_module/mem_module/ : Warning: blk_mem_gen_v7_3 WARNING: collision detected: A write address: 00000000001, B read address: 00000000001
-
 # exit 0

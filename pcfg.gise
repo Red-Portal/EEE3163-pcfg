@@ -30,6 +30,12 @@
     <file xil_pn:branch="BehavioralSim" xil_pn:fileType="FILE_ISIM_EXE" xil_pn:name="TW_8254_CNT_isim_beh.exe"/>
     <file xil_pn:fileType="FILE_ISIM_MISC" xil_pn:name="TW_8254_CNT_isim_beh.wdb"/>
     <file xil_pn:fileType="FILE_XST_PROJECT" xil_pn:name="TW_8254_CNT_stx_beh.prj"/>
+    <file xil_pn:fileType="FILE_XST_PROJECT" xil_pn:name="address_decoder_test_beh.prj"/>
+    <file xil_pn:branch="BehavioralSim" xil_pn:fileType="FILE_ISIM_EXE" xil_pn:name="address_decoder_test_isim_beh.exe"/>
+    <file xil_pn:fileType="FILE_ISIM_MISC" xil_pn:name="address_decoder_test_isim_beh.wdb"/>
+    <file xil_pn:fileType="FILE_XST_PROJECT" xil_pn:name="address_decoder_test_stx_beh.prj"/>
+    <file xil_pn:branch="BehavioralSim" xil_pn:fileType="FILE_ISIM_EXE" xil_pn:name="controller_ad_test_isim_beh.exe"/>
+    <file xil_pn:fileType="FILE_XST_PROJECT" xil_pn:name="controller_ad_test_stx_beh.prj"/>
     <file xil_pn:branch="BehavioralSim" xil_pn:fileType="FILE_ISIM_EXE" xil_pn:name="counter_test_isim_beh.exe"/>
     <file xil_pn:fileType="FILE_XST_PROJECT" xil_pn:name="counter_test_stx_beh.prj"/>
     <file xil_pn:branch="BehavioralSim" xil_pn:fileType="FILE_ISIM_EXE" xil_pn:name="fdce_test_isim_beh.exe"/>
@@ -39,9 +45,7 @@
     <file xil_pn:fileType="FILE_DIRECTORY" xil_pn:name="isim"/>
     <file xil_pn:branch="BehavioralSim" xil_pn:fileType="FILE_CMD" xil_pn:name="isim.cmd"/>
     <file xil_pn:branch="BehavioralSim" xil_pn:fileType="FILE_LOG" xil_pn:name="isim.log"/>
-    <file xil_pn:fileType="FILE_XST_PROJECT" xil_pn:name="memory_block_test_beh.prj"/>
     <file xil_pn:branch="BehavioralSim" xil_pn:fileType="FILE_ISIM_EXE" xil_pn:name="memory_block_test_isim_beh.exe"/>
-    <file xil_pn:fileType="FILE_ISIM_MISC" xil_pn:name="memory_block_test_isim_beh.wdb"/>
     <file xil_pn:fileType="FILE_XST_PROJECT" xil_pn:name="memory_block_test_stx_beh.prj"/>
     <file xil_pn:branch="BehavioralSim" xil_pn:fileType="FILE_ISIM_EXE" xil_pn:name="tb181111_01forTOP_8254_isim_beh.exe"/>
     <file xil_pn:fileType="FILE_XST_PROJECT" xil_pn:name="tb181111_01forTOP_8254_stx_beh.prj"/>
@@ -54,12 +58,13 @@
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
     </transform>
-    <transform xil_pn:end_ts="1542004227" xil_pn:in_ck="3684283092622631952" xil_pn:name="TRAN_copyAbstractToPostAbstractSimulation" xil_pn:start_ts="1542004227">
+    <transform xil_pn:end_ts="1542195065" xil_pn:in_ck="262395640466687124" xil_pn:name="TRAN_copyAbstractToPostAbstractSimulation" xil_pn:start_ts="1542195065">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
-      <status xil_pn:value="OutOfDateForInputs"/>
-      <status xil_pn:value="InputAdded"/>
-      <status xil_pn:value="InputChanged"/>
+      <outfile xil_pn:name="address_decoder.vhd"/>
+      <outfile xil_pn:name="address_decoder_test.vhd"/>
+      <outfile xil_pn:name="controller_ad.vhd"/>
+      <outfile xil_pn:name="controller_ad_test.vhd"/>
       <outfile xil_pn:name="counter_test.vhd"/>
       <outfile xil_pn:name="fdce.vhd"/>
       <outfile xil_pn:name="fdce_test.vhd"/>
@@ -70,11 +75,11 @@
       <outfile xil_pn:name="top_8254.vhd"/>
       <outfile xil_pn:name="tw_8254_cnt.vhd"/>
     </transform>
-    <transform xil_pn:end_ts="1542019841" xil_pn:name="TRAN_xawsToSimhdl" xil_pn:prop_ck="-4901910076082568872" xil_pn:start_ts="1542019841">
+    <transform xil_pn:end_ts="1542184604" xil_pn:name="TRAN_xawsToSimhdl" xil_pn:prop_ck="-769228896732450448" xil_pn:start_ts="1542184604">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
     </transform>
-    <transform xil_pn:end_ts="1542019841" xil_pn:name="TRAN_schematicsToHdlSim" xil_pn:prop_ck="7168168038493904912" xil_pn:start_ts="1542019841">
+    <transform xil_pn:end_ts="1542184604" xil_pn:name="TRAN_schematicsToHdlSim" xil_pn:prop_ck="149350859218960424" xil_pn:start_ts="1542184604">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
     </transform>
@@ -86,16 +91,16 @@
       <outfile xil_pn:name="ipcore_dir/memory_block.ngc"/>
       <outfile xil_pn:name="ipcore_dir/memory_block.vhd"/>
     </transform>
-    <transform xil_pn:end_ts="1542004228" xil_pn:in_ck="-5826427717836736753" xil_pn:name="TRAN_copyPostAbstractToPreSimulation" xil_pn:start_ts="1542004228">
+    <transform xil_pn:end_ts="1542195065" xil_pn:in_ck="262395640466687124" xil_pn:name="TRAN_copyPostAbstractToPreSimulation" xil_pn:start_ts="1542195065">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
-      <status xil_pn:value="OutOfDateForInputs"/>
-      <status xil_pn:value="OutOfDateForPredecessor"/>
-      <status xil_pn:value="InputChanged"/>
+      <outfile xil_pn:name="address_decoder.vhd"/>
+      <outfile xil_pn:name="address_decoder_test.vhd"/>
+      <outfile xil_pn:name="controller_ad.vhd"/>
+      <outfile xil_pn:name="controller_ad_test.vhd"/>
       <outfile xil_pn:name="counter_test.vhd"/>
       <outfile xil_pn:name="fdce.vhd"/>
       <outfile xil_pn:name="fdce_test.vhd"/>
-      <outfile xil_pn:name="ipcore_dir/counter.vhd"/>
       <outfile xil_pn:name="memory_block_test.vhd"/>
       <outfile xil_pn:name="pcfg_top.vhd"/>
       <outfile xil_pn:name="tb181111_01forTOP_8254.vhd"/>
@@ -103,32 +108,24 @@
       <outfile xil_pn:name="top_8254.vhd"/>
       <outfile xil_pn:name="tw_8254_cnt.vhd"/>
     </transform>
-    <transform xil_pn:end_ts="1542019842" xil_pn:in_ck="4170080108835200881" xil_pn:name="TRAN_ISimulateBehavioralModelRunFuse" xil_pn:prop_ck="-681664286844129299" xil_pn:start_ts="1542019841">
+    <transform xil_pn:end_ts="1542195067" xil_pn:in_ck="128020195598198901" xil_pn:name="TRAN_ISimulateBehavioralModelRunFuse" xil_pn:prop_ck="7262725355315795005" xil_pn:start_ts="1542195065">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
-      <status xil_pn:value="OutOfDateForInputs"/>
-      <status xil_pn:value="OutOfDateForProperties"/>
-      <status xil_pn:value="OutOfDateForPredecessor"/>
       <status xil_pn:value="OutOfDateForOutputs"/>
-      <status xil_pn:value="InputChanged"/>
       <status xil_pn:value="OutputChanged"/>
-      <status xil_pn:value="OutputRemoved"/>
+      <outfile xil_pn:name="address_decoder_test_beh.prj"/>
+      <outfile xil_pn:name="address_decoder_test_isim_beh.exe"/>
       <outfile xil_pn:name="fuse.log"/>
       <outfile xil_pn:name="isim"/>
       <outfile xil_pn:name="isim.log"/>
-      <outfile xil_pn:name="memory_block_test_beh.prj"/>
       <outfile xil_pn:name="xilinxsim.ini"/>
     </transform>
-    <transform xil_pn:end_ts="1542019843" xil_pn:in_ck="-2064474907019857395" xil_pn:name="TRAN_ISimulateBehavioralModel" xil_pn:prop_ck="-3772415878404300806" xil_pn:start_ts="1542019842">
+    <transform xil_pn:end_ts="1542195067" xil_pn:in_ck="-8509632983858378484" xil_pn:name="TRAN_ISimulateBehavioralModel" xil_pn:prop_ck="8858930997094130410" xil_pn:start_ts="1542195067">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
-      <status xil_pn:value="OutOfDateForInputs"/>
-      <status xil_pn:value="OutOfDateForProperties"/>
-      <status xil_pn:value="OutOfDateForPredecessor"/>
-      <status xil_pn:value="OutOfDateForOutputs"/>
-      <status xil_pn:value="InputRemoved"/>
-      <status xil_pn:value="OutputChanged"/>
-      <status xil_pn:value="OutputRemoved"/>
+      <outfile xil_pn:name="address_decoder_test_isim_beh.wdb"/>
+      <outfile xil_pn:name="isim.cmd"/>
+      <outfile xil_pn:name="isim.log"/>
     </transform>
     <transform xil_pn:name="TRAN_SubProjectAbstractToPreProxy">
       <status xil_pn:value="SuccessfullyRun"/>

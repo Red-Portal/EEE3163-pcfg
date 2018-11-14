@@ -27,7 +27,6 @@ use UNISIM.vcomponents.all;
 --=========== don't change this=======================----------------------
 --==========================================================================
 
-
 entity PCFG_TOP is
   PORT( ---------------------------------------------INPUT
     m_reset_b  : IN std_logic;
@@ -66,7 +65,20 @@ end PCFG_TOP;
 architecture Behavioral of PCFG_TOP is
 
 
----=========== COMPONENT ===================
+---=========== component ===================
+  COMPONENT memory_block
+    PORT(
+      clka  : IN  std_logic;
+      ena   : IN  std_logic;
+      wea   : IN  std_logic_vector(0 downto 0);
+      addra : IN  std_logic_vector(10 downto 0);
+      dina  : IN  std_logic_vector(7 downto 0);
+      clkb  : IN  std_logic;
+      enb   : IN  std_logic;
+      addrb : IN  std_logic_vector(10 downto 0);
+      doutb : OUT std_logic_vector(7 downto 0)
+      );
+  END COMPONENT;
 
   component TOP_8254 is
     Port ( m_clk0    : in  STD_LOGIC;
@@ -87,6 +99,41 @@ architecture Behavioral of PCFG_TOP is
            m_out2    : out  STD_LOGIC);
   end component;
 
+  signal ram0_ena   : std_logic;
+  signal ram0_wea   : std_logic_vector(0 downto 0);
+  signal ram0_addra : std_logic_vector(10 downto 0);
+  signal ram0_dina  : std_logic_vector(7 downto 0);
+  signal ram0_clkb  : std_logic;
+  signal ram0_enb   : std_logic;
+  signal ram0_addrb : std_logic_vector(10 downto 0);
+  signal ram0_doutb : std_logic_vector(7 downto 0);
+
+  signal ram1_ena   : std_logic;
+  signal ram1_wea   : std_logic_vector(0 downto 0);
+  signal ram1_addra : std_logic_vector(10 downto 0);
+  signal ram1_dina  : std_logic_vector(7 downto 0);
+  signal ram1_clkb  : std_logic;
+  signal ram1_enb   : std_logic;
+  signal ram1_addrb : std_logic_vector(10 downto 0);
+  signal ram1_doutb : std_logic_vector(7 downto 0);
+
+  signal ad_ram_ena   : std_logic;
+  signal ad_ram_wea   : std_logic_vector(0 downto 0);
+  signal ad_ram_addra : std_logic_vector(10 downto 0);
+  signal ad_ram_dina  : std_logic_vector(7 downto 0);
+  signal ad_ram_clkb  : std_logic;
+  signal ad_ram_enb   : std_logic;
+  signal ad_ram_addrb : std_logic_vector(10 downto 0);
+  signal ad_ram_doutb : std_logic_vector(7 downto 0);
+
+  signal da_ram_ena   : std_logic;
+  signal da_ram_wea   : std_logic_vector(0 downto 0);
+  signal da_ram_addra : std_logic_vector(10 downto 0);
+  signal da_ram_dina  : std_logic_vector(7 downto 0);
+  signal da_ram_clkb  : std_logic;
+  signal da_ram_enb   : std_logic;
+  signal da_ram_addrb : std_logic_vector(10 downto 0);
+  signal da_ram_doutb : std_logic_vector(7 downto 0);
 
   signal s_clk : std_logic;
 --=== signals
@@ -95,7 +142,7 @@ architecture Behavioral of PCFG_TOP is
   signal s_m_8254_gate0 : std_logic;
   signal s_m_8254_gate1 : std_logic;
   signal s_m_8254_gate2 : std_logic;
-
+  
   signal s_dout_en  : std_logic;
   signal s_pcs_addr : std_logic;
 
@@ -107,11 +154,7 @@ architecture Behavioral of PCFG_TOP is
   signal outlatch_dout : std_logic_vector(7 downto 0);
   signal s_led         : std_logic_vector(6 downto 0);
 
-
-
 begin
-
-
 --clks
   m_DAC_clk<= m_clk0			;--- ʿ clock ϼ
   m_AD9283_clk<= m_clk0		;--- ʿ clock ϼx
@@ -131,24 +174,12 @@ begin
   s_din<=m_data;
   m_data<=outlatch_dout when s_dout_en='1' else (others=>'Z');
 
-
   clk_gen : TOP_8254 port map( 
     m_clk0    => s_clk,
-    m_clk1    => s_clk,
-    m_clk2    => s_clk,
-    m_clk_ctr => s_clk,
-    m_reset   => not m_reset_b,
-    m_data    => s_din,
-    m_gate0   => s_m_8254_gate0,
-    m_gate1   => s_m_8254_gate1,
-    m_gate2   => s_m_8254_gate2,
-    m_addr    => m_address(1 downto 0),
-    m_cs_b    => not s_pcs_addr,        -- ��ñ׳  غ.
     m_wr_b    => not m_wen,
     m_out0    => sys_clk,
     m_out1    => open,
-    m_out2    => open
-    );
+    m_out2    => open);
   
   s_m_8254_gate0	<= '1';
   s_m_8254_gate1	<= '1';
@@ -158,13 +189,68 @@ begin
 --for debug
   m_TP(0)	<= s_clk; --test point. for s_clk     ̰ɷ äϴϱ ٲٸ  ȵ
   m_TP(1)	<= sys_clk;--test for 8254 output.   ̰ɷ äϴϱ ٲٸ  ȵ
-  m_led(7) <=s_reset_b;
+  m_led(7) <= s_reset_b;
 -----------======================================================--------------------
 
+  clka  : IN  std_logic;
+  ena   : IN  std_logic;
+  wea   : IN  std_logic_vector(0 downto 0);
+  addra : IN  std_logic_vector(10 downto 0);
+  dina  : IN  std_logic_vector(7 downto 0);
+  clkb  : IN  std_logic;
+  enb   : IN  std_logic;
+  addrb : IN  std_logic_vector(10 downto 0);
+  doutb : OUT std_logic_vector(7 downto 0);
+
+  RAM0 : memory_block port map( 
+    clka  => clk,
+    ena   => ram0_ena,
+    wea   => ram0_wea,
+    addra => ram0_addra,
+    dina  => ram0_dina,
+    clkb  => ram0_clkb,
+    enb   => ram0_enb,
+    addrb => ram0_addrb,
+    doutb => ram0_doubt,
+    );
+
+  RAM1 : memory_block port map( 
+    clka  => clk,
+    ena   => ram1_ena,
+    wea   => ram1_wea,
+    addra => ram1_addra,
+    dina  => ram1_dina,
+    clkb  => ram1_clkb,
+    enb   => ram1_enb,
+    addrb => ram1_addrb,
+    doutb => ram1_doubt,
+    );
+
+  AD_RAM : memory_block port map( 
+    clka  => clk,
+    ena   => ad_ram_ena,
+    wea   => ad_ram_wea,
+    addra => ad_ram_addra,
+    dina  => ad_ram_dina,
+    clkb  => ad_ram_clkb,
+    enb   => ad_ram_enb,
+    addrb => ad_ram_addrb,
+    doutb => ad_ram_doubt,
+    );
+
+  DA_RAM : memory_block port map( 
+    clka  => clk,
+    ena   => da_ram_ena,
+    wea   => da_ram_wea,
+    addra => da_ram_addra,
+    dina  => da_ram_dina,
+    clkb  => da_ram_clkb,
+    enb   => da_ram_enb,
+    addrb => da_ram_addrb,
+    doutb => da_ram_doubt,
+    );
 
   m_led(6 downto 0)<=s_led(6 downto 0);
-  
-  
 
 end Behavioral;
 

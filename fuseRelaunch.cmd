@@ -1,1 +1,1 @@
--intstyle "ise" -incremental -o "/home/msca8h/Projects/EEE3163-pcfg/memory_block_test_isim_beh.exe" -prj "/home/msca8h/Projects/EEE3163-pcfg/memory_block_test_beh.prj" "work.memory_block_test" 
+-intstyle "ise" -incremental -o "/home/msca8h/Projects/EEE3163-pcfg/address_decoder_test_isim_beh.exe" -prj "/home/msca8h/Projects/EEE3163-pcfg/address_decoder_test_beh.prj" "work.address_decoder_test" 
