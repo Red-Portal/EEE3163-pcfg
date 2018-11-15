@@ -12,10 +12,14 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
          <SelectedItem>controller_ad - Behavioral (C:/Users/JUNE/Documents/GitHub/EEE3163-pcfg/controller_ad.vhd)</SelectedItem>
 =======
          <SelectedItem>multiplexer_2to1 - Behavioral (/home/msca8h/Projects/EEE3163-pcfg/multiplexer_2to1.vhd)</SelectedItem>
 >>>>>>> dfa3576e34fde7fbf602852b7ac6f12b5acb792c
+=======
+         <SelectedItem>address_decoder - Behavioral (/home/msca8h/Projects/EEE3163-pcfg/address_decoder.vhd)</SelectedItem>
+>>>>>>> parent of dfa3576... finished top module - no simulation performed yet.
 =======
          <SelectedItem>address_decoder - Behavioral (/home/msca8h/Projects/EEE3163-pcfg/address_decoder.vhd)</SelectedItem>
 >>>>>>> parent of dfa3576... finished top module - no simulation performed yet.
@@ -30,10 +34,14 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       <CurrentItem>controller_ad - Behavioral (C:/Users/JUNE/Documents/GitHub/EEE3163-pcfg/controller_ad.vhd)</CurrentItem>
 =======
       <CurrentItem>multiplexer_2to1 - Behavioral (/home/msca8h/Projects/EEE3163-pcfg/multiplexer_2to1.vhd)</CurrentItem>
 >>>>>>> dfa3576e34fde7fbf602852b7ac6f12b5acb792c
+=======
+      <CurrentItem>address_decoder - Behavioral (/home/msca8h/Projects/EEE3163-pcfg/address_decoder.vhd)</CurrentItem>
+>>>>>>> parent of dfa3576... finished top module - no simulation performed yet.
 =======
       <CurrentItem>address_decoder - Behavioral (/home/msca8h/Projects/EEE3163-pcfg/address_decoder.vhd)</CurrentItem>
 >>>>>>> parent of dfa3576... finished top module - no simulation performed yet.
@@ -93,6 +101,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
          <SelectedItem>memory_block_test - behavior (C:/Users/JUNE/Documents/GitHub/EEE3163-pcfg/memory_block_test.vhd)</SelectedItem>
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >3</ScrollbarPosition>
@@ -127,6 +136,15 @@
       <UserChangedColumnWidths orientation="horizontal" >true</UserChangedColumnWidths>
       <CurrentItem>address_decoder_test - behavior (/home/msca8h/Projects/EEE3163-pcfg/address_decoder_test.vhd)</CurrentItem>
 >>>>>>> parent of dfa3576... finished top module - no simulation performed yet.
+=======
+         <SelectedItem>address_decoder_test - behavior (/home/msca8h/Projects/EEE3163-pcfg/address_decoder_test.vhd)</SelectedItem>
+      </SelectedItems>
+      <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
+      <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
+      <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000001000000000000000000000000000000000202000000010000000100000064000001dd000000020000000000000000000000000200000064ffffffff000000810000000300000002000001dd0000000100000003000000000000000100000003</ViewHeaderState>
+      <UserChangedColumnWidths orientation="horizontal" >true</UserChangedColumnWidths>
+      <CurrentItem>address_decoder_test - behavior (/home/msca8h/Projects/EEE3163-pcfg/address_decoder_test.vhd)</CurrentItem>
+>>>>>>> parent of dfa3576... finished top module - no simulation performed yet.
    </ItemView>
    <ItemView engineview="BehavioralSim" sourcetype="" guiview="Process" >
       <ClosedNodes>
@@ -145,10 +163,14 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
    <SourceProcessView>000000ff0000000000000002000001400000011b01000000040100000002</SourceProcessView>
    <CurrentView>Implementation</CurrentView>
 =======
    <SourceProcessView>000000ff0000000000000002000001b2000000b801000000040100000002</SourceProcessView>
+=======
+   <SourceProcessView>000000ff0000000000000002000001400000011b01000000040100000002</SourceProcessView>
+>>>>>>> parent of dfa3576... finished top module - no simulation performed yet.
 =======
    <SourceProcessView>000000ff0000000000000002000001400000011b01000000040100000002</SourceProcessView>
 >>>>>>> parent of dfa3576... finished top module - no simulation performed yet.
@@ -201,6 +223,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
          <SelectedItem/>
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
@@ -216,6 +239,9 @@
 =======
          <SelectedItem></SelectedItem>
 >>>>>>> parent of dfa3576... finished top module - no simulation performed yet.
+=======
+         <SelectedItem></SelectedItem>
+>>>>>>> parent of dfa3576... finished top module - no simulation performed yet.
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
@@ -223,8 +249,12 @@
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       <CurrentItem>Simulate Behavioral Model</CurrentItem>
 >>>>>>> dfa3576e34fde7fbf602852b7ac6f12b5acb792c
+=======
+      <CurrentItem></CurrentItem>
+>>>>>>> parent of dfa3576... finished top module - no simulation performed yet.
 =======
       <CurrentItem></CurrentItem>
 >>>>>>> parent of dfa3576... finished top module - no simulation performed yet.

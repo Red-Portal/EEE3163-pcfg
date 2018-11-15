@@ -61,6 +61,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     <transform xil_pn:end_ts="1542179930" xil_pn:in_ck="-6356816073958350523" xil_pn:name="TRAN_copyAbstractToPostAbstractSimulation" xil_pn:start_ts="1542179930">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
@@ -73,6 +74,9 @@
       <outfile xil_pn:name="controller_pc.vhd"/>
 =======
     <transform xil_pn:end_ts="1542204356" xil_pn:in_ck="-770439541637670551" xil_pn:name="TRAN_copyAbstractToPostAbstractSimulation" xil_pn:start_ts="1542204356">
+=======
+    <transform xil_pn:end_ts="1542195065" xil_pn:in_ck="262395640466687124" xil_pn:name="TRAN_copyAbstractToPostAbstractSimulation" xil_pn:start_ts="1542195065">
+>>>>>>> parent of dfa3576... finished top module - no simulation performed yet.
 =======
     <transform xil_pn:end_ts="1542195065" xil_pn:in_ck="262395640466687124" xil_pn:name="TRAN_copyAbstractToPostAbstractSimulation" xil_pn:start_ts="1542195065">
 >>>>>>> parent of dfa3576... finished top module - no simulation performed yet.
@@ -115,6 +119,7 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     <transform xil_pn:end_ts="1542179930" xil_pn:in_ck="-6356816073958350523" xil_pn:name="TRAN_copyPostAbstractToPreSimulation" xil_pn:start_ts="1542179930">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
@@ -138,6 +143,11 @@
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
 >>>>>>> parent of dfa3576... finished top module - no simulation performed yet.
+=======
+    <transform xil_pn:end_ts="1542195065" xil_pn:in_ck="262395640466687124" xil_pn:name="TRAN_copyPostAbstractToPreSimulation" xil_pn:start_ts="1542195065">
+      <status xil_pn:value="SuccessfullyRun"/>
+      <status xil_pn:value="ReadyToRun"/>
+>>>>>>> parent of dfa3576... finished top module - no simulation performed yet.
       <outfile xil_pn:name="address_decoder.vhd"/>
       <outfile xil_pn:name="address_decoder_test.vhd"/>
       <outfile xil_pn:name="controller_ad.vhd"/>
@@ -156,10 +166,14 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     <transform xil_pn:end_ts="1542179936" xil_pn:in_ck="7515990793892684102" xil_pn:name="TRAN_ISimulateBehavioralModelRunFuse" xil_pn:prop_ck="-681664286844129299" xil_pn:start_ts="1542179930">
 =======
     <transform xil_pn:end_ts="1542204298" xil_pn:in_ck="7756711404770478378" xil_pn:name="TRAN_ISimulateBehavioralModelRunFuse" xil_pn:prop_ck="-870092407038511961" xil_pn:start_ts="1542204295">
 >>>>>>> dfa3576e34fde7fbf602852b7ac6f12b5acb792c
+=======
+    <transform xil_pn:end_ts="1542195067" xil_pn:in_ck="128020195598198901" xil_pn:name="TRAN_ISimulateBehavioralModelRunFuse" xil_pn:prop_ck="7262725355315795005" xil_pn:start_ts="1542195065">
+>>>>>>> parent of dfa3576... finished top module - no simulation performed yet.
 =======
     <transform xil_pn:end_ts="1542195067" xil_pn:in_ck="128020195598198901" xil_pn:name="TRAN_ISimulateBehavioralModelRunFuse" xil_pn:prop_ck="7262725355315795005" xil_pn:start_ts="1542195065">
 >>>>>>> parent of dfa3576... finished top module - no simulation performed yet.
@@ -174,6 +188,7 @@
       <outfile xil_pn:name="address_decoder_test_isim_beh.exe"/>
       <outfile xil_pn:name="fuse.log"/>
       <outfile xil_pn:name="isim"/>
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -195,6 +210,9 @@
 =======
       <outfile xil_pn:name="isim.log"/>
 >>>>>>> parent of dfa3576... finished top module - no simulation performed yet.
+=======
+      <outfile xil_pn:name="isim.log"/>
+>>>>>>> parent of dfa3576... finished top module - no simulation performed yet.
       <outfile xil_pn:name="xilinxsim.ini"/>
     </transform>
     <transform xil_pn:end_ts="1542195067" xil_pn:in_ck="-8509632983858378484" xil_pn:name="TRAN_ISimulateBehavioralModel" xil_pn:prop_ck="8858930997094130410" xil_pn:start_ts="1542195067">
@@ -202,10 +220,14 @@
       <status xil_pn:value="ReadyToRun"/>
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> dfa3576e34fde7fbf602852b7ac6f12b5acb792c
       <status xil_pn:value="OutOfDateForPredecessor"/>
       <status xil_pn:value="OutOfDateForOutputs"/>
       <status xil_pn:value="OutputChanged"/>
+=======
+      <outfile xil_pn:name="address_decoder_test_isim_beh.wdb"/>
+>>>>>>> parent of dfa3576... finished top module - no simulation performed yet.
 =======
       <outfile xil_pn:name="address_decoder_test_isim_beh.wdb"/>
 >>>>>>> parent of dfa3576... finished top module - no simulation performed yet.
