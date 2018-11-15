@@ -226,8 +226,8 @@ architecture Behavioral of PCFG_TOP is
 
 begin
 --clks
-  m_DAC_clk<= s_clk;    --- ʿ clock ϼ
-  m_AD9283_clk<= s_clk; --- ʿ clock ϼx
+  m_DAC_clk    <= s_clk;    --- ʿ clock ϼ
+  m_AD9283_clk <= s_clk; --- ʿ clock ϼx
 ------don't know the diff between two.
 ------Originally inputs to both sig were blank. 
 ------Just filled them w/ something to shut up error msg.(June)
@@ -238,7 +238,7 @@ begin
 
 --global iobuf
   s_clk_g : IBUFG generic map (IOSTANDARD => "DEFAULT")
-    port map(I=>m_clk,O=>s_clk);
+    port map(I => m_clk, O => s_clk);
 
 --tri state
   s_din <= m_data;

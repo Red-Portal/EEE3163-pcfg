@@ -1,5 +1,6 @@
 ISim log file
 Running: /home/msca8h/Projects/EEE3163-pcfg/tb_pcfg_isim_beh.exe -intstyle ise -gui -tclbatch isim.cmd -wdb /home/msca8h/Projects/EEE3163-pcfg/tb_pcfg_isim_beh.wdb 
+INFO: There is another simulation running in the same directory. Using database file name isim1.wdb.
 ISim P.20131013 (signature 0xfbc00daa)
 ----------------------------------------------------------------------
 INFO:Security:51 - The XILINXD_LICENSE_FILE environment variable is not set.
@@ -29,24 +30,20 @@ Time resolution is 1 ps
 Simulator is doing circuit initialization process.
 at 0 ps, Instance /tb_pcfg/uut/clk_gen/CNT0/ : Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
 Finished circuit initialization process.
-# restart
+# run all
+Stopped at time : 6068312500 ps : File "/home/msca8h/Projects/EEE3163-pcfg/fdce.vhd" Line 43
 # restart
 # run all
 Simulator is doing circuit initialization process.
 Finished circuit initialization process.
-Stopped at time : 2751062500 ps : File "/home/msca8h/Projects/EEE3163-pcfg/pcfg_top.vhd" Line 229
+Stopped at time : 2661937500 ps : File "/home/msca8h/Projects/EEE3163-pcfg/fdce8.vhd" Line 44
 # restart
 # run all
 Simulator is doing circuit initialization process.
 Finished circuit initialization process.
-Stopped at time : 4247862500 ps : File "/home/msca8h/Projects/EEE3163-pcfg/pcfg_top.vhd" Line 229
+Stopped at time : 4794150 ns : File "/home/msca8h/Projects/EEE3163-pcfg/tb_pcfg.vhd" Line 167
 # restart
 # run all
 Simulator is doing circuit initialization process.
 Finished circuit initialization process.
-Stopped at time : 7108850 ns : File "/home/msca8h/Projects/EEE3163-pcfg/pcfg_top.vhd" Line 229
-# restart
-# run all
-Simulator is doing circuit initialization process.
-Finished circuit initialization process.
-Stopped at time : 26622787500 ps : File "/home/msca8h/Projects/EEE3163-pcfg/tb_pcfg.vhd" Line 169
+Stopped at time : 4207825 ns : File "/home/msca8h/Projects/EEE3163-pcfg/fdce.vhd" Line 43

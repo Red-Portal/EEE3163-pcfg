@@ -139,7 +139,7 @@ begin
     end if;
   end process;
   
- 
+  
   
   
   s_wr0_b <= '0' when (s_addr="11" and m_gate0='1' and s_wr_b='0' and  s_data(7 downto 6)="00") OR (s_addr="00" and m_gate0='1' and s_wr_b='0' ) else '1';

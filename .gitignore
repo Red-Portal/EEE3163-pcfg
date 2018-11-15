@@ -74,3 +74,9 @@ CTestTestfile.cmake
 # build directory
 build/
 
+#
+*.didat
+*.c
+isim
+work/*
+

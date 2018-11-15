@@ -176,7 +176,7 @@ BEGIN
     -- hold reset state for 100 ns.
     wait for 100 ns;	
     m_reset_b  <= '1';
-    wait for 10 us;
+    wait for 100 us;
     
     -- 8254 setting (m_clk를 8분주해서 div_clk을 만들기 위한 과정
     CMD_WR("101000011","00110110",m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);
