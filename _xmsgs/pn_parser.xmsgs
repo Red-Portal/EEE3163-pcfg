@@ -8,7 +8,11 @@
 <!-- Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.    -->
 
 <messages>
+<<<<<<< HEAD
 <msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;C:/Users/JUNE/Documents/GitHub/EEE3163-pcfg/controller_pc.vhd&quot; into library work</arg>
+=======
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;/home/msca8h/Projects/EEE3163-pcfg/pcfg_top.vhd&quot; into library work</arg>
+>>>>>>> dfa3576e34fde7fbf602852b7ac6f12b5acb792c
 </msg>
 
 </messages>

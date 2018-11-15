@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Running: C:\Xilinx\14.7\ISE_DS\ISE\bin\nt64\unwrapped\fuse.exe -intstyle ise -incremental -o C:/Users/JUNE/Documents/GitHub/EEE3163-pcfg/memory_block_test_isim_beh.exe -prj C:/Users/JUNE/Documents/GitHub/EEE3163-pcfg/memory_block_test_beh.prj work.memory_block_test 
 ISim P.20131013 (signature 0x7708f090)
 Number of CPUs detected in this system: 8
@@ -7,22 +8,39 @@ Parsing VHDL file "C:/Users/JUNE/Documents/GitHub/EEE3163-pcfg/ipcore_dir/memory
 Parsing VHDL file "C:/Users/JUNE/Documents/GitHub/EEE3163-pcfg/memory_block_test.vhd" into library work
 Starting static elaboration
 Completed static elaboration
+=======
+Running: /opt/Xilinx/14.7/ISE_DS/ISE/bin/lin64/unwrapped/fuse -intstyle ise -incremental -o /home/msca8h/Projects/EEE3163-pcfg/tb181111_01forTOP_8254_isim_beh.exe -prj /home/msca8h/Projects/EEE3163-pcfg/tb181111_01forTOP_8254_beh.prj work.tb181111_01forTOP_8254 
+ISim P.20131013 (signature 0xfbc00daa)
+Number of CPUs detected in this system: 8
+Turning on mult-threading, number of parallel sub-compilation jobs: 16 
+Determining compilation order of HDL files
+Parsing VHDL file "/home/msca8h/Projects/EEE3163-pcfg/tw_8254_cnt.vhd" into library work
+Parsing VHDL file "/home/msca8h/Projects/EEE3163-pcfg/top_8254.vhd" into library work
+Parsing VHDL file "/home/msca8h/Projects/EEE3163-pcfg/tb181111_01forTOP_8254.vhd" into library work
+Starting static elaboration
+Completed static elaboration
+Fuse Memory Usage: 84936 KB
+Fuse CPU Usage: 1010 ms
+>>>>>>> dfa3576e34fde7fbf602852b7ac6f12b5acb792c
 Compiling package standard
 Compiling package std_logic_1164
-Compiling package textio
 Compiling package std_logic_arith
 Compiling package std_logic_unsigned
-Compiling package std_logic_textio
-Compiling architecture output_stage_behavioral of entity BLK_MEM_GEN_V7_3_output_stage [\BLK_MEM_GEN_V7_3_output_stage("...]
-Compiling architecture softecc_output_reg_stage_behavioral of entity BLK_MEM_GEN_V7_3_softecc_output_reg_stage [\BLK_MEM_GEN_V7_3_softecc_output...]
-Compiling architecture mem_module_behavioral of entity BLK_MEM_GEN_V7_3_mem_module [\BLK_MEM_GEN_V7_3_mem_module("bl...]
-Compiling architecture behavioral of entity BLK_MEM_GEN_V7_3 [\BLK_MEM_GEN_V7_3("blk_mem_gen_v...]
-Compiling architecture memory_block_a of entity memory_block [memory_block_default]
-Compiling architecture behavior of entity memory_block_test
+Compiling architecture behavioral of entity TW_8254_CNT [tw_8254_cnt_default]
+Compiling architecture behavioral of entity TOP_8254 [top_8254_default]
+Compiling architecture behavior of entity tb181111_01fortop_8254
 Time Resolution for simulation is 1ps.
 Waiting for 1 sub-compilation(s) to finish...
+<<<<<<< HEAD
 WARNING:Simulator - Unable to copy libPortabilityNOSH.dll to the simulation executable directory: boost::filesystem::copy_file: 지정된 경로를 찾을 수 없습니다, "isim\memory_block_test_isim_beh.exe.sim\libPortability.dll".
 Compiled 17 VHDL Units
 Built simulation executable C:/Users/JUNE/Documents/GitHub/EEE3163-pcfg/memory_block_test_isim_beh.exe
 Fuse Memory Usage: 36584 KB
 Fuse CPU Usage: 890 ms
+=======
+Compiled 9 VHDL Units
+Built simulation executable /home/msca8h/Projects/EEE3163-pcfg/tb181111_01forTOP_8254_isim_beh.exe
+Fuse Memory Usage: 1181556 KB
+Fuse CPU Usage: 1060 ms
+GCC CPU Usage: 340 ms
+>>>>>>> dfa3576e34fde7fbf602852b7ac6f12b5acb792c
