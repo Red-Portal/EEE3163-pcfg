@@ -1,0 +1,29 @@
+Command line:
+   address_decoder_test_isim_beh.exe
+     -simmode  gui
+     -simrunnum  0
+     -socket  36443
+
+Wed Nov 14 20:31:09 2018
+
+
+ Elaboration Time: 0.02 sec
+
+ Current Memory Usage: 183.988 Meg
+
+ Total Signals          : 9
+ Total Nets             : 15
+ Total Signal Drivers   : 5
+ Total Blocks           : 4
+ Total Primitive Blocks : 3
+ Total Processes        : 5
+ Total Traceable Variables  : 21
+ Total Scalar Nets and Variables : 520
+Total Line Count : 39
+
+ Total Simulation Time: 0.06 sec
+
+ Current Memory Usage: 259.49 Meg
+
+Wed Nov 14 20:31:25 2018
+

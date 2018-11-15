@@ -57,27 +57,15 @@ entity PCFG_TOP is
     
     );
 end PCFG_TOP;
+
+
+--==========================================================================
+--==========================================================================
+
 architecture Behavioral of PCFG_TOP is
 
-  COMPONENT multiplexer_2to1
-    PORT(
-      sel : in  std_logic;
-      in0 : in  std_logic_vector(7 downto 0);       
-      in1 : in  std_logic_vector(7 downto 0);
-      o   : out std_logic_vector(7 downto 0)
-      );
-  END component;
 
-  COMPONENT multiplexer_3to1
-    PORT(
-      sel : in  std_logic_vector(1 downto 0);
-      in0 : in  std_logic_vector(7 downto 0);       
-      in1 : in  std_logic_vector(7 downto 0);
-      in2 : in  std_logic_vector(7 downto 0);
-      o   : out std_logic_vector(7 downto 0)
-      );
-  END COMPONENT;
-
+---=========== component ===================
   COMPONENT memory_block
     PORT(
       clka  : IN  std_logic;
@@ -111,71 +99,11 @@ architecture Behavioral of PCFG_TOP is
            m_out2    : out  STD_LOGIC);
   end component;
 
-  COMPONENT address_decoder
-    PORT(
-      s_address    : IN  std_logic_vector(8 downto 0);
-      mode_code    : out std_logic_vector(2 downto 0);
-      s_pcs_addr   : out std_logic;
-      s_reset_addr : out std_logic
-      );
-  END component;
-
-  COMPONENT fdce
-    PORT(
-      clock        : IN  std_logic;
-      clock_enable : IN  std_logic;
-      clear        : IN  std_logic;
-      d            : IN  std_logic;
-      q            : OUT std_logic
-      );
-  END component;
-
-  COMPONENT fdce8
-    PORT(
-      clock        : IN  std_logic;
-      clock_enable : IN  std_logic;
-      clear        : IN  std_logic;
-      d            : IN  std_logic_vector(7 downto 0);
-      q            : OUT std_logic_vector(7 downto 0)
-      );
-  END component;
-
-  COMPONENT fdce9
-    PORT(
-      clock        : IN  std_logic;
-      clock_enable : IN  std_logic;
-      clear        : IN  std_logic;
-      d            : IN  std_logic_vector(8 downto 0);
-      q            : OUT std_logic_vector(8 downto 0)
-      );
-  END component;
-
-  signal s_data     : std_logic_vector(7 to 0);
-  signal s_address  : std_logic_vector(9 to 0);
-  signal s_cmd_data : std_logic;
-  signal s_wen      : std_logic;
-  signal s_ren      : std_logic;
-  signal s_oe_b     : std_logic;
-
-  signal mux_ram0_sel : std_logic;
-  signal mux_ram1_sel : std_logic_vector(1 downto 0);
-  signal mux_out_sel  : std_logic;
-  signal mux_out_o    : std_logic_vector(7 downto 0);
-  signal filter_out   : std_logic_vector(7 downto 0);
-  signal filter_in    : std_logic_vector(7 downto 0);
-
-  signal da_latch_en  : std_logic;
-  signal ad_latch_en  : std_logic;
-  signal in_latch_en  : std_logic;
-  signal out_latch_en : std_logic;
-
-  signal mode_code    : std_logic_vector(2 downto 0);
-
------------================ RAM Blocks ==================-------------------
   signal ram0_ena   : std_logic;
   signal ram0_wea   : std_logic_vector(0 downto 0);
   signal ram0_addra : std_logic_vector(10 downto 0);
   signal ram0_dina  : std_logic_vector(7 downto 0);
+  signal ram0_clkb  : std_logic;
   signal ram0_enb   : std_logic;
   signal ram0_addrb : std_logic_vector(10 downto 0);
   signal ram0_doutb : std_logic_vector(7 downto 0);
@@ -184,6 +112,7 @@ architecture Behavioral of PCFG_TOP is
   signal ram1_wea   : std_logic_vector(0 downto 0);
   signal ram1_addra : std_logic_vector(10 downto 0);
   signal ram1_dina  : std_logic_vector(7 downto 0);
+  signal ram1_clkb  : std_logic;
   signal ram1_enb   : std_logic;
   signal ram1_addrb : std_logic_vector(10 downto 0);
   signal ram1_doutb : std_logic_vector(7 downto 0);
@@ -192,6 +121,7 @@ architecture Behavioral of PCFG_TOP is
   signal ad_ram_wea   : std_logic_vector(0 downto 0);
   signal ad_ram_addra : std_logic_vector(10 downto 0);
   signal ad_ram_dina  : std_logic_vector(7 downto 0);
+  signal ad_ram_clkb  : std_logic;
   signal ad_ram_enb   : std_logic;
   signal ad_ram_addrb : std_logic_vector(10 downto 0);
   signal ad_ram_doutb : std_logic_vector(7 downto 0);
@@ -200,10 +130,10 @@ architecture Behavioral of PCFG_TOP is
   signal da_ram_wea   : std_logic_vector(0 downto 0);
   signal da_ram_addra : std_logic_vector(10 downto 0);
   signal da_ram_dina  : std_logic_vector(7 downto 0);
+  signal da_ram_clkb  : std_logic;
   signal da_ram_enb   : std_logic;
   signal da_ram_addrb : std_logic_vector(10 downto 0);
   signal da_ram_doutb : std_logic_vector(7 downto 0);
------------====================================================-------------------
 
   signal s_clk : std_logic;
 --=== signals
@@ -218,7 +148,7 @@ architecture Behavioral of PCFG_TOP is
 
   signal sys_clk : std_logic;
 
-  signal s_reset : std_logic;
+  signal s_reset_b : std_logic;
 
   signal s_din         : std_logic_vector(7 downto 0);
   signal outlatch_dout : std_logic_vector(7 downto 0);
@@ -226,8 +156,8 @@ architecture Behavioral of PCFG_TOP is
 
 begin
 --clks
-  m_DAC_clk<= s_clk;    --- ʿ clock ϼ
-  m_AD9283_clk<= s_clk; --- ʿ clock ϼx
+  m_DAC_clk<= m_clk0			;--- ʿ clock ϼ
+  m_AD9283_clk<= m_clk0		;--- ʿ clock ϼx
 ------don't know the diff between two.
 ------Originally inputs to both sig were blank. 
 ------Just filled them w/ something to shut up error msg.(June)
@@ -241,183 +171,83 @@ begin
     port map(I=>m_clk,O=>s_clk);
 
 --tri state
-  s_din <= m_data;
-  m_data <= outlatch_dout when s_dout_en='1' else (others=>'Z');
+  s_din<=m_data;
+  m_data<=outlatch_dout when s_dout_en='1' else (others=>'Z');
 
   clk_gen : TOP_8254 port map( 
-    m_clk0  => s_clk,
-    m_clk1  => s_clk,
-    m_clk2  => s_clk,
-    m_wr_b  => not m_wen,
-    m_out0  => sys_clk,
-    m_out1  => open,
-    m_out2  => open,
-    m_data  => s_data,
-    m_reset => s_reset,
-    m_cs_b  => not s_pcs_addr,
-    m_addr  => s_address(1 downto 0),
-    m_gate0 => s_m_8254_gate0,
-    m_gate1 => s_m_8254_gate1,
-    m_gate2 => s_m_8254_gate2
-    );
+    m_clk0    => s_clk,
+    m_wr_b    => not m_wen,
+    m_out0    => sys_clk,
+    m_out1    => open,
+    m_out2    => open);
   
   s_m_8254_gate0	<= '1';
   s_m_8254_gate1	<= '1';
   s_m_8254_gate2	<= '1';
 
+
 --for debug
   m_TP(0)	<= s_clk; --test point. for s_clk     ̰ɷ äϴϱ ٲٸ  ȵ
   m_TP(1)	<= sys_clk;--test for 8254 output.   ̰ɷ äϴϱ ٲٸ  ȵ
-  m_led(7)    <= s_reset;
+  m_led(7) <= s_reset_b;
 -----------======================================================--------------------
 
+  clka  : IN  std_logic;
+  ena   : IN  std_logic;
+  wea   : IN  std_logic_vector(0 downto 0);
+  addra : IN  std_logic_vector(10 downto 0);
+  dina  : IN  std_logic_vector(7 downto 0);
+  clkb  : IN  std_logic;
+  enb   : IN  std_logic;
+  addrb : IN  std_logic_vector(10 downto 0);
+  doutb : OUT std_logic_vector(7 downto 0);
+
   RAM0 : memory_block port map( 
-    clka  => sys_clk,
+    clka  => clk,
     ena   => ram0_ena,
     wea   => ram0_wea,
     addra => ram0_addra,
     dina  => ram0_dina,
-    clkb  => s_clk,
+    clkb  => ram0_clkb,
     enb   => ram0_enb,
     addrb => ram0_addrb,
-    doutb => ram0_doutb
+    doutb => ram0_doubt,
     );
 
   RAM1 : memory_block port map( 
-    clka  => sys_clk,
+    clka  => clk,
     ena   => ram1_ena,
     wea   => ram1_wea,
     addra => ram1_addra,
     dina  => ram1_dina,
-    clkb  => s_clk,
+    clkb  => ram1_clkb,
     enb   => ram1_enb,
     addrb => ram1_addrb,
-    doutb => ram1_doutb
+    doutb => ram1_doubt,
     );
 
   AD_RAM : memory_block port map( 
-    clka  => sys_clk,
+    clka  => clk,
     ena   => ad_ram_ena,
     wea   => ad_ram_wea,
     addra => ad_ram_addra,
     dina  => ad_ram_dina,
-    clkb  => s_clk,
+    clkb  => ad_ram_clkb,
     enb   => ad_ram_enb,
     addrb => ad_ram_addrb,
-    doutb => ad_ram_doutb
+    doutb => ad_ram_doubt,
     );
 
   DA_RAM : memory_block port map( 
-    clka  => s_clk,
+    clka  => clk,
     ena   => da_ram_ena,
     wea   => da_ram_wea,
     addra => da_ram_addra,
     dina  => da_ram_dina,
-    clkb  => sys_clk,
+    clkb  => da_ram_clkb,
     enb   => da_ram_enb,
     addrb => da_ram_addrb,
-    doutb => da_ram_doutb
-    );
-
-  in_latch : fdce8 PORT MAP (
-    d            => m_data,
-    q            => s_data,
-    clock        => s_clk,
-    clear        => '0',
-    clock_enable => '1'
-    );
-
-  out_latch : fdce8 PORT MAP (
-    d            => mux_out_o,
-    q            => outlatch_dout,
-    clock        => s_clk,
-    clear        => '0',
-    clock_enable => '1'
-    );
-
-  da_latch : fdce8 PORT MAP (
-    d            => da_ram_doutb,
-    q            => m_DAC_data,
-    clock        => sys_clk,
-    clear        => '0',
-    clock_enable => '1'
-    );
-
-  ad_latch : fdce8 PORT MAP (
-    d            => m_ADC_data,
-    q            => ad_ram_dina,
-    clock        => sys_clk,
-    clear        => '0',
-    clock_enable => '1'
-    );
-
-  address_latch : fdce9 PORT MAP (
-    d            => m_address,
-    q            => s_address,
-    clock        => s_clk,
-    clear        => '0',
-    clock_enable => '1'
-    );
-
-  ren_latch : fdce PORT MAP (
-    d            => m_ren,
-    q            => s_ren,
-    clock        => s_clk,
-    clear        => '0',
-    clock_enable => '1'
-    );
-
-  wen_latch : fdce PORT MAP (
-    d            => m_wen,
-    q            => s_wen,
-    clock        => s_clk,
-    clear        => '0',
-    clock_enable => '1'
-    );
-
-  oe_latch : fdce PORT MAP (
-    d            => m_oe_b,
-    q            => s_oe_b,
-    clock        => s_clk,
-    clear        => '0',
-    clock_enable => '1'
-    );
-
-  cmd_latch : fdce PORT MAP (
-    d            => m_cmd_data,
-    q            => s_cmd_data,
-    clock        => s_clk,
-    clear        => '0',
-    clock_enable => '1'
-    );
-
-  out_mux: multiplexer_2to1 port map(
-    sel => mux_out_sel, 
-    in0 => ram0_doutb,
-    in1 => ram1_doutb,
-    o   => mux_out_o
-    );
-
-  ram0_mux: multiplexer_2to1 port map(
-    sel => mux_ram0_sel, 
-    in0 => s_data,
-    in1 => ad_ram_doutb,
-    o   => ram0_dina
-    );
-
-  ram1_mux: multiplexer_3to1 port map(
-    sel => mux_ram1_sel,  
-    in0 => filter_out,
-    in1 => ram0_doutb,
-    in2 => s_data,
-    o   => ram1_dina
-    );
-
-  decoder: address_decoder PORT MAP (
-    s_address => s_address,
-    mode_code => mode_code,
-    s_pcs_addr => s_pcs_addr,
-    s_reset_addr => s_reset
+    doutb => da_ram_doubt,
     );
 
   m_led(6 downto 0)<=s_led(6 downto 0);

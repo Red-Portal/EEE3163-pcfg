@@ -2,10 +2,14 @@
 <report-views version="2.0" >
  <header>
 <<<<<<< HEAD
+<<<<<<< HEAD
   <DateModified>2018-11-14T17:24:52</DateModified>
 =======
   <DateModified>2018-11-14T22:30:45</DateModified>
 >>>>>>> dfa3576e34fde7fbf602852b7ac6f12b5acb792c
+=======
+  <DateModified>2018-11-14T17:46:45</DateModified>
+>>>>>>> parent of dfa3576... finished top module - no simulation performed yet.
   <ModuleName>tb_pcfg</ModuleName>
   <SummaryTimeStamp>Unknown</SummaryTimeStamp>
   <SavedFilePath>/home/msca8h/Projects/EEE3163-pcfg/iseconfig/tb_pcfg.xreport</SavedFilePath>
