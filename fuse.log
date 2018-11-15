@@ -1,5 +1,6 @@
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 Running: C:\Xilinx\14.7\ISE_DS\ISE\bin\nt64\unwrapped\fuse.exe -intstyle ise -incremental -o C:/Users/JUNE/Documents/GitHub/EEE3163-pcfg/memory_block_test_isim_beh.exe -prj C:/Users/JUNE/Documents/GitHub/EEE3163-pcfg/memory_block_test_beh.prj work.memory_block_test 
 ISim P.20131013 (signature 0x7708f090)
 Number of CPUs detected in this system: 8
@@ -14,6 +15,9 @@ Running: /opt/Xilinx/14.7/ISE_DS/ISE/bin/lin64/unwrapped/fuse -intstyle ise -inc
 =======
 Running: /opt/Xilinx/14.7/ISE_DS/ISE/bin/lin64/unwrapped/fuse -intstyle ise -incremental -o /home/msca8h/Projects/EEE3163-pcfg/address_decoder_test_isim_beh.exe -prj /home/msca8h/Projects/EEE3163-pcfg/address_decoder_test_beh.prj work.address_decoder_test 
 >>>>>>> parent of dfa3576... finished top module - no simulation performed yet.
+=======
+Running: /opt/Xilinx/14.7/ISE_DS/ISE/bin/lin64/unwrapped/fuse -intstyle ise -incremental -o /home/msca8h/Projects/EEE3163-pcfg/address_decoder_test_isim_beh.exe -prj /home/msca8h/Projects/EEE3163-pcfg/address_decoder_test_beh.prj work.address_decoder_test 
+>>>>>>> parent of dfa3576... finished top module - no simulation performed yet.
 ISim P.20131013 (signature 0xfbc00daa)
 Number of CPUs detected in this system: 8
 Turning on mult-threading, number of parallel sub-compilation jobs: 16 
@@ -23,9 +27,14 @@ Parsing VHDL file "/home/msca8h/Projects/EEE3163-pcfg/address_decoder_test.vhd" 
 Starting static elaboration
 Completed static elaboration
 <<<<<<< HEAD
+<<<<<<< HEAD
 Fuse Memory Usage: 84936 KB
 Fuse CPU Usage: 1010 ms
 >>>>>>> dfa3576e34fde7fbf602852b7ac6f12b5acb792c
+=======
+Fuse Memory Usage: 85048 KB
+Fuse CPU Usage: 1070 ms
+>>>>>>> parent of dfa3576... finished top module - no simulation performed yet.
 =======
 Fuse Memory Usage: 85048 KB
 Fuse CPU Usage: 1070 ms
@@ -37,6 +46,7 @@ Compiling architecture behavioral of entity address_decoder [address_decoder_def
 Compiling architecture behavior of entity address_decoder_test
 Time Resolution for simulation is 1ps.
 Waiting for 1 sub-compilation(s) to finish...
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 WARNING:Simulator - Unable to copy libPortabilityNOSH.dll to the simulation executable directory: boost::filesystem::copy_file: 지정된 경로를 찾을 수 없습니다, "isim\memory_block_test_isim_beh.exe.sim\libPortability.dll".
@@ -52,9 +62,14 @@ Fuse CPU Usage: 1060 ms
 GCC CPU Usage: 340 ms
 >>>>>>> dfa3576e34fde7fbf602852b7ac6f12b5acb792c
 =======
+=======
+>>>>>>> parent of dfa3576... finished top module - no simulation performed yet.
 Compiled 6 VHDL Units
 Built simulation executable /home/msca8h/Projects/EEE3163-pcfg/address_decoder_test_isim_beh.exe
 Fuse Memory Usage: 1180900 KB
 Fuse CPU Usage: 1150 ms
 GCC CPU Usage: 1390 ms
+<<<<<<< HEAD
+>>>>>>> parent of dfa3576... finished top module - no simulation performed yet.
+=======
 >>>>>>> parent of dfa3576... finished top module - no simulation performed yet.

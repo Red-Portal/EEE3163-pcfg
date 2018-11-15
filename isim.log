@@ -1,12 +1,16 @@
 ISim log file
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 Running: C:\Users\JUNE\Documents\GitHub\EEE3163-pcfg\memory_block_test_isim_beh.exe -intstyle ise -gui -tclbatch isim.cmd -wdb C:/Users/JUNE/Documents/GitHub/EEE3163-pcfg/memory_block_test_isim_beh.wdb 
 ISim P.20131013 (signature 0x7708f090)
 WARNING: A WEBPACK license was found.
 WARNING: Please use Xilinx License Configuration Manager to check out a full ISim license.
 =======
 Running: /home/msca8h/Projects/EEE3163-pcfg/tb181111_01forTOP_8254_isim_beh.exe -intstyle ise -gui -tclbatch isim.cmd -wdb /home/msca8h/Projects/EEE3163-pcfg/tb181111_01forTOP_8254_isim_beh.wdb 
+=======
+Running: /home/msca8h/Projects/EEE3163-pcfg/address_decoder_test_isim_beh.exe -intstyle ise -gui -tclbatch isim.cmd -wdb /home/msca8h/Projects/EEE3163-pcfg/address_decoder_test_isim_beh.wdb 
+>>>>>>> parent of dfa3576... finished top module - no simulation performed yet.
 =======
 Running: /home/msca8h/Projects/EEE3163-pcfg/address_decoder_test_isim_beh.exe -intstyle ise -gui -tclbatch isim.cmd -wdb /home/msca8h/Projects/EEE3163-pcfg/address_decoder_test_isim_beh.wdb 
 >>>>>>> parent of dfa3576... finished top module - no simulation performed yet.
@@ -39,6 +43,7 @@ Time resolution is 1 ps
 # run 1000 ns
 Simulator is doing circuit initialization process.
 Finished circuit initialization process.
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 at 387500 ps(1): Note: Block Memory Generator CORE Generator module is using a behavioral model FOR simulation which will not precisely model memory collision behavior. (/memory_block_test/uut/U0/native_mem_module/mem_module/).
@@ -74,6 +79,8 @@ at 1 us(1), Instance /memory_block_test/uut/U0/native_mem_module/mem_module/ : W
 Simulator is doing circuit initialization process.
 Finished circuit initialization process.
 Stopped at time : 2469305 ns : File "/home/msca8h/Projects/EEE3163-pcfg/top_8254.vhd" Line 107
+=======
+>>>>>>> parent of dfa3576... finished top module - no simulation performed yet.
 =======
 >>>>>>> parent of dfa3576... finished top module - no simulation performed yet.
 # exit 0
