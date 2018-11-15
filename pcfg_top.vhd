@@ -93,18 +93,18 @@ architecture Behavioral of PCFG_TOP is
   END COMPONENT;
 
   component TOP_8254 is
-    Port ( m_clk0    : in  STD_LOGIC;
-           m_clk1    : in  STD_LOGIC;
-           m_clk2    : in  STD_LOGIC;
-           m_clk_ctr : in  STD_LOGIC;
+    Port ( m_clk0    : in STD_LOGIC;
+           m_clk1    : in STD_LOGIC;
+           m_clk2    : in STD_LOGIC;
+           m_clk_ctr : in STD_LOGIC;
            m_reset   : in STD_LOGIC;
-           m_data    : in  STD_LOGIC_VECTOR (7 downto 0);
-           m_gate0   : in  STD_LOGIC;
-           m_gate1   : in  STD_LOGIC;
-           m_gate2   : in  STD_LOGIC;
-           m_addr    : in  STD_LOGIC_VECTOR (1 downto 0);
-           m_cs_b    : in  STD_LOGIC;
-           m_wr_b    : in  STD_LOGIC;
+           m_data    : in STD_LOGIC_VECTOR (7 downto 0);
+           m_gate0   : in STD_LOGIC;
+           m_gate1   : in STD_LOGIC;
+           m_gate2   : in STD_LOGIC;
+           m_addr    : in STD_LOGIC_VECTOR (1 downto 0);
+           m_cs_b    : in STD_LOGIC;
+           m_wr_b    : in STD_LOGIC;
            
            m_out0    : out  STD_LOGIC;
            m_out1    : out  STD_LOGIC;
@@ -150,8 +150,8 @@ architecture Behavioral of PCFG_TOP is
       );
   END component;
 
-  signal s_data     : std_logic_vector(7 to 0);
-  signal s_address  : std_logic_vector(9 to 0);
+  signal s_data     : std_logic_vector(7 downto 0);
+  signal s_address  : std_logic_vector(8 downto 0);
   signal s_cmd_data : std_logic;
   signal s_wen      : std_logic;
   signal s_ren      : std_logic;
@@ -245,20 +245,21 @@ begin
   m_data <= outlatch_dout when s_dout_en='1' else (others=>'Z');
 
   clk_gen : TOP_8254 port map( 
-    m_clk0  => s_clk,
-    m_clk1  => s_clk,
-    m_clk2  => s_clk,
-    m_wr_b  => not m_wen,
-    m_out0  => sys_clk,
-    m_out1  => open,
-    m_out2  => open,
-    m_data  => s_data,
-    m_reset => s_reset,
-    m_cs_b  => not s_pcs_addr,
-    m_addr  => s_address(1 downto 0),
-    m_gate0 => s_m_8254_gate0,
-    m_gate1 => s_m_8254_gate1,
-    m_gate2 => s_m_8254_gate2
+    m_clk0    => s_clk,
+    m_clk1    => s_clk,
+    m_clk2    => s_clk,
+    m_clk_ctr => s_clk,
+    m_wr_b    => not m_wen,
+    m_out0    => sys_clk,
+    m_out1    => open,
+    m_out2    => open,
+    m_data    => s_din,
+    m_reset   => s_reset,
+    m_cs_b    => not s_pcs_addr,
+    m_addr    => s_address(1 downto 0),
+    m_gate0   => s_m_8254_gate0,
+    m_gate1   => s_m_8254_gate1,
+    m_gate2   => s_m_8254_gate2
     );
   
   s_m_8254_gate0	<= '1';
@@ -320,7 +321,7 @@ begin
     );
 
   in_latch : fdce8 PORT MAP (
-    d            => m_data,
+    d            => s_din,
     q            => s_data,
     clock        => s_clk,
     clear        => '0',

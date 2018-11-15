@@ -160,10 +160,6 @@ BEGIN
     m_led => m_led,
     m_TP => m_TP
     );
-  
-  
-
-  
 
   -- Clock process definitions
   m_clk_process :process
@@ -173,8 +169,6 @@ BEGIN
     m_clk <= '1';
     wait for m_clk_period/2;
   end process;
-  
-  
 
   -- Stimulus process
   stim_proc: process
@@ -192,7 +186,6 @@ BEGIN
     CMD_WR("101000000","00000000",m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);  -- MSB 00
     wait for 10 us;
 
-    
     for i in 0 to 99 loop			
       CMD_WR('1' & x"81",conv_std_logic_vector(i,8),m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);	-- RAM0에 100개 쓰기
       wait for 1 us;
