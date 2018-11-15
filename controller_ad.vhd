@@ -54,7 +54,7 @@ architecture Behavioral of controller_ad is
                    st_clearwait0,
                    st_clearwait1,
                    st_delay0,
-                   st_delay1
+                   st_delay1,
                    st_read0,
                    st_read1
                    );
@@ -72,7 +72,7 @@ architecture Behavioral of controller_ad is
 
   signal count_ad_ram_ce   : std_logic;
   signal count_ad_ram_sclr : std_logic;
-  signal count_ad_ram_q    : std_logic
+  signal count_ad_ram_q    : std_logic;
 
 begin
   -- Instantiate the Unit Under Test (UUT)

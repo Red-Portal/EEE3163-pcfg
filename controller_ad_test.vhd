@@ -93,7 +93,7 @@ BEGIN
     ram0_wea => ram0_wea,
     reg_ad_data => reg_ad_data,
     ad_ram0_addr => ad_ram0_addr,
-    ad_latch_en => ad_latch_en
+    ad_latch_en => ad_latch_en,
     count_ram0_ce => count_ram0_ce,
     count_ram0_clr => count_ram0_clr
     );

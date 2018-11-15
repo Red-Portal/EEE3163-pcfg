@@ -1,1 +1,1 @@
--intstyle "ise" -incremental -o "/home/msca8h/Projects/EEE3163-pcfg/memory_block_test_isim_beh.exe" -prj "/home/msca8h/Projects/EEE3163-pcfg/memory_block_test_beh.prj" "work.memory_block_test" 
+-intstyle "ise" -incremental -o "C:/Users/JUNE/Documents/GitHub/EEE3163-pcfg/memory_block_test_isim_beh.exe" -prj "C:/Users/JUNE/Documents/GitHub/EEE3163-pcfg/memory_block_test_beh.prj" "work.memory_block_test" 
