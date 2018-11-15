@@ -8,37 +8,37 @@
 <!-- Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.    -->
 
 <messages>
-<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;/home/msca8h/Projects/EEE3163-pcfg/address_decoder.vhd&quot; into library work</arg>
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;/home/msca8h/Downloads/EEE3163-pcfg-dfa3576e34fde7fbf602852b7ac6f12b5acb792c/address_decoder.vhd&quot; into library work</arg>
 </msg>
 
-<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;/home/msca8h/Projects/EEE3163-pcfg/controller_ad.vhd&quot; into library work</arg>
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;/home/msca8h/Downloads/EEE3163-pcfg-dfa3576e34fde7fbf602852b7ac6f12b5acb792c/controller_ad.vhd&quot; into library work</arg>
 </msg>
 
-<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;/home/msca8h/Projects/EEE3163-pcfg/fdce.vhd&quot; into library work</arg>
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;/home/msca8h/Downloads/EEE3163-pcfg-dfa3576e34fde7fbf602852b7ac6f12b5acb792c/fdce.vhd&quot; into library work</arg>
 </msg>
 
-<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;/home/msca8h/Projects/EEE3163-pcfg/fdce8.vhd&quot; into library work</arg>
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;/home/msca8h/Downloads/EEE3163-pcfg-dfa3576e34fde7fbf602852b7ac6f12b5acb792c/fdce8.vhd&quot; into library work</arg>
 </msg>
 
-<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;/home/msca8h/Projects/EEE3163-pcfg/fdce9.vhd&quot; into library work</arg>
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;/home/msca8h/Downloads/EEE3163-pcfg-dfa3576e34fde7fbf602852b7ac6f12b5acb792c/fdce9.vhd&quot; into library work</arg>
 </msg>
 
-<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;/home/msca8h/Projects/EEE3163-pcfg/multiplexer_2to1.vhd&quot; into library work</arg>
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;/home/msca8h/Downloads/EEE3163-pcfg-dfa3576e34fde7fbf602852b7ac6f12b5acb792c/multiplexer_2to1.vhd&quot; into library work</arg>
 </msg>
 
-<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;/home/msca8h/Projects/EEE3163-pcfg/multiplexer_3to1.vhd&quot; into library work</arg>
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;/home/msca8h/Downloads/EEE3163-pcfg-dfa3576e34fde7fbf602852b7ac6f12b5acb792c/multiplexer_3to1.vhd&quot; into library work</arg>
 </msg>
 
-<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;/home/msca8h/Projects/EEE3163-pcfg/pcfg_top.vhd&quot; into library work</arg>
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;/home/msca8h/Downloads/EEE3163-pcfg-dfa3576e34fde7fbf602852b7ac6f12b5acb792c/pcfg_top.vhd&quot; into library work</arg>
 </msg>
 
-<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;/home/msca8h/Projects/EEE3163-pcfg/tb_pcfg.vhd&quot; into library work</arg>
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;/home/msca8h/Downloads/EEE3163-pcfg-dfa3576e34fde7fbf602852b7ac6f12b5acb792c/tb_pcfg.vhd&quot; into library work</arg>
 </msg>
 
-<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;/home/msca8h/Projects/EEE3163-pcfg/top_8254.vhd&quot; into library work</arg>
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;/home/msca8h/Downloads/EEE3163-pcfg-dfa3576e34fde7fbf602852b7ac6f12b5acb792c/top_8254.vhd&quot; into library work</arg>
 </msg>
 
-<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;/home/msca8h/Projects/EEE3163-pcfg/tw_8254_cnt.vhd&quot; into library work</arg>
+<msg type="info" file="ProjectMgmt" num="1061" ><arg fmt="%s" index="1">Parsing VHDL file &quot;/home/msca8h/Downloads/EEE3163-pcfg-dfa3576e34fde7fbf602852b7ac6f12b5acb792c/tw_8254_cnt.vhd&quot; into library work</arg>
 </msg>
 
 </messages>
