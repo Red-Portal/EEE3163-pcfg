@@ -1,0 +1,2 @@
+vhdl work "address_decoder.vhd"
+vhdl work "address_decoder_test.vhd"
