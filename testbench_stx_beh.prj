@@ -1,4 +1,4 @@
-vhdl isim_temp "multiplexer_2to1.vhd"
-vhdl isim_temp "multiplexer_3to1.vhd"
-vhdl isim_temp "multiplexer_2to1_test.vhd"
-vhdl isim_temp "multiplexer_3to1_test.vhd"
+vhdl isim_temp "ipcore_dir/counter.vhd"
+vhdl isim_temp "fdce11.vhd"
+vhdl isim_temp "control_signal_gen.vhd"
+vhdl isim_temp "control_signal_gen_test.vhd"

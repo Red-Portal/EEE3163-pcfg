@@ -4,7 +4,7 @@
 -- 
 -- Create Date:    14:01:22 11/16/2018 
 -- Design Name: 
--- Module Name:    control_signal_gen - Behavioral 
+-- Module Name:    ctrl_signal_gen - Behavioral 
 -- Project Name: 
 -- Target Devices: 
 -- Tool versions: 
@@ -40,6 +40,7 @@ entity control_signal_gen is
     s_data       : in  STD_LOGIC_VECTOR (7 downto 0);
     s_wen        : in  STD_LOGIC;
     s_ren        : in  STD_LOGIC;
+    s_oe_b       : in  STD_LOGIC;
 
     ram0_ena     : out STD_LOGIC;
     ram0_wea     : out STD_LOGIC_VECTOR (0 downto 0);
@@ -93,6 +94,15 @@ architecture Behavioral of control_signal_gen is
       );
   END component;
 
+  COMPONENT counter
+    PORT(
+      clk  : IN  std_logic;
+      ce   : IN  std_logic;
+      sclr : IN  std_logic;
+      q    : OUT std_logic_vector(10 downto 0)
+      );
+  END COMPONENT;
+
   constant mode_pc0      : std_logic_vector(2 downto 0) := "001";
   constant mode_pc1      : std_logic_vector(2 downto 0) := "010";
   constant mode_transfer : std_logic_vector(2 downto 0) := "011";
@@ -105,16 +115,248 @@ architecture Behavioral of control_signal_gen is
   signal reg_data_count_clear : std_logic;
   signal reg_data_count_din   : std_logic_vector(10 downto 0);
   signal reg_data_count_dout  : std_logic_vector(10 downto 0);
+
+  signal count_ram0_clk  : std_logic;
+  signal count_ram0_ce   : std_logic;
+  signal count_ram0_sclr : std_logic;
+  signal count_ram0_q    : std_logic_vector(10 downto 0);
+
+  signal count_ram1_clk  : std_logic;
+  signal count_ram1_ce   : std_logic;
+  signal count_ram1_sclr : std_logic;
+  signal count_ram1_q    : std_logic_vector(10 downto 0);
+
+  signal pc_read_ready_flag : std_logic;
+  signal pc_write_ready_flag : std_logic;
+
+  signal ctrl_pc0_write : std_logic;
+  signal ctrl_pc0_read  : std_logic;
+  signal ctrl_pc1_write : std_logic;
+  signal ctrl_pc1_read  : std_logic;
+  signal ctrl_transfer  : std_logic;
+  signal ctrl_da_start  : std_logic;
+  signal ctrl_da_stop   : std_logic;
+  signal ctrl_ad        : std_logic;
+  signal ctrl_avg       : std_logic;
+
+  type state_t is (st_reset,
+                   st_idle,
+                   st_transfer_mode,
+                   st_ad_mode,
+                   st_da_mode,
+                   st_avg_mode,
+                   st_pc0_clear,
+                   st_pc0_read_mode,
+                   st_pc0_read_wait,
+                   st_pc0_write_mode,
+                   st_pc0_write_wait,
+                   st_pc1_clear,
+                   st_pc1_read_mode,
+                   st_pc1_read_wait,
+                   st_pc1_write_mode,
+                   st_pc1_write_wait
+                   );
+  signal current_state, next_state: state_t;
 begin
 
+  pc_read_ready_flag  <= not s_oe_b;
+  pc_write_ready_flag <= s_oe_b;
+  
   data_count_reg: fdce11 PORT MAP (
     clock        => s_clk,
     clock_enable => reg_data_count_load,
-    clear        => reg_data_count_clear or m_reset or s_reset_addr,
+    clear        => reg_data_count_clear,
     d            => reg_data_count_din,
     q            => reg_data_count_dout
     );
 
-  
+  ram0_counter: counter PORT MAP (
+    clk  => count_ram0_clk,
+    ce   => count_ram0_ce,
+    sclr => count_ram0_sclr,
+    q    => count_ram0_q
+    );
+
+  ram1_counter: counter PORT MAP (
+    clk  => count_ram1_clk,
+    ce   => count_ram1_ce,
+    sclr => count_ram1_sclr,
+    q    => count_ram1_q
+    );
+
+  clk_proc: process(s_clk, m_reset)
+  begin
+    if(m_reset = '1') then
+      current_state <= st_reset;
+    elsif (rising_edge(s_clk)) then
+      current_state <= next_state;
+    end if;
+  end process;
+
+  pcfg_control_proc: process(s_clk)
+  begin
+    case current_state is
+      when st_reset =>
+        reg_data_count_clear <= '1';
+        count_ram0_sclr      <= '1';
+        count_ram1_sclr      <= '1';
+        next_state           <= st_idle;
+        ctrl_pc0_write       <= '0';
+        ctrl_pc0_read        <= '0';
+        ctrl_pc1_write       <= '0';
+        ctrl_pc1_read        <= '0';
+        ctrl_transfer        <= '0';
+        ctrl_da_start        <= '0';
+        ctrl_da_stop         <= '0';
+        ctrl_ad              <= '0';
+        ctrl_avg             <= '0';
+        
+      when st_idle =>
+        reg_data_count_clear <= '0';
+        count_ram0_sclr      <= '0';
+        count_ram1_sclr      <= '0';
+        ctrl_pc0_write       <= '0';
+        ctrl_pc0_read        <= '0';
+        ctrl_pc1_write       <= '0';
+        ctrl_pc1_read        <= '0';
+        ctrl_transfer        <= '0';
+        ctrl_da_start        <= '0';
+        ctrl_da_stop         <= '0';
+        ctrl_ad              <= '0';
+        ctrl_avg             <= '0';
+
+        if(mode_addr = mode_pc0) then
+          next_state <= st_pc0_clear;
+          
+        elsif(mode_addr = mode_pc1) then
+          next_state <= st_pc1_clear;
+
+        elsif(mode_addr = mode_transfer) then
+          next_state <= st_transfer_mode;
+
+        elsif(mode_addr = mode_da_start) then
+          next_state <= st_da_mode;
+
+        elsif(mode_addr = mode_ad) then
+          next_state <= st_ad_mode;
+          
+        elsif(mode_addr = mode_avg) then
+          next_state <= st_avg_mode;
+
+        end if;
+        
+      when st_ad_mode =>
+
+      when st_da_mode =>
+        if(mode_addr = mode_da_stop) then
+          next_state <= st_idle;
+        else
+          next_state <= st_da_mode;
+        end if;
+
+      when st_transfer_mode =>
+        
+      when st_pc0_clear =>
+        count_ram0_sclr <= '1';
+        if(pc_read_ready_flag = '1') then
+          next_state <= st_pc0_read_mode;
+        elsif(pc_write_ready_flag = '1') then
+          next_state <= st_pc0_write_mode;
+        else
+          next_state <= st_reset;
+        end if;
+
+      when st_pc0_read_mode =>
+        count_ram0_sclr <= '0';
+        ctrl_pc0_read   <= '1';
+
+        if(pc_read_ready_flag = '1') then
+          next_state <= st_pc0_read_mode;
+        else
+          next_state <= st_pc0_read_wait;
+        end if;
+
+      when st_pc0_read_wait =>
+        ctrl_pc0_read   <= '0';
+
+        if(mode_addr = mode_pc0 and pc_read_ready_flag = '1') then
+          next_state <= st_pc0_read_mode;
+        else
+          next_state <= st_idle;
+        end if;
+
+      when st_pc0_write_mode =>
+        count_ram0_sclr <= '0';
+        next_state      <= st_pc0_write_wait;
+        ctrl_pc0_write  <= '1';
+
+        if(pc_write_ready_flag = '1') then
+          next_state <= st_pc0_write_mode;
+        else
+          next_state <= st_pc0_write_wait;
+        end if;
+
+      when st_pc0_write_wait =>
+        ctrl_pc0_write  <= '0';
+
+        if(mode_addr = mode_pc0 and pc_write_ready_flag = '1') then
+          next_state <= st_pc0_write_mode;
+        else
+          next_state <= st_idle;
+        end if;
+
+      when st_pc1_clear =>
+        count_ram1_sclr <= '1';
+        if(pc_read_ready_flag = '1') then
+          next_state <= st_pc1_read_mode;
+        elsif(pc_write_ready_flag = '1') then
+          next_state <= st_pc1_write_mode;
+        else
+          next_state <= st_reset;
+        end if;
+
+      when st_pc1_read_mode =>
+        count_ram1_sclr <= '0';
+        next_state      <= st_pc1_read_wait;
+        ctrl_pc1_read   <= '1';
+
+        if(pc_read_ready_flag = '1') then
+          next_state <= st_pc1_read_mode;
+        else
+          next_state <= st_pc1_read_wait;
+        end if;
+
+      when st_pc1_read_wait =>
+        ctrl_pc1_read   <= '0';
+
+        if(mode_addr = mode_pc1 and pc_read_ready_flag = '1') then
+          next_state <= st_pc1_read_mode;
+        else
+          next_state <= st_idle;
+        end if;
+
+      when st_pc1_write_mode =>
+        count_ram1_sclr <= '0';
+        next_state      <= st_pc1_write_wait;
+        ctrl_pc1_write  <= '1';
+
+        if(pc_write_ready_flag = '1') then
+          next_state <= st_pc1_write_mode;
+        else
+          next_state <= st_pc1_write_wait;
+        end if;
+
+      when st_pc1_write_wait =>
+        ctrl_pc1_write  <= '0';
+
+        if(mode_addr = mode_pc1 and pc_write_ready_flag = '1') then
+          next_state <= st_pc1_write_mode;
+        else
+          next_state <= st_idle;
+        end if;
+      when others =>
+        next_state <= st_reset;
+    end case;
+  end process;
 end Behavioral;
 

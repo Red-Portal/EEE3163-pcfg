@@ -70,6 +70,7 @@ architecture Behavioral of PCFG_TOP is
       s_data       : in  STD_LOGIC_VECTOR (7 downto 0);
       s_wen        : in  STD_LOGIC;
       s_ren        : in  STD_LOGIC;
+      s_oe_b       : in std_logic;
 
       ram0_ena     : out STD_LOGIC;
       ram0_wea     : out STD_LOGIC_VECTOR (0 downto 0);
@@ -472,7 +473,7 @@ begin
     );
 
   controller: control_signal_gen port map(
-    m_reset      => m_reset,
+    m_reset      => not m_reset_b,
     s_reset_addr => s_reset_addr,
 
     s_clk        => s_clk,
@@ -481,6 +482,7 @@ begin
     s_data       => s_data,
     s_wen        => s_wen,
     s_ren        => s_ren,
+    s_oe_b       => s_oe_b,
 
     ram0_ena     => ram0_ena,
     ram0_wea     => ram0_wea,
