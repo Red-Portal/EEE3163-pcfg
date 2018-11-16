@@ -75,16 +75,16 @@ begin
           count_ram_ce <= '1';
           next_state <= st_rw;
 
-          if(s_wen = '0') then
-            NS <= st_cntw0;
+          if(ctrl_pc_write = '1') then
+            NS <= st_r;
           else
-            NS <= st_w0;
+            NS <= st_w;
           end if;
           
-        when st_w0 =>
-          ram0_ena <= '1';
-          ram0_wea <= "1";
-          latch_in_en <= '1';
+        when st_r =>
+          count_ram_ce <= '0';
+          ram_ena <= '1';
+          ram_wea <= "1";
           mux_ram0_sel <= '0';
           
           if(s_wen = '0') then
@@ -92,7 +92,6 @@ begin
           else
             NS <= st_w0;
           end if;
-
 
         when st_cntw0 =>
           count_ram0_ce <= '1';

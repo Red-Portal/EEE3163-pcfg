@@ -69,14 +69,9 @@
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
     </transform>
-    <transform xil_pn:end_ts="1542376490" xil_pn:in_ck="4526048220974588306" xil_pn:name="TRAN_copyAbstractToPostAbstractSimulation" xil_pn:start_ts="1542376490">
+    <transform xil_pn:end_ts="1542389559" xil_pn:in_ck="6918599214322265935" xil_pn:name="TRAN_copyAbstractToPostAbstractSimulation" xil_pn:start_ts="1542389559">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
-      <status xil_pn:value="OutOfDateForInputs"/>
-      <status xil_pn:value="OutOfDateForOutputs"/>
-      <status xil_pn:value="InputAdded"/>
-      <status xil_pn:value="InputChanged"/>
-      <status xil_pn:value="OutputChanged"/>
       <outfile xil_pn:name="address_decoder.vhd"/>
       <outfile xil_pn:name="address_decoder_test.vhd"/>
       <outfile xil_pn:name="control_signal_gen.vhd"/>
@@ -84,6 +79,8 @@
       <outfile xil_pn:name="controller_ad.vhd"/>
       <outfile xil_pn:name="controller_ad_test.vhd"/>
       <outfile xil_pn:name="controller_da.vhd"/>
+      <outfile xil_pn:name="controller_da_test.vhd"/>
+      <outfile xil_pn:name="controller_pc.vhd"/>
       <outfile xil_pn:name="counter_test.vhd"/>
       <outfile xil_pn:name="fdce.vhd"/>
       <outfile xil_pn:name="fdce11.vhd"/>
@@ -121,7 +118,6 @@
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
       <status xil_pn:value="OutOfDateForInputs"/>
-      <status xil_pn:value="OutOfDateForPredecessor"/>
       <status xil_pn:value="OutOfDateForOutputs"/>
       <status xil_pn:value="InputAdded"/>
       <status xil_pn:value="InputChanged"/>
@@ -132,7 +128,6 @@
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
       <status xil_pn:value="OutOfDateForInputs"/>
-      <status xil_pn:value="OutOfDateForProperties"/>
       <status xil_pn:value="OutOfDateForPredecessor"/>
       <status xil_pn:value="OutOfDateForOutputs"/>
       <status xil_pn:value="InputRemoved"/>
@@ -143,7 +138,6 @@
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
       <status xil_pn:value="OutOfDateForInputs"/>
-      <status xil_pn:value="OutOfDateForProperties"/>
       <status xil_pn:value="OutOfDateForPredecessor"/>
       <status xil_pn:value="OutOfDateForOutputs"/>
       <status xil_pn:value="InputRemoved"/>

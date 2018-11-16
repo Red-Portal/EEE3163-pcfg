@@ -113,7 +113,7 @@ architecture Behavioral of control_signal_gen is
 
   signal count_data_ce   : std_logic;
   signal count_data_sclr : std_logic;
-  signal count_data_q    : std_logic;
+  signal count_data_q    : std_logic_vector(10 downto 0);
   
   signal count_ram0_clk  : std_logic;
   signal count_ram0_ce   : std_logic;
@@ -166,7 +166,7 @@ architecture Behavioral of control_signal_gen is
   signal current_state, next_state: state_t;
 begin
   data_counter: counter PORT MAP (
-    clk  => s_clk
+    clk  => s_clk,
     ce   => count_data_ce,
     sclr => count_data_sclr,
     q    => count_data_q
@@ -212,7 +212,7 @@ begin
     if(rising_edge(s_clk)) then
       case current_state is
         when st_reset =>
-          reg_data_count_clear <= '1';
+          count_data_sclr      <= '1';
           count_ram0_sclr      <= '1';
           count_ram1_sclr      <= '1';
           next_state           <= st_idle;
@@ -227,7 +227,7 @@ begin
           ctrl_avg             <= '0';
           
         when st_idle =>
-          reg_data_count_clear <= '0';
+          count_data_sclr      <= '0';
           count_ram0_sclr      <= '0';
           count_ram1_sclr      <= '0';
           ctrl_pc0_write       <= '0';

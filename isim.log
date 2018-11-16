@@ -1,5 +1,5 @@
 ISim log file
-Running: /home/msca8h/Projects/EEE3163-pcfg/tb_pcfg_isim_beh.exe -intstyle ise -gui -tclbatch isim.cmd -wdb /home/msca8h/Projects/EEE3163-pcfg/tb_pcfg_isim_beh.wdb 
+Running: /home/msca8h/Projects/EEE3163-pcfg/testbench_isim_beh.exe -intstyle ise -gui -tclbatch isim.cmd -wdb /home/msca8h/Projects/EEE3163-pcfg/testbench_isim_beh.wdb 
 ISim P.20131013 (signature 0xfbc00daa)
 ----------------------------------------------------------------------
 INFO:Security:51 - The XILINXD_LICENSE_FILE environment variable is not set.
@@ -27,11 +27,4 @@ Time resolution is 1 ps
 # wave add /
 # run 1000 ns
 Simulator is doing circuit initialization process.
-at 0 ps, Instance /tb_pcfg/uut/clk_gen/CNT0/ : Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
 Finished circuit initialization process.
-# restart
-# run all
-Simulator is doing circuit initialization process.
-Finished circuit initialization process.
-Stopped at time : 2625962500 ps : File "/home/msca8h/Projects/EEE3163-pcfg/pcfg_top.vhd" Line 229
-# exit 0

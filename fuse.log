@@ -4,17 +4,15 @@ Number of CPUs detected in this system: 8
 Turning on mult-threading, number of parallel sub-compilation jobs: 16 
 Determining compilation order of HDL files
 Parsing VHDL file "/home/msca8h/Projects/EEE3163-pcfg/ipcore_dir/counter.vhd" into library work
-Parsing VHDL file "/home/msca8h/Projects/EEE3163-pcfg/fdce11.vhd" into library work
 Parsing VHDL file "/home/msca8h/Projects/EEE3163-pcfg/control_signal_gen.vhd" into library work
 Parsing VHDL file "/home/msca8h/Projects/EEE3163-pcfg/control_signal_gen_test.vhd" into library work
 Starting static elaboration
 Completed static elaboration
-Fuse Memory Usage: 90788 KB
-Fuse CPU Usage: 1240 ms
+Fuse Memory Usage: 90760 KB
+Fuse CPU Usage: 1180 ms
 Compiling package standard
 Compiling package std_logic_1164
 Compiling package numeric_std
-Compiling architecture behavior of entity fdce11 [fdce11_default]
 Compiling package textio
 Compiling package bip_utils_pkg_v2_0
 Compiling package std_logic_arith
@@ -35,9 +33,8 @@ Compiling architecture counter_a of entity counter [counter_default]
 Compiling architecture behavioral of entity control_signal_gen [control_signal_gen_default]
 Compiling architecture behavior of entity testbench
 Time Resolution for simulation is 1ps.
-Waiting for 4 sub-compilation(s) to finish...
-Compiled 30 VHDL Units
+Compiled 28 VHDL Units
 Built simulation executable /home/msca8h/Projects/EEE3163-pcfg/testbench_isim_beh.exe
-Fuse Memory Usage: 1213180 KB
-Fuse CPU Usage: 1550 ms
-GCC CPU Usage: 6560 ms
+Fuse Memory Usage: 1213264 KB
+Fuse CPU Usage: 1470 ms
+GCC CPU Usage: 3480 ms
