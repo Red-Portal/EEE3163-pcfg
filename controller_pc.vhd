@@ -54,7 +54,7 @@ begin
   clk_proc: process(s_clk, m_reset)
   begin
     if(m_reset = '1') then
-      current_state <= st_reset;
+      current_state <= st_idle;
     elsif (rising_edge(s_clk)) then
       current_state <= next_state;
     end if;
@@ -74,143 +74,42 @@ begin
         when st_cntw =>
           count_ram_ce <= '1';
           next_state <= st_rw;
+          mux_ram_sel <= '0';
 
           if(ctrl_pc_write = '1') then
-            NS <= st_r;
+            next_state <= st_r;
+          elsif(ctrl_pc_read = '1') then
+            next_state <= st_w;
           else
-            NS <= st_w;
+            next_state <= st_idle;
           end if;
           
         when st_r =>
           count_ram_ce <= '0';
-          ram_ena <= '1';
-          ram_wea <= "1";
-          mux_ram0_sel <= '0';
+          ram_enb <= '1';
+          ram_web <= "1";
+          mux_ram_sel <= '1';
           
-          if(s_wen = '0') then
-            NS <= st_cntw0;
-          else
-            NS <= st_w0;
-          end if;
-
-        when st_cntw0 =>
-          count_ram0_ce <= '1';
-          
-          NS <= st_waitw0;
-
-
-        when st_waitw0 =>
-
-          if(s_wen = '1' ) then
-            NS <= st_w0;
-          elsif(s_ren = '1' OR pc_ram1_addr ='1') then
+          if(ctrl_pc_read = '0') then
             NS <= st_idle;
           else
-            NS <= st_waitw0;
+            NS <= st_r;
           end if;
 
-
-        when st_r0 =>
-          ram0_enb <= '1';
-          latch_out_en <= '1';
-          mux_out_sel <= '0';
-          
-          if(s_ren = '0') then
-            NS <= st_cntr0;
-          else
-            NS <= st_r0;
-          end if;
-
-
-        when st_cntr0 =>
-          count_ram0_ce <= '1';
-          
-          NS <= st_waitr0;
-
-
-        when st_waitr0 =>
-
-          if(s_ren = '1') then
-            NS <= st_r0;
-          elsif(s_wen = '1' OR pc_ram1_addr ='1') then
-            NS <= st_idle;
-          else
-            NS <= st_waitr0;
-          end if;
-
-
-        when st_clear1 =>
-          count_ram1_clr <= '1';
-
-          if(s_wen = '1') then
-            NS <= st_w1;
-          elsif(s_ren = '1') then
-            NS <= st_r1;
-          else
-            NS <= st_clear1;
-          end if;
-
-
-        when st_w1 =>
-          ram1_ena <= '1';
-          ram1_wea <= "1";
+        when st_w =>
+          ram_enb <= '1';
+          ram_web <= "1";
           latch_in_en <= '1';
-          mux_ram1_sel <= "10";
+          mux_ram_sel <= "1";
           
-          if(s_wen = '0') then
-            NS <= st_cntw1;
-          else
-            NS <= st_w1;
-          end if;
-
-        when st_cntw1 =>
-          count_ram1_ce <= '1';
-          
-          NS <= st_waitw1;
-
-
-        when st_waitw1 =>
-
-          if(s_wen = '1') then
-            NS <= st_w1;
-          elsif(s_ren = '1' OR pc_ram0_addr ='1') then
+          if(ctrl_pc_write = '0') then
             NS <= st_idle;
           else
-            NS <= st_waitw1;
+            NS <= st_w;
           end if;
-
-
-        when st_r1=>
-          ram1_enb <= '1';
-          latch_out_en <= '1';
-          mux_out_sel <= '1';
-          
-          if(s_ren = '0') then
-            NS <= st_cntr1;
-          else
-            NS <= st_r1;
-          end if;
-
-
-        when st_cntr1 =>
-          count_ram1_ce <= '1';
-          
-          NS <= st_waitr1;
-
-
-        when st_waitr1 =>
-
-          if(s_ren = '1') then
-            NS <= st_r1;
-          elsif(s_wen = '1' OR pc_ram0_addr ='1') then
-            NS <= st_idle;
-          else
-            NS <= st_waitr1;
-          end if;
-
 
         when others =>
-          NS <= st_reset;
+          NS <= st_idle;
       begin
       end if;
     end 
