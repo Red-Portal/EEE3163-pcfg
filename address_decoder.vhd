@@ -33,7 +33,7 @@ use IEEE.numeric_std.all;
 
 entity address_decoder is
     Port (s_address           : in  STD_LOGIC_VECTOR (8 downto 0);
-          mode_code           : out STD_LOGIC_VECTOR (2 downto 0);
+          mode_addr           : out STD_LOGIC_VECTOR (2 downto 0);
           s_pcs_addr          : out std_logic;
           s_reset_addr        : out std_logic
           );
@@ -48,7 +48,7 @@ architecture Behavioral of address_decoder is
   constant mode_ad       : std_logic_vector(2 downto 0) := "110";
   constant mode_avg      : std_logic_vector(2 downto 0) := "111";
 begin
-  mode_code <= mode_pc0      when (std_logic_vector(to_unsigned(16#180#, 9)) = s_address) else
+  mode_addr <= mode_pc0      when (std_logic_vector(to_unsigned(16#180#, 9)) = s_address) else
                mode_pc1      when (std_logic_vector(to_unsigned(16#181#, 9)) = s_address) else
                mode_transfer when (std_logic_vector(to_unsigned(16#160#, 9)) = s_address) else
                mode_da_start when (std_logic_vector(to_unsigned(16#172#, 9)) = s_address) else

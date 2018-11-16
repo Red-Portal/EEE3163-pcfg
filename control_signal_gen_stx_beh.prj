@@ -1,0 +1,2 @@
+vhdl isim_temp "fdce11.vhd"
+vhdl isim_temp "control_signal_gen.vhd"

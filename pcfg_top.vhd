@@ -59,6 +59,60 @@ entity PCFG_TOP is
 end PCFG_TOP;
 architecture Behavioral of PCFG_TOP is
 
+  COMPONENT control_signal_gen
+    port(
+      m_reset      : in  STD_LOGIC;
+      s_reset_addr : in  STD_LOGIC;
+
+      s_clk        : in  STD_LOGIC;
+      sys_clk      : in  STD_LOGIC;
+      mode_addr    : in  STD_LOGIC_VECTOR (2 downto 0);
+      s_data       : in  STD_LOGIC_VECTOR (7 downto 0);
+      s_wen        : in  STD_LOGIC;
+      s_ren        : in  STD_LOGIC;
+
+      ram0_ena     : out STD_LOGIC;
+      ram0_wea     : out STD_LOGIC_VECTOR (0 downto 0);
+      ram0_addra   : out STD_LOGIC_VECTOR (10 downto 0);
+      ram0_dina    : out STD_LOGIC_VECTOR (7 downto 0);
+      ram0_enb     : out STD_LOGIC;
+      ram0_addrb   : out STD_LOGIC_VECTOR (10 downto 0);
+      ram0_doutb   : out STD_LOGIC_VECTOR (7 downto 0);
+
+      ram1_ena     : out STD_LOGIC;
+      ram1_wea     : out STD_LOGIC_VECTOR (0 downto 0);
+      ram1_addra   : out STD_LOGIC_VECTOR (10 downto 0);
+      ram1_dina    : out STD_LOGIC_VECTOR (7 downto 0);
+      ram1_enb     : out STD_LOGIC;
+      ram1_addrb   : out STD_LOGIC_VECTOR (10 downto 0);
+      ram1_outb    : out STD_LOGIC_VECTOR (7 downto 0);
+
+      da_ram_ena   : out STD_LOGIC;
+      da_ram_wea   : out STD_LOGIC_VECTOR (0 downto 0);
+      da_ram_addra : out STD_LOGIC_VECTOR (10 downto 0);
+      da_ram_dina  : out STD_LOGIC_VECTOR (7 downto 0);
+      da_ram_enb   : out STD_LOGIC;
+      da_ram_addrb : out STD_LOGIC_VECTOR (10 downto 0);
+      da_ram_doutb : out STD_LOGIC_VECTOR (7 downto 0);
+
+      da_ram_ena   : out STD_LOGIC;
+      da_ram_wea   : out STD_LOGIC_VECTOR (0 downto 0);
+      da_ram_addra : out STD_LOGIC_VECTOR (10 downto 0);
+      da_ram_dina  : out STD_LOGIC_VECTOR (7 downto 0);
+      da_ram_enb   : out STD_LOGIC;
+      da_ram_addrb : out STD_LOGIC_VECTOR (10 downto 0);
+      da_ram_doutb : out STD_LOGIC_VECTOR (7 downto 0);
+
+      mux_out_sel  : out STD_LOGIC;
+      mux_ram0_sel : out STD_LOGIC;
+      mux_ram1_sel : out STD_LOGIC_VECTOR (1 downto 0);
+
+      s_dout_en    : out STD_LOGIC;
+      m_led        : out STD_LOGIC_VECTOR (7 downto 0);
+      m_TP         : out STD_LOGIC_VECTOR (1 downto 0)
+      );
+  END component;
+
   COMPONENT multiplexer_2to1
     PORT(
       sel : in  std_logic;
@@ -114,7 +168,7 @@ architecture Behavioral of PCFG_TOP is
   COMPONENT address_decoder
     PORT(
       s_address    : IN  std_logic_vector(8 downto 0);
-      mode_code    : out std_logic_vector(2 downto 0);
+      mode_addr    : out std_logic_vector(2 downto 0);
       s_pcs_addr   : out std_logic;
       s_reset_addr : out std_logic
       );
@@ -169,7 +223,7 @@ architecture Behavioral of PCFG_TOP is
   signal in_latch_en  : std_logic;
   signal out_latch_en : std_logic;
 
-  signal mode_code    : std_logic_vector(2 downto 0);
+  signal mode_addr    : std_logic_vector(2 downto 0);
 
 -----------================ RAM Blocks ==================-------------------
   signal ram0_ena   : std_logic;
@@ -263,9 +317,9 @@ begin
     );
 
 --for debug
-  m_TP(0)	<= s_clk; --test point. for s_clk     ̰ɷ äϴϱ ٲٸ  ȵ
-  m_TP(1)	<= sys_clk;--test for 8254 output.   ̰ɷ äϴϱ ٲٸ  ȵ
-  m_led(7)    <= s_reset;
+  m_TP(0)  <= s_clk; --test point. for s_clk     ̰ɷ äϴϱ ٲٸ  ȵ
+  m_TP(1)  <= sys_clk;--test for 8254 output.   ̰ɷ äϴϱ ٲٸ  ȵ
+  m_led(7) <= s_reset;
 -----------======================================================--------------------
 
   RAM0 : memory_block port map( 
@@ -411,10 +465,62 @@ begin
     );
 
   decoder: address_decoder PORT MAP (
-    s_address => s_address,
-    mode_code => mode_code,
-    s_pcs_addr => s_pcs_addr,
+    s_address    => s_address,
+    mode_addr    => mode_addr,
+    s_pcs_addr   => s_pcs_addr,
     s_reset_addr => s_reset
+    );
+
+  controller: control_signal_gen port map(
+    m_reset      => m_reset,
+    s_reset_addr => s_reset_addr,
+
+    s_clk        => s_clk,
+    sys_clk      => sys_clk,
+    mode_addr    => mode_addr,
+    s_data       => s_data,
+    s_wen        => s_wen,
+    s_ren        => s_ren,
+
+    ram0_ena     => ram0_ena,
+    ram0_wea     => ram0_wea,
+    ram0_addra   => ram0_addra,
+    ram0_dina    => ram0_dina,
+    ram0_enb     => ram0_enb,
+    ram0_addrb   => ram0_addrb,
+    ram0_doutb   => ram0_doutb,
+
+    ram1_ena     => ram1_ena,
+    ram1_wea     => ram1_wea,
+    ram1_addra   => ram1_addra,
+    ram1_dina    => ram1_dina,
+    ram1_enb     => ram1_enb,
+    ram1_addrb   => ram1_addrb,
+    ram1_outb    => ram1_outb,
+
+    da_ram_ena   => da_ram_ena,
+    da_ram_wea   => da_ram_wea,
+    da_ram_addra => da_ram_addra,
+    da_ram_dina  => da_ram_dina,
+    da_ram_enb   => da_ram_enb,
+    da_ram_addrb => da_ram_addrb,
+    da_ram_doutb => da_ram_doutb,
+
+    da_ram_ena   => da_ram_ena,
+    da_ram_wea   => da_ram_wea,
+    da_ram_addra => da_ram_addra,
+    da_ram_dina  => da_ram_dina,
+    da_ram_enb   => da_ram_enb,
+    da_ram_addrb => da_ram_addrb,
+    da_ram_doutb => da_ram_doutb,
+
+    mux_out_sel  => mux_out_sel,
+    mux_ram0_sel => mux_ram0_sel,
+    mux_ram1_sel => mux_ram1_se,
+
+    s_dout_en    => s_dout_en,
+    m_led        => m_led,
+    m_TP         => m_TP
     );
 
   m_led(6 downto 0)<=s_led(6 downto 0);
