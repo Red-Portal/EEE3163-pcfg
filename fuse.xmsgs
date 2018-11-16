@@ -5,16 +5,16 @@
      behavior or data corruption.  It is strongly advised that
      users do not edit the contents of this file. -->
 <messages>
-<msg type="warning" file="HDLCompiler" num="946" delta="unknown" >"/home/msca8h/Projects/EEE3163-pcfg/pcfg_top.vhd" Line 309: Actual for formal port <arg fmt="%s" index="1">m_reset</arg> is neither a static name nor a globally static expression
+<msg type="warning" file="HDLCompiler" num="946" delta="unknown" >"/home/msca8h/Projects/EEE3163-pcfg/pcfg_top.vhd" Line 301: Actual for formal port <arg fmt="%s" index="1">m_reset</arg> is neither a static name nor a globally static expression
 </msg>
 
-<msg type="warning" file="HDLCompiler" num="946" delta="unknown" >"/home/msca8h/Projects/EEE3163-pcfg/pcfg_top.vhd" Line 315: Actual for formal port <arg fmt="%s" index="1">m_cs_b</arg> is neither a static name nor a globally static expression
+<msg type="warning" file="HDLCompiler" num="946" delta="unknown" >"/home/msca8h/Projects/EEE3163-pcfg/pcfg_top.vhd" Line 307: Actual for formal port <arg fmt="%s" index="1">m_cs_b</arg> is neither a static name nor a globally static expression
 </msg>
 
-<msg type="warning" file="HDLCompiler" num="946" delta="unknown" >"/home/msca8h/Projects/EEE3163-pcfg/pcfg_top.vhd" Line 316: Actual for formal port <arg fmt="%s" index="1">m_wr_b</arg> is neither a static name nor a globally static expression
+<msg type="warning" file="HDLCompiler" num="946" delta="unknown" >"/home/msca8h/Projects/EEE3163-pcfg/pcfg_top.vhd" Line 308: Actual for formal port <arg fmt="%s" index="1">m_wr_b</arg> is neither a static name nor a globally static expression
 </msg>
 
-<msg type="warning" file="HDLCompiler" num="946" delta="unknown" >"/home/msca8h/Projects/EEE3163-pcfg/pcfg_top.vhd" Line 478: Actual for formal port <arg fmt="%s" index="1">m_reset</arg> is neither a static name nor a globally static expression
+<msg type="warning" file="HDLCompiler" num="946" delta="unknown" >"/home/msca8h/Projects/EEE3163-pcfg/pcfg_top.vhd" Line 470: Actual for formal port <arg fmt="%s" index="1">m_reset</arg> is neither a static name nor a globally static expression
 </msg>
 
 </messages>

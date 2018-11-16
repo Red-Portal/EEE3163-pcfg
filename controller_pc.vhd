@@ -41,8 +41,7 @@ entity controller_pc is
         ctrl_pc_read    : in  STD_LOGIC;
         mux_ram_sel     : out std_logic;
         count_ram_ce    : out STD_LOGIC;
-        count_ram_sclr  : out STD_LOGIC;
-        counter_data_ce : out STD_LOGIC);
+        count_data_ce : out STD_LOGIC);
 end controller_pc;
 architecture Behavioral of controller_pc is
   type state_t is (st_idle, st_cntw, st_r, st_w);
@@ -72,9 +71,9 @@ begin
           end if;
 
         when st_cntw =>
-          count_ram_ce <= '1';
-          next_state <= st_rw;
-          mux_ram_sel <= '0';
+          count_ram_ce  <= '1';
+          count_data_ce <= '1';
+          mux_ram_sel   <= '0';
 
           if(ctrl_pc_write = '1') then
             next_state <= st_r;
@@ -85,10 +84,11 @@ begin
           end if;
           
         when st_r =>
-          count_ram_ce <= '0';
-          ram_enb <= '1';
-          ram_web <= "1";
-          mux_ram_sel <= '1';
+          count_ram_ce  <= '0';
+          count_data_ce <= '0';
+          ram_enb       <= '1';
+          ram_web       <= "1";
+          mux_ram_sel   <= '1';
           
           if(ctrl_pc_read = '0') then
             NS <= st_idle;
@@ -97,9 +97,8 @@ begin
           end if;
 
         when st_w =>
-          ram_enb <= '1';
-          ram_web <= "1";
-          latch_in_en <= '1';
+          ram_enb     <= '1';
+          ram_web     <= "1";
           mux_ram_sel <= "1";
           
           if(ctrl_pc_write = '0') then

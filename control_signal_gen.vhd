@@ -247,6 +247,11 @@ begin
           end if;
           
         when st_ad_mode =>
+          if(mode_addr = mode_ad) then
+            next_state <= st_ad_mode;
+          else
+            next_state <= st_idle;
+          end if;
 
         when st_da_mode =>
           if(mode_addr = mode_da_stop) then
@@ -256,6 +261,11 @@ begin
           end if;
 
         when st_transfer_mode =>
+          if(mode_addr = mode_transfer) then
+            next_state <= st_transfer_mode;
+          else
+            next_state <= st_idle;
+          end if;
           
         when st_pc0_clear =>
           count_ram0_sclr <= '1';
