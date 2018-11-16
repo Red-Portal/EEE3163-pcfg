@@ -9,13 +9,13 @@
          <ClosedNodesVersion>2</ClosedNodesVersion>
       </ClosedNodes>
       <SelectedItems>
-         <SelectedItem>multiplexer_2to1 - Behavioral (/home/msca8h/Projects/EEE3163-pcfg/multiplexer_2to1.vhd)</SelectedItem>
+         <SelectedItem>tb_pcfg - behavior (/home/msca8h/Projects/EEE3163-pcfg/tb_pcfg.vhd)</SelectedItem>
       </SelectedItems>
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
-      <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000001000000000000000000000000000000000202000000010000000100000064000001ea000000020000000000000000000000000200000064ffffffff000000810000000300000002000001ea0000000100000003000000000000000100000003</ViewHeaderState>
+      <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000001000000000000000000000000000000000202000000010000000100000064000001fc000000020000000000000000000000000200000064ffffffff000000810000000300000002000001fc0000000100000003000000000000000100000003</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >true</UserChangedColumnWidths>
-      <CurrentItem>multiplexer_2to1 - Behavioral (/home/msca8h/Projects/EEE3163-pcfg/multiplexer_2to1.vhd)</CurrentItem>
+      <CurrentItem>tb_pcfg - behavior (/home/msca8h/Projects/EEE3163-pcfg/tb_pcfg.vhd)</CurrentItem>
    </ItemView>
    <ItemView engineview="SynthesisOnly" sourcetype="" guiview="Process" >
       <ClosedNodes>
@@ -59,13 +59,13 @@
          <ClosedNode>/memory_block_test - behavior |home|msca8h|Projects|EEE3163-pcfg|memory_block_test.vhd</ClosedNode>
       </ClosedNodes>
       <SelectedItems>
-         <SelectedItem>testbench - behavior (/home/msca8h/Projects/EEE3163-pcfg/multiplexer_3to1_test.vhd)</SelectedItem>
+         <SelectedItem>tb_pcfg - behavior (/home/msca8h/Projects/EEE3163-pcfg/tb_pcfg.vhd)</SelectedItem>
       </SelectedItems>
-      <ScrollbarPosition orientation="vertical" >18</ScrollbarPosition>
+      <ScrollbarPosition orientation="vertical" >9</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
-      <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000001000000000000000000000000000000000202000000010000000100000064000001ea000000020000000000000000000000000200000064ffffffff000000810000000300000002000001ea0000000100000003000000000000000100000003</ViewHeaderState>
+      <ViewHeaderState orientation="horizontal" >000000ff000000000000000100000001000000000000000000000000000000000202000000010000000100000064000001fc000000020000000000000000000000000200000064ffffffff000000810000000300000002000001fc0000000100000003000000000000000100000003</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >true</UserChangedColumnWidths>
-      <CurrentItem>testbench - behavior (/home/msca8h/Projects/EEE3163-pcfg/multiplexer_3to1_test.vhd)</CurrentItem>
+      <CurrentItem>tb_pcfg - behavior (/home/msca8h/Projects/EEE3163-pcfg/tb_pcfg.vhd)</CurrentItem>
    </ItemView>
    <ItemView engineview="BehavioralSim" sourcetype="" guiview="Process" >
       <ClosedNodes>

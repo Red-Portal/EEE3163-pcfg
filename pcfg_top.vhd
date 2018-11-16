@@ -246,25 +246,21 @@ begin
 
   clk_gen : TOP_8254 port map( 
     m_clk0    => s_clk,
-    m_clk1    => s_clk,
-    m_clk2    => s_clk,
+    m_clk1    => '0',
+    m_clk2    => '0',
     m_clk_ctr => s_clk,
-    m_wr_b    => not m_wen,
+    m_reset   => not m_reset_b,--s_reset,
+    m_data    => s_din,
+    m_gate0   => '1',
+    m_gate1   => '1',
+    m_gate2   => '1',
+    m_addr    => s_address(1 downto 0),
+    m_cs_b    => not s_pcs_addr,
+    m_wr_b    => not s_wen,
     m_out0    => sys_clk,
     m_out1    => open,
-    m_out2    => open,
-    m_data    => s_din,
-    m_reset   => s_reset,
-    m_cs_b    => not s_pcs_addr,
-    m_addr    => s_address(1 downto 0),
-    m_gate0   => s_m_8254_gate0,
-    m_gate1   => s_m_8254_gate1,
-    m_gate2   => s_m_8254_gate2
+    m_out2    => open
     );
-  
-  s_m_8254_gate0	<= '1';
-  s_m_8254_gate1	<= '1';
-  s_m_8254_gate2	<= '1';
 
 --for debug
   m_TP(0)	<= s_clk; --test point. for s_clk     ̰ɷ äϴϱ ٲٸ  ȵ

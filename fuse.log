@@ -13,13 +13,14 @@ Parsing VHDL file "/home/msca8h/Projects/EEE3163-pcfg/fdce8.vhd" into library wo
 Parsing VHDL file "/home/msca8h/Projects/EEE3163-pcfg/fdce.vhd" into library work
 Parsing VHDL file "/home/msca8h/Projects/EEE3163-pcfg/address_decoder.vhd" into library work
 Parsing VHDL file "/home/msca8h/Projects/EEE3163-pcfg/pcfg_top.vhd" into library work
-WARNING:HDLCompiler:946 - "/home/msca8h/Projects/EEE3163-pcfg/pcfg_top.vhd" Line 252: Actual for formal port m_wr_b is neither a static name nor a globally static expression
+WARNING:HDLCompiler:946 - "/home/msca8h/Projects/EEE3163-pcfg/pcfg_top.vhd" Line 252: Actual for formal port m_reset is neither a static name nor a globally static expression
 WARNING:HDLCompiler:946 - "/home/msca8h/Projects/EEE3163-pcfg/pcfg_top.vhd" Line 258: Actual for formal port m_cs_b is neither a static name nor a globally static expression
+WARNING:HDLCompiler:946 - "/home/msca8h/Projects/EEE3163-pcfg/pcfg_top.vhd" Line 259: Actual for formal port m_wr_b is neither a static name nor a globally static expression
 Parsing VHDL file "/home/msca8h/Projects/EEE3163-pcfg/tb_pcfg.vhd" into library work
 Starting static elaboration
 Completed static elaboration
-Fuse Memory Usage: 103716 KB
-Fuse CPU Usage: 1070 ms
+Fuse Memory Usage: 103712 KB
+Fuse CPU Usage: 1240 ms
 Compiling package standard
 Compiling package std_logic_1164
 Compiling package std_logic_arith
@@ -45,8 +46,9 @@ Compiling architecture behavioral of entity address_decoder [address_decoder_def
 Compiling architecture behavioral of entity PCFG_TOP [pcfg_top_default]
 Compiling architecture behavior of entity tb_pcfg
 Time Resolution for simulation is 1ps.
+Waiting for 1 sub-compilation(s) to finish...
 Compiled 39 VHDL Units
 Built simulation executable /home/msca8h/Projects/EEE3163-pcfg/tb_pcfg_isim_beh.exe
-Fuse Memory Usage: 1210720 KB
-Fuse CPU Usage: 1270 ms
-GCC CPU Usage: 2190 ms
+Fuse Memory Usage: 1210716 KB
+Fuse CPU Usage: 1470 ms
+GCC CPU Usage: 1450 ms

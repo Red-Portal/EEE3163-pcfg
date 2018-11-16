@@ -71,7 +71,7 @@ ARCHITECTURE behavior OF tb_pcfg IS
   signal m_ADC_data : std_logic_vector(7 downto 0) := (others => '0');
 
   --BiDirs
-  signal m_data : std_logic_vector(7 downto 0);
+  signal m_data : std_logic_vector(7 downto 0)     := "ZZZZZZZZ";
 
   --Outputs
   signal m_DAC_data   : std_logic_vector(7 downto 0);

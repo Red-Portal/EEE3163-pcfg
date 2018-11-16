@@ -31,7 +31,7 @@ entity TOP_8254 is
          m_clk1    : in  STD_LOGIC;
          m_clk2    : in  STD_LOGIC;
          m_clk_ctr : in  STD_LOGIC;
-         m_reset   : in STD_LOGIC;
+         m_reset   : in  STD_LOGIC;
          m_data    : in  STD_LOGIC_VECTOR (7 downto 0);
          m_gate0   : in  STD_LOGIC;
          m_gate1   : in  STD_LOGIC;
