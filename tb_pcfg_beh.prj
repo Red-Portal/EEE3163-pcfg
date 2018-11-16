@@ -1,6 +1,7 @@
 vhdl work "ipcore_dir/memory_block.vhd"
 vhdl work "ipcore_dir/counter.vhd"
 vhdl work "tw_8254_cnt.vhd"
+vhdl work "controller_pc.vhd"
 vhdl work "top_8254.vhd"
 vhdl work "multiplexer_3to1.vhd"
 vhdl work "multiplexer_2to1.vhd"

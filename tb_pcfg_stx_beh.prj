@@ -1,6 +1,7 @@
 vhdl isim_temp "ipcore_dir/memory_block.vhd"
 vhdl isim_temp "ipcore_dir/counter.vhd"
 vhdl isim_temp "tw_8254_cnt.vhd"
+vhdl isim_temp "controller_pc.vhd"
 vhdl isim_temp "top_8254.vhd"
 vhdl isim_temp "multiplexer_3to1.vhd"
 vhdl isim_temp "multiplexer_2to1.vhd"

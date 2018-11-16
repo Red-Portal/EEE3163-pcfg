@@ -30,24 +30,23 @@ use IEEE.STD_LOGIC_1164.ALL;
 --use UNISIM.VComponents.all;
 
 entity controller_pc is
-  Port (s_clk           : in  STD_LOGIC;
-        m_reset         : in  STD_LOGIC;
-        ram_ena         : in  STD_LOGIC;
-        ram_wea         : in  STD_LOGIC;
-        ram_addra       : in  STD_LOGIC;
-        ram_enb         : in  STD_LOGIC;
-        ram_addrb       : in  STD_LOGIC;
-        ctrl_pc_write   : in  STD_LOGIC;
-        ctrl_pc_read    : in  STD_LOGIC;
-        mux_ram_sel     : out std_logic;
-        count_ram_ce    : out STD_LOGIC;
+  Port (s_clk         : in  STD_LOGIC;
+        m_reset       : in  STD_LOGIC;
+        s_ren         : in  std_logic;
+        s_wen         : in  std_logic;
+        ctrl_startio  : in  STD_LOGIC;
+        ram_ena       : out STD_LOGIC;
+        ram_wea       : out std_logic_vector(0 downto 0);
+        ram_enb       : out STD_LOGIC;
+        mux_ram_sel   : out std_logic;
+        count_ram_ce  : out STD_LOGIC;
         count_data_ce : out STD_LOGIC);
 end controller_pc;
 architecture Behavioral of controller_pc is
-  type state_t is (st_idle, st_cntw, st_r, st_w);
+  type state_t is (st_idle, st_cntw, st_ready, st_r, st_w);
 
-  signal current_state : std_logic;
-  signal next_state    : std_logic;
+  signal current_state : state_t;
+  signal next_state    : state_t;
 
 begin 
   clk_proc: process(s_clk, m_reset)
@@ -59,58 +58,67 @@ begin
     end if;
   end process;
   
-  pcfg_control_proc: process(s_clk)
+  pcfg_control_proc: process(s_clk, ctrl_startio, s_ren, s_wen)
   begin
-    if(rising_edge(s_clk)) then
-      case CS is
-        when st_idle =>
-          if(ctrl_pc_write or ctrl_pc_read) then
-            next_state <= st_start;
-          else
-            next_state <= st_idle;
-          end if;
+    --if(rising_edge(s_clk)) then
+    case current_state is
+      when st_idle =>
+        count_ram_ce  <= '0';
+        count_data_ce <= '0';
+        ram_ena       <= '0';
+        ram_wea       <= "0";
+        ram_enb       <= '0';
+        mux_ram_sel   <= '0';
 
-        when st_cntw =>
-          count_ram_ce  <= '1';
-          count_data_ce <= '1';
-          mux_ram_sel   <= '0';
+        if(ctrl_startio = '1') then
+          next_state <= st_ready;
+        else
+          next_state <= st_idle;
+        end if;
 
-          if(ctrl_pc_write = '1') then
-            next_state <= st_r;
-          elsif(ctrl_pc_read = '1') then
-            next_state <= st_w;
-          else
-            next_state <= st_idle;
-          end if;
-          
-        when st_r =>
-          count_ram_ce  <= '0';
-          count_data_ce <= '0';
-          ram_enb       <= '1';
-          ram_web       <= "1";
-          mux_ram_sel   <= '1';
-          
-          if(ctrl_pc_read = '0') then
-            NS <= st_idle;
-          else
-            NS <= st_r;
-          end if;
+      when st_ready =>
+        count_ram_ce  <= '0';
+        count_data_ce <= '0';
 
-        when st_w =>
-          ram_enb     <= '1';
-          ram_web     <= "1";
-          mux_ram_sel <= "1";
-          
-          if(ctrl_pc_write = '0') then
-            NS <= st_idle;
-          else
-            NS <= st_w;
-          end if;
+        if(s_ren = '1') then
+          next_state <= st_r;
+        elsif(s_wen = '1') then
+          next_state <= st_w;
+        else
+          next_state <= st_ready;
+        end if;
+        
+      when st_r =>
+        ram_ena       <= '1';
+        ram_wea       <= "1";
+        mux_ram_sel   <= '1';
+        
+        if(s_ren = '0') then
+          next_state <= st_cntw;
+        else
+          next_state <= st_r;
+        end if;
 
-        when others =>
-          NS <= st_idle;
-      begin
-      end if;
-    end 
-    end Behavioral;
+      when st_w =>
+        ram_enb       <= '1';
+        mux_ram_sel   <= '1';
+        
+        if(s_wen = '0') then
+          next_state <= st_cntw;
+        else
+          next_state <= st_w;
+        end if;
+
+      when st_cntw =>
+        count_ram_ce  <= '1';
+        count_data_ce <= '1';
+        mux_ram_sel   <= '0';
+        next_state   <= st_idle;
+
+      when others =>
+        next_state <= st_idle;
+    end case;
+--    end if;
+  end process;
+end Behavioral;
 

@@ -26,34 +26,26 @@ ARCHITECTURE behavior OF testbench IS
       ram0_ena     : out STD_LOGIC;
       ram0_wea     : out STD_LOGIC_VECTOR (0 downto 0);
       ram0_addra   : out STD_LOGIC_VECTOR (10 downto 0);
-      ram0_dina    : out STD_LOGIC_VECTOR (7 downto 0);
       ram0_enb     : out STD_LOGIC;
       ram0_addrb   : out STD_LOGIC_VECTOR (10 downto 0);
-      ram0_doutb   : out STD_LOGIC_VECTOR (7 downto 0);
 
       ram1_ena     : out STD_LOGIC;
       ram1_wea     : out STD_LOGIC_VECTOR (0 downto 0);
       ram1_addra   : out STD_LOGIC_VECTOR (10 downto 0);
-      ram1_dina    : out STD_LOGIC_VECTOR (7 downto 0);
       ram1_enb     : out STD_LOGIC;
       ram1_addrb   : out STD_LOGIC_VECTOR (10 downto 0);
-      ram1_outb    : out STD_LOGIC_VECTOR (7 downto 0);
 
       da_ram_ena   : out STD_LOGIC;
       da_ram_wea   : out STD_LOGIC_VECTOR (0 downto 0);
       da_ram_addra : out STD_LOGIC_VECTOR (10 downto 0);
-      da_ram_dina  : out STD_LOGIC_VECTOR (7 downto 0);
       da_ram_enb   : out STD_LOGIC;
       da_ram_addrb : out STD_LOGIC_VECTOR (10 downto 0);
-      da_ram_doutb : out STD_LOGIC_VECTOR (7 downto 0);
 
       ad_ram_ena   : out STD_LOGIC;
       ad_ram_wea   : out STD_LOGIC_VECTOR (0 downto 0);
       ad_ram_addra : out STD_LOGIC_VECTOR (10 downto 0);
-      ad_ram_dina  : out STD_LOGIC_VECTOR (7 downto 0);
       ad_ram_enb   : out STD_LOGIC;
       ad_ram_addrb : out STD_LOGIC_VECTOR (10 downto 0);
-      ad_ram_doutb : out STD_LOGIC_VECTOR (7 downto 0);
 
       mux_out_sel  : out STD_LOGIC;
       mux_ram0_sel : out STD_LOGIC;
@@ -79,34 +71,26 @@ ARCHITECTURE behavior OF testbench IS
   signal ram0_ena   : STD_LOGIC                      := '0';
   signal ram0_wea   : STD_LOGIC_VECTOR (0 downto 0)  := (others => '0');
   signal ram0_addra : STD_LOGIC_VECTOR (10 downto 0) := (others => '0');
-  signal ram0_dina  : STD_LOGIC_VECTOR (7 downto 0)  := (others => '0');
   signal ram0_enb   : STD_LOGIC                      := '0';
   signal ram0_addrb : STD_LOGIC_VECTOR (10 downto 0) := (others => '0');
-  signal ram0_doutb : STD_LOGIC_VECTOR (7 downto 0)  := (others => '0');
 
   signal ram1_ena   : STD_LOGIC                      := '0';
   signal ram1_wea   : STD_LOGIC_VECTOR (0 downto 0)  := (others => '0');
   signal ram1_addra : STD_LOGIC_VECTOR (10 downto 0) := (others => '0');
-  signal ram1_dina  : STD_LOGIC_VECTOR (7 downto 0)  := (others => '0');
   signal ram1_enb   : STD_LOGIC                      := '0';
   signal ram1_addrb : STD_LOGIC_VECTOR (10 downto 0) := (others => '0');
-  signal ram1_outb  : STD_LOGIC_VECTOR (7 downto 0)  := (others => '0');
 
   signal ad_ram_ena   : STD_LOGIC                      := '0';
   signal ad_ram_wea   : STD_LOGIC_VECTOR (0 downto 0)  := (others => '0');
   signal ad_ram_addra : STD_LOGIC_VECTOR (10 downto 0) := (others => '0');
-  signal ad_ram_dina  : STD_LOGIC_VECTOR (7 downto 0)  := (others => '0');
   signal ad_ram_enb   : STD_LOGIC                      := '0';
   signal ad_ram_addrb : STD_LOGIC_VECTOR (10 downto 0) := (others => '0');
-  signal ad_ram_doutb : STD_LOGIC_VECTOR (7 downto 0)  := (others => '0');
 
   signal da_ram_ena   : STD_LOGIC                      := '0';
   signal da_ram_wea   : STD_LOGIC_VECTOR (0 downto 0)  := (others => '0');
   signal da_ram_addra : STD_LOGIC_VECTOR (10 downto 0) := (others => '0');
-  signal da_ram_dina  : STD_LOGIC_VECTOR (7 downto 0)  := (others => '0');
   signal da_ram_enb   : STD_LOGIC                      := '0';
   signal da_ram_addrb : STD_LOGIC_VECTOR (10 downto 0) := (others => '0');
-  signal da_ram_doutb : STD_LOGIC_VECTOR (7 downto 0)  := (others => '0');
 
   signal mux_out_sel  : STD_LOGIC                     := '0';
   signal mux_ram0_sel : STD_LOGIC                     := '0';
@@ -328,34 +312,26 @@ begin
     ram0_ena     => ram0_ena,
     ram0_wea     => ram0_wea,
     ram0_addra   => ram0_addra,
-    ram0_dina    => ram0_dina,
     ram0_enb     => ram0_enb,
     ram0_addrb   => ram0_addrb,
-    ram0_doutb   => ram0_doutb,
 
     ram1_ena     => ram1_ena,
     ram1_wea     => ram1_wea,
     ram1_addra   => ram1_addra,
-    ram1_dina    => ram1_dina,
     ram1_enb     => ram1_enb,
     ram1_addrb   => ram1_addrb,
-    ram1_outb    => ram1_outb,
 
     da_ram_ena   => da_ram_ena,
     da_ram_wea   => da_ram_wea,
     da_ram_addra => da_ram_addra,
-    da_ram_dina  => da_ram_dina,
     da_ram_enb   => da_ram_enb,
     da_ram_addrb => da_ram_addrb,
-    da_ram_doutb => da_ram_doutb,
 
     ad_ram_ena   => ad_ram_ena,
     ad_ram_wea   => ad_ram_wea,
     ad_ram_addra => ad_ram_addra,
-    ad_ram_dina  => ad_ram_dina,
     ad_ram_enb   => ad_ram_enb,
     ad_ram_addrb => ad_ram_addrb,
-    ad_ram_doutb => ad_ram_doutb,
 
     mux_out_sel  => mux_out_sel,
     mux_ram0_sel => mux_ram0_sel,
@@ -373,6 +349,7 @@ begin
     m_reset <= '1';
     wait for 100 ns; -- wait until global set/reset completes
     m_reset <= '0';
+    s_oe_b <= '1';
 
     wait for usb_clk_period;
     wave_mode_pc0_read(mode_addr, s_wen, s_ren, s_oe_b);
