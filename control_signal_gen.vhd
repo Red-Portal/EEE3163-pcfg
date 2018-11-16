@@ -110,12 +110,11 @@ architecture Behavioral of control_signal_gen is
   constant mode_da_stop  : std_logic_vector(2 downto 0) := "101";
   constant mode_ad       : std_logic_vector(2 downto 0) := "110";
   constant mode_avg      : std_logic_vector(2 downto 0) := "111";
-  
-  signal reg_data_count_load  : std_logic;
-  signal reg_data_count_clear : std_logic;
-  signal reg_data_count_din   : std_logic_vector(10 downto 0);
-  signal reg_data_count_dout  : std_logic_vector(10 downto 0);
 
+  signal count_data_ce   : std_logic;
+  signal count_data_sclr : std_logic;
+  signal count_data_q    : std_logic;
+  
   signal count_ram0_clk  : std_logic;
   signal count_ram0_ce   : std_logic;
   signal count_ram0_sclr : std_logic;
@@ -139,6 +138,14 @@ architecture Behavioral of control_signal_gen is
   signal ctrl_ad        : std_logic;
   signal ctrl_avg       : std_logic;
 
+  signal count_da_ce   : std_logic;
+  signal count_da_sclr : std_logic;
+  signal count_da_q    : std_logic;
+
+  signal count_ad_ce   : std_logic;
+  signal count_ad_sclr : std_logic;
+  signal count_ad_q    : std_logic;
+
   type state_t is (st_reset,
                    st_idle,
                    st_transfer_mode,
@@ -158,28 +165,31 @@ architecture Behavioral of control_signal_gen is
                    );
   signal current_state, next_state: state_t;
 begin
-
-  data_count_reg: fdce11 PORT MAP (
-    clock        => s_clk,
-    clock_enable => reg_data_count_load,
-    clear        => reg_data_count_clear,
-    d            => reg_data_count_din,
-    q            => reg_data_count_dout
+  data_counter: counter PORT MAP (
+    clk  => s_clk
+    ce   => count_data_ce,
+    sclr => count_data_sclr,
+    q    => count_data_q
     );
 
   ram0_counter: counter PORT MAP (
-    clk  => count_ram0_clk,
+    clk  => s_clk,
     ce   => count_ram0_ce,
     sclr => count_ram0_sclr,
     q    => count_ram0_q
     );
 
   ram1_counter: counter PORT MAP (
-    clk  => count_ram1_clk,
+    clk  => s_clk,
     ce   => count_ram1_ce,
     sclr => count_ram1_sclr,
     q    => count_ram1_q
     );
+
+  ram0_addra <= count_ram0_q;
+  ram0_addrb <= count_ram0_q;
+  ram1_addra <= count_ram1_q;
+  ram1_addrb <= count_ram1_q;
 
   clk_proc: process(s_clk, m_reset)
   begin
@@ -190,9 +200,11 @@ begin
     end if;
   end process;
 
-  pc_read_ready_flag   <= '1' when ((s_oe_b = '1') and ((mode_addr = mode_pc0) or (mode_addr = mode_pc1))) else
+  pc_read_ready_flag   <= '1' when ((s_oe_b = '1') and ((mode_addr = mode_pc0)
+                                                        or (mode_addr = mode_pc1))) else
                           '0';
-  pc_write_ready_flag  <= '1' when ((s_oe_b = '0') and ((mode_addr = mode_pc0) or (mode_addr = mode_pc1))) else
+  pc_write_ready_flag  <= '1' when ((s_oe_b = '0') and ((mode_addr = mode_pc0)
+                                                        or (mode_addr = mode_pc1))) else
                           '0';
 
   pcfg_control_proc: process(s_clk)
@@ -230,22 +242,16 @@ begin
 
           if(mode_addr = mode_pc0) then
             next_state <= st_pc0_clear;
-            
           elsif(mode_addr = mode_pc1) then
             next_state <= st_pc1_clear;
-
           elsif(mode_addr = mode_transfer) then
             next_state <= st_transfer_mode;
-
           elsif(mode_addr = mode_da_start) then
             next_state <= st_da_mode;
-
           elsif(mode_addr = mode_ad) then
             next_state <= st_ad_mode;
-            
           elsif(mode_addr = mode_avg) then
             next_state <= st_avg_mode;
-
           end if;
           
         when st_ad_mode =>
