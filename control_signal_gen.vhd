@@ -159,9 +159,6 @@ architecture Behavioral of control_signal_gen is
   signal current_state, next_state: state_t;
 begin
 
-  pc_read_ready_flag  <= not s_oe_b;
-  pc_write_ready_flag <= s_oe_b;
-  
   data_count_reg: fdce11 PORT MAP (
     clock        => s_clk,
     clock_enable => reg_data_count_load,
@@ -193,170 +190,185 @@ begin
     end if;
   end process;
 
+  pc_read_ready_flag   <= '1' when ((s_oe_b = '1') and ((mode_addr = mode_pc0) or (mode_addr = mode_pc1))) else
+                          '0';
+  pc_write_ready_flag  <= '1' when ((s_oe_b = '0') and ((mode_addr = mode_pc0) or (mode_addr = mode_pc1))) else
+                          '0';
+
   pcfg_control_proc: process(s_clk)
   begin
-    case current_state is
-      when st_reset =>
-        reg_data_count_clear <= '1';
-        count_ram0_sclr      <= '1';
-        count_ram1_sclr      <= '1';
-        next_state           <= st_idle;
-        ctrl_pc0_write       <= '0';
-        ctrl_pc0_read        <= '0';
-        ctrl_pc1_write       <= '0';
-        ctrl_pc1_read        <= '0';
-        ctrl_transfer        <= '0';
-        ctrl_da_start        <= '0';
-        ctrl_da_stop         <= '0';
-        ctrl_ad              <= '0';
-        ctrl_avg             <= '0';
-        
-      when st_idle =>
-        reg_data_count_clear <= '0';
-        count_ram0_sclr      <= '0';
-        count_ram1_sclr      <= '0';
-        ctrl_pc0_write       <= '0';
-        ctrl_pc0_read        <= '0';
-        ctrl_pc1_write       <= '0';
-        ctrl_pc1_read        <= '0';
-        ctrl_transfer        <= '0';
-        ctrl_da_start        <= '0';
-        ctrl_da_stop         <= '0';
-        ctrl_ad              <= '0';
-        ctrl_avg             <= '0';
-
-        if(mode_addr = mode_pc0) then
-          next_state <= st_pc0_clear;
+    if(rising_edge(s_clk)) then
+      case current_state is
+        when st_reset =>
+          reg_data_count_clear <= '1';
+          count_ram0_sclr      <= '1';
+          count_ram1_sclr      <= '1';
+          next_state           <= st_idle;
+          ctrl_pc0_write       <= '0';
+          ctrl_pc0_read        <= '0';
+          ctrl_pc1_write       <= '0';
+          ctrl_pc1_read        <= '0';
+          ctrl_transfer        <= '0';
+          ctrl_da_start        <= '0';
+          ctrl_da_stop         <= '0';
+          ctrl_ad              <= '0';
+          ctrl_avg             <= '0';
           
-        elsif(mode_addr = mode_pc1) then
-          next_state <= st_pc1_clear;
+        when st_idle =>
+          reg_data_count_clear <= '0';
+          count_ram0_sclr      <= '0';
+          count_ram1_sclr      <= '0';
+          ctrl_pc0_write       <= '0';
+          ctrl_pc0_read        <= '0';
+          ctrl_pc1_write       <= '0';
+          ctrl_pc1_read        <= '0';
+          ctrl_transfer        <= '0';
+          ctrl_da_start        <= '0';
+          ctrl_da_stop         <= '0';
+          ctrl_ad              <= '0';
+          ctrl_avg             <= '0';
 
-        elsif(mode_addr = mode_transfer) then
-          next_state <= st_transfer_mode;
+          if(mode_addr = mode_pc0) then
+            next_state <= st_pc0_clear;
+            
+          elsif(mode_addr = mode_pc1) then
+            next_state <= st_pc1_clear;
 
-        elsif(mode_addr = mode_da_start) then
-          next_state <= st_da_mode;
+          elsif(mode_addr = mode_transfer) then
+            next_state <= st_transfer_mode;
 
-        elsif(mode_addr = mode_ad) then
-          next_state <= st_ad_mode;
+          elsif(mode_addr = mode_da_start) then
+            next_state <= st_da_mode;
+
+          elsif(mode_addr = mode_ad) then
+            next_state <= st_ad_mode;
+            
+          elsif(mode_addr = mode_avg) then
+            next_state <= st_avg_mode;
+
+          end if;
           
-        elsif(mode_addr = mode_avg) then
-          next_state <= st_avg_mode;
+        when st_ad_mode =>
 
-        end if;
-        
-      when st_ad_mode =>
+        when st_da_mode =>
+          if(mode_addr = mode_da_stop) then
+            next_state <= st_idle;
+          else
+            next_state <= st_da_mode;
+          end if;
 
-      when st_da_mode =>
-        if(mode_addr = mode_da_stop) then
-          next_state <= st_idle;
-        else
-          next_state <= st_da_mode;
-        end if;
+        when st_transfer_mode =>
+          
+        when st_pc0_clear =>
+          count_ram0_sclr <= '1';
+          if(pc_read_ready_flag = '1') then
+            next_state <= st_pc0_read_mode;
+          elsif(pc_write_ready_flag = '1') then
+            next_state <= st_pc0_write_mode;
+          else
+            next_state <= st_reset;
+          end if;
 
-      when st_transfer_mode =>
-        
-      when st_pc0_clear =>
-        count_ram0_sclr <= '1';
-        if(pc_read_ready_flag = '1') then
-          next_state <= st_pc0_read_mode;
-        elsif(pc_write_ready_flag = '1') then
-          next_state <= st_pc0_write_mode;
-        else
+        when st_pc0_read_mode =>
+          count_ram0_sclr <= '0';
+          ctrl_pc0_read   <= '1';
+
+          if(pc_read_ready_flag = '1') then
+            next_state <= st_pc0_read_mode;
+          else
+            next_state <= st_pc0_read_wait;
+          end if;
+
+        when st_pc0_read_wait =>
+          ctrl_pc0_read   <= '0';
+
+          if(mode_addr = mode_pc0 and pc_read_ready_flag = '1') then
+            next_state <= st_pc0_read_mode;
+          elsif(mode_addr = "000") then
+            next_state <= st_pc0_read_wait;
+          else
+            next_state <= st_idle;
+          end if;
+
+        when st_pc0_write_mode =>
+          count_ram0_sclr <= '0';
+          next_state      <= st_pc0_write_wait;
+          ctrl_pc0_write  <= '1';
+
+          if(pc_write_ready_flag = '1') then
+            next_state <= st_pc0_write_mode;
+          else
+            next_state <= st_pc0_write_wait;
+          end if;
+
+        when st_pc0_write_wait =>
+          ctrl_pc0_write  <= '0';
+
+          if(mode_addr = mode_pc0 and pc_write_ready_flag = '1') then
+            next_state <= st_pc0_write_mode;
+          elsif(mode_addr = "000") then
+            next_state <= st_pc0_write_wait;
+          else
+            next_state <= st_idle;
+          end if;
+
+        when st_pc1_clear =>
+          count_ram1_sclr <= '1';
+          if(pc_read_ready_flag = '1') then
+            next_state <= st_pc1_read_mode;
+          elsif(pc_write_ready_flag = '1') then
+            next_state <= st_pc1_write_mode;
+          else
+            next_state <= st_reset;
+          end if;
+
+        when st_pc1_read_mode =>
+          count_ram1_sclr <= '0';
+          next_state      <= st_pc1_read_wait;
+          ctrl_pc1_read   <= '1';
+
+          if(pc_read_ready_flag = '1') then
+            next_state <= st_pc1_read_mode;
+          else
+            next_state <= st_pc1_read_wait;
+          end if;
+
+        when st_pc1_read_wait =>
+          ctrl_pc1_read   <= '0';
+
+          if(mode_addr = mode_pc1 and pc_read_ready_flag = '1') then
+            next_state <= st_pc1_read_mode;
+          elsif(mode_addr = "000") then
+            next_state <= st_pc1_read_wait;
+          else
+            next_state <= st_idle;
+          end if;
+
+        when st_pc1_write_mode =>
+          count_ram1_sclr <= '0';
+          next_state      <= st_pc1_write_wait;
+          ctrl_pc1_write  <= '1';
+
+          if(pc_write_ready_flag = '1') then
+            next_state <= st_pc1_write_mode;
+          else
+            next_state <= st_pc1_write_wait;
+          end if;
+
+        when st_pc1_write_wait =>
+          ctrl_pc1_write  <= '0';
+
+          if(mode_addr = mode_pc1 and pc_write_ready_flag = '1') then
+            next_state <= st_pc1_write_mode;
+          elsif(mode_addr = "000") then
+            next_state <= st_pc1_write_wait;
+          else
+            next_state <= st_idle;
+          end if;
+        when others =>
           next_state <= st_reset;
-        end if;
-
-      when st_pc0_read_mode =>
-        count_ram0_sclr <= '0';
-        ctrl_pc0_read   <= '1';
-
-        if(pc_read_ready_flag = '1') then
-          next_state <= st_pc0_read_mode;
-        else
-          next_state <= st_pc0_read_wait;
-        end if;
-
-      when st_pc0_read_wait =>
-        ctrl_pc0_read   <= '0';
-
-        if(mode_addr = mode_pc0 and pc_read_ready_flag = '1') then
-          next_state <= st_pc0_read_mode;
-        else
-          next_state <= st_idle;
-        end if;
-
-      when st_pc0_write_mode =>
-        count_ram0_sclr <= '0';
-        next_state      <= st_pc0_write_wait;
-        ctrl_pc0_write  <= '1';
-
-        if(pc_write_ready_flag = '1') then
-          next_state <= st_pc0_write_mode;
-        else
-          next_state <= st_pc0_write_wait;
-        end if;
-
-      when st_pc0_write_wait =>
-        ctrl_pc0_write  <= '0';
-
-        if(mode_addr = mode_pc0 and pc_write_ready_flag = '1') then
-          next_state <= st_pc0_write_mode;
-        else
-          next_state <= st_idle;
-        end if;
-
-      when st_pc1_clear =>
-        count_ram1_sclr <= '1';
-        if(pc_read_ready_flag = '1') then
-          next_state <= st_pc1_read_mode;
-        elsif(pc_write_ready_flag = '1') then
-          next_state <= st_pc1_write_mode;
-        else
-          next_state <= st_reset;
-        end if;
-
-      when st_pc1_read_mode =>
-        count_ram1_sclr <= '0';
-        next_state      <= st_pc1_read_wait;
-        ctrl_pc1_read   <= '1';
-
-        if(pc_read_ready_flag = '1') then
-          next_state <= st_pc1_read_mode;
-        else
-          next_state <= st_pc1_read_wait;
-        end if;
-
-      when st_pc1_read_wait =>
-        ctrl_pc1_read   <= '0';
-
-        if(mode_addr = mode_pc1 and pc_read_ready_flag = '1') then
-          next_state <= st_pc1_read_mode;
-        else
-          next_state <= st_idle;
-        end if;
-
-      when st_pc1_write_mode =>
-        count_ram1_sclr <= '0';
-        next_state      <= st_pc1_write_wait;
-        ctrl_pc1_write  <= '1';
-
-        if(pc_write_ready_flag = '1') then
-          next_state <= st_pc1_write_mode;
-        else
-          next_state <= st_pc1_write_wait;
-        end if;
-
-      when st_pc1_write_wait =>
-        ctrl_pc1_write  <= '0';
-
-        if(mode_addr = mode_pc1 and pc_write_ready_flag = '1') then
-          next_state <= st_pc1_write_mode;
-        else
-          next_state <= st_idle;
-        end if;
-      when others =>
-        next_state <= st_reset;
-    end case;
+      end case;
+    end if;
   end process;
 end Behavioral;
 

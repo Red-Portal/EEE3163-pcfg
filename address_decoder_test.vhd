@@ -44,7 +44,7 @@ ARCHITECTURE behavior OF address_decoder_test IS
   COMPONENT address_decoder
     PORT(
       s_address    : IN  std_logic_vector(8 downto 0);
-      mode_code    : out std_logic_vector(2 downto 0);
+      mode_addr    : out std_logic_vector(2 downto 0);
       s_pcs_addr   : out std_logic;
       s_reset_addr : out std_logic
       );
@@ -52,10 +52,10 @@ ARCHITECTURE behavior OF address_decoder_test IS
   
 
   --Inputs
-  signal s_address  : std_logic_vector(8 downto 0) := (others => '0');
-  signal mode_code  : std_logic_vector(2 downto 0) := (others => '0');
-  signal s_pcs_addr : std_logic := '0';
-  signal clk        : std_logic;
+  signal s_address    : std_logic_vector(8 downto 0) := (others => '0');
+  signal mode_addr    : std_logic_vector(2 downto 0) := (others => '0');
+  signal s_pcs_addr   : std_logic                    := '0';
+  signal clk          : std_logic;
   signal s_reset_addr : std_logic;
   
   constant clk_period : time := 10 ns;
@@ -64,9 +64,9 @@ BEGIN
   
   -- Instantiate the Unit Under Test (UUT)
   uut: address_decoder PORT MAP (
-    s_address => s_address,
-    mode_code => mode_code,
-    s_pcs_addr => s_pcs_addr,
+    s_address    => s_address,
+    mode_addr    => mode_addr,
+    s_pcs_addr   => s_pcs_addr,
     s_reset_addr => s_reset_addr
     );
 
@@ -84,8 +84,13 @@ BEGIN
   stim_proc: process
   begin		
     -- hold reset state for 100 ns.
-    s_address <= std_logic_vector(to_unsigned(16#000#, 9));
     wait for 100 ns;	
+
+    s_address <= "ZZZZZZZZZ";
+    wait for clk_period;
+
+    s_address <= std_logic_vector(to_unsigned(16#000#, 9));
+    wait for clk_period;
 
     s_address <= std_logic_vector(to_unsigned(16#120#, 9));
     wait for clk_period;
