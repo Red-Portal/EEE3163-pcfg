@@ -1,3 +1,4 @@
+
 ----------------------------------------------------------------------------------
 -- Company: 
 -- Engineer: 
@@ -89,8 +90,7 @@ begin
         end if;
         
       when st_r =>
-        ram_ena       <= '1';
-        ram_wea       <= "1";
+        ram_enb       <= '1';
         mux_ram_sel   <= '1';
         
         if(s_ren = '0') then
@@ -100,7 +100,9 @@ begin
         end if;
 
       when st_w =>
-        ram_enb       <= '1';
+        ram_ena       <= '1';
+        ram_wea       <= "1";
+
         mux_ram_sel   <= '1';
         
         if(s_wen = '0') then

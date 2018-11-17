@@ -110,6 +110,26 @@ architecture Behavioral of control_signal_gen is
           );
   end component;
 
+  COMPONENT controller_da
+    port(
+      s_clk               : in  STD_LOGIC;
+      sys_clk             : in  STD_LOGIC;
+      m_reset             : in  STD_LOGIC;
+      da_ram_ena          : out STD_LOGIC;
+      da_ram_wea          : out STD_LOGIC_VECTOR (0 downto 0);
+      da_ram_addra        : out STD_LOGIC_VECTOR (10 downto 0);
+      da_ram_enb          : out STD_LOGIC;
+      da_ram_addrb        : out STD_LOGIC_VECTOR (10 downto 0);
+      ram1_enb            : out STD_LOGIC;
+      count_ram1_ce       : out STD_LOGIC;
+      count_ram1_sclr     : out STD_LOGIC;
+      count_ram1_q        : in  STD_LOGIC_VECTOR (10 downto 0);
+      count_data_q        : in  STD_LOGIC_VECTOR (10 downto 0);
+      ctrl_da_start       : in  STD_LOGIC;
+      ctrl_da_stop        : in  STD_LOGIC
+      );
+  END component;
+
   constant mode_pc0      : std_logic_vector(2 downto 0) := "001";
   constant mode_pc1      : std_logic_vector(2 downto 0) := "010";
   constant mode_transfer : std_logic_vector(2 downto 0) := "011";
@@ -143,26 +163,17 @@ architecture Behavioral of control_signal_gen is
 
   signal count_da_ce   : std_logic;
   signal count_da_sclr : std_logic;
-  signal count_da_q    : std_logic;
+  signal count_da_q    : std_logic_vector(10 downto 0);
 
   signal count_ad_ce   : std_logic;
   signal count_ad_sclr : std_logic;
-  signal count_ad_q    : std_logic;
+  signal count_ad_q    : std_logic_vector(10 downto 0);
 
   signal s_pc0_mux_sel : std_logic;
   signal s_pc1_mux_sel : std_logic;
 
-  signal s_pc0_ram_ena       : std_logic;
-  signal s_pc0_ram_wea       : std_logic_vector(0 downto 0);
-  signal s_pc0_ram_enb       : std_logic;
-  signal s_pc0_data_count_ce : std_logic;
-  signal s_pc0_ram_count_ce  : std_logic;
-
-  signal s_pc1_ram_ena       : std_logic;
-  signal s_pc1_ram_wea       : std_logic_vector(0 downto 0);
-  signal s_pc1_ram_enb       : std_logic;
-  signal s_pc1_data_count_ce : std_logic;
-  signal s_pc1_ram_count_ce  : std_logic;
+  signal s_count_ram0_q : std_logic_vector(10 downto 0);
+  signal s_count_ram1_q : std_logic_vector(10 downto 0);
 
   signal s_debug_clk : std_logic;
 
@@ -189,7 +200,7 @@ begin
     clk  => s_clk,
     ce   => count_data_ce,
     sclr => count_data_sclr,
-    q    => count_data_q
+    q    => count_da_q
     );
 
   ram0_counter: counter PORT MAP (
@@ -211,13 +222,13 @@ begin
     m_reset       => m_reset,
     s_ren         => s_ren,
     s_wen         => s_wen,
-    ram_ena       => s_pc0_ram_ena,
-    ram_wea       => s_pc0_ram_wea,
-    ram_enb       => s_pc0_ram_enb,
+    ram_ena       => ram0_ena,
+    ram_wea       => ram0_wea,
+    ram_enb       => ram0_enb,
     ctrl_startio  => ctrl_pc0_startio,
     mux_ram_sel   => s_pc0_mux_sel,
-    count_ram_ce  => s_pc0_ram_count_ce,
-    count_data_ce => s_pc0_data_count_ce
+    count_ram_ce  => count_ram0_ce,
+    count_data_ce => count_data_ce
     );
 
   pc1_control: controller_pc PORT map (
@@ -225,28 +236,37 @@ begin
     m_reset       => m_reset,
     s_ren         => s_ren,
     s_wen         => s_wen,
-    ram_ena       => s_pc1_ram_ena,
-    ram_wea       => s_pc1_ram_wea,
-    ram_enb       => s_pc1_ram_enb,
+    ram_ena       => ram1_ena,
+    ram_wea       => ram1_wea,
+    ram_enb       => ram1_enb,
     ctrl_startio  => ctrl_pc1_startio,
     mux_ram_sel   => s_pc1_mux_sel,
-    count_ram_ce  => s_pc1_ram_count_ce,
-    count_data_ce => s_pc1_data_count_ce
+    count_ram_ce  => count_ram0_ce,
+    count_data_ce => count_data_ce
     );
 
-  count_ram0_ce <= s_pc0_ram_count_ce;
-  count_ram1_ce <= s_pc0_ram_count_ce;
-  count_data_ce <= s_pc0_data_count_ce or s_pc1_data_count_ce;
+  da_control: controller_da PORT MAP (
+    s_clk           => s_clk,
+    sys_clk         => sys_clk,
+    m_reset         => m_reset,
+    da_ram_ena      => da_ram_ena,
+    da_ram_wea      => da_ram_wea,
+    da_ram_addra    => da_ram_addra,
+    da_ram_enb      => da_ram_enb,
+    da_ram_addrb    => da_ram_addrb,
+    ram1_enb        => ram1_enb,
+    count_ram1_ce   => count_ram1_ce,
+    count_ram1_sclr => count_ram1_sclr,
+    count_ram1_q    => count_ram1_q,
+    count_data_q    => count_data_q,
+    ctrl_da_start   => ctrl_da_start,
+    ctrl_da_stop    => ctrl_da_stop
+    );
 
-  ram0_ena <= s_pc0_ram_ena;
-  ram0_wea <= s_pc0_ram_wea;
-  ram0_enb <= s_pc0_ram_enb;
-
-  ram1_ena <= s_pc1_ram_ena;
-  ram1_wea <= s_pc1_ram_wea;
-  ram1_enb <= s_pc1_ram_enb;
-
-  ram1_ena <= s_pc1_ram_ena;
+  ram0_addra <= count_ram0_q;
+  ram0_addrb <= count_ram0_q;
+  ram1_addra <= count_ram1_q;
+  ram1_addrb <= count_ram1_q;
 
   pc_read_ready_flag   <= '1' when ((s_oe_b = '0') and ((mode_addr = mode_pc0)
                                                         or (mode_addr = mode_pc1))) else
@@ -255,23 +275,18 @@ begin
                                                         or (mode_addr = mode_pc1))) else
                           '0';
 
-  ram0_addra <= count_ram0_q;
-  ram0_addrb <= count_ram0_q;
-  ram1_addra <= count_ram1_q;
-  ram1_addrb <= count_ram1_q;
+  s_dout_en <= pc_read_ready_flag;
 
-  mux_out_sel <= '0' when (s_pc0_mux_sel = '1' and s_pc1_mux_sel = '0') else
-                 '1';
+  mux_out_sel <= '1' when (s_pc0_mux_sel = '1' and s_pc1_mux_sel = '0') else
+                 '0';
 
-  mux_ram0_sel <= '0' when (pc_write_ready_flag = '1') else
-                  '1';
+  mux_ram0_sel <= '1' when (pc_write_ready_flag = '1') else
+                  '0';
 
   mux_ram1_sel <= "00" when (mode_addr = mode_avg) else
                   "01" when (mode_addr = mode_transfer) else
-                  "10" when (pc_write_ready_flag = '1'
-                             and mode_addr = mode_pc1) else
+                  "10" when (pc_write_ready_flag = '1') else
                   "11";
-
 
   debug_clk_proc: process
   begin
@@ -291,10 +306,7 @@ begin
   end process;
 
   pcfg_control_proc: process(s_debug_clk, mode_addr, s_ren, s_wen)
-  --pcfg_control_proc: process(s_clk, mode_addr, s_ren, s_wen)
-  --pcfg_control_proc: process (mode_addr, s_ren, s_wen)
   begin
-    -- if(rising_edge(s_clk)) then
     case current_state is
       when st_reset =>
         count_data_sclr      <= '1';
@@ -470,7 +482,6 @@ begin
       when others =>
         next_state <= st_reset;
     end case;
-  -- end if;
   end process;
 end Behavioral;
 

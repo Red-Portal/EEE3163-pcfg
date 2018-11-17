@@ -1,3 +1,4 @@
+
 ----------------------------------------------------------------------------------
 -- Company: SPS
 -- Engineer: Jang Jintae GIT DESKTOP TEST 181110
@@ -291,7 +292,8 @@ begin
 
 --tri state
   s_din <= m_data;
-  m_data <= outlatch_dout when s_dout_en='1' else (others=>'Z');
+  m_data <= outlatch_dout when s_dout_en='1' else
+            (others=>'Z');
 
   clk_gen : TOP_8254 port map( 
     m_clk0    => s_clk,
@@ -318,7 +320,7 @@ begin
 -----------======================================================--------------------
 
   RAM0 : memory_block port map( 
-    clka  => sys_clk,
+    clka  => s_clk,
     ena   => ram0_ena,
     wea   => ram0_wea,
     addra => ram0_addra,
@@ -330,7 +332,7 @@ begin
     );
 
   RAM1 : memory_block port map( 
-    clka  => sys_clk,
+    clka  => s_clk,
     ena   => ram1_ena,
     wea   => ram1_wea,
     addra => ram1_addra,
