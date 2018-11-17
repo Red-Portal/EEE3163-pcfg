@@ -1,0 +1,4 @@
+vhdl work "ipcore_dir/counter.vhd"
+vhdl work "ipcore_dir/load_counter.vhd"
+vhdl work "controller_ad.vhd"
+vhdl work "controller_ad_test.vhd"

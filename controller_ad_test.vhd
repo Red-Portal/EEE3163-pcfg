@@ -1,5 +1,4 @@
---------------------------------------------------------------------------------
--- Company: 
+---------------------------------------------------------------------------------- Company: 
 -- Engineer:
 --
 -- Create Date:   20:54:56 11/12/2018
@@ -40,42 +39,63 @@ ARCHITECTURE behavior OF controller_ad_test IS
   -- Component Declaration for the Unit Under Test (UUT)
   
   COMPONENT controller_ad
-    PORT(
-      clr             : in std_logic;
-      sys_clk         : IN  std_logic;
-      s_clk           : IN  std_logic;
+    port(
+      m_reset         : in  std_logic;
+      sys_clk         : in  STD_LOGIC;
+      s_clk           : in  STD_LOGIC;
+      count_data_load : out STD_LOGIC;
+      count_data_q    : in  STD_LOGIC_VECTOR (10 downto 0);
+      count_ram0_q    : in std_logic_vector (10 downto 0);
       count_ram0_ce   : out std_logic;
       count_ram0_sclr : out std_logic;
-      mux_ram0_sel    : OUT std_logic;
-      ad_ram_ena      : OUT std_logic;
-      ad_ram_wea      : OUT std_logic_vector(0 downto 0);
-      ad_ram_enb      : OUT std_logic;
-      ram0_ena        : OUT std_logic;
-      ram0_wea        : OUT std_logic_vector(0 downto 0);
-      reg_ad_data     : IN  std_logic_vector(7 downto 0);
-      ad_ram0_addr    : IN  std_logic;
-      ad_latch_en     : OUT std_logic
+      mux_ram0_sel    : out STD_LOGIC;
+      ad_ram_addr     : out STD_LOGIC_vector (7 downto 0);
+      ad_ram_ena      : out STD_LOGIC;
+      ad_ram_wea      : out STD_LOGIC_VECTOR (0 downto 0);
+      ad_ram_enb      : out STD_LOGIC;
+      ram0_ena        : out STD_LOGIC;
+      ram0_wea        : out STD_LOGIC_VECTOR (0 downto 0);
+      ctrl_ad_mode    : in  std_logic
       );
-  END COMPONENT;
+  END component;
   
+  COMPONENT load_counter
+    PORT(
+      load : in std_logic;
+      l    : in std_logic_vector(10 downto 0);
+      clk  : IN  std_logic;
+      ce   : IN  std_logic;
+      sclr : IN  std_logic;
+      q    : OUT std_logic_vector(10 downto 0)
+      );
+  END component;
 
-  --Inputs
-  signal clr          : std_logic                    := '0';
-  signal sys_clk      : std_logic                    := '0';
-  signal s_clk        : std_logic                    := '0';
-  signal reg_ad_data  : std_logic_vector(7 downto 0) := (others => '0');
-  signal ad_ram0_addr : std_logic                    := '0';
+  COMPONENT counter
+    PORT(
+      clk  : IN  std_logic;
+      ce   : IN  std_logic;
+      sclr : IN  std_logic;
+      q    : OUT std_logic_vector(10 downto 0)
+      );
+  END component;
 
-  --Outputs
-  signal mux_ram0_sel   : std_logic;
-  signal ad_ram_ena     : std_logic;
-  signal ad_ram_wea     : std_logic_vector(0 downto 0);
-  signal ad_ram_enb     : std_logic;
-  signal ram0_ena       : std_logic;
-  signal ram0_wea       : std_logic_vector(0 downto 0);
-  signal ad_latch_en    : std_logic;
-  signal count_ram0_ce  : std_logic;
+  signal m_reset      : std_logic := '0';
+  signal sys_clk      : STD_LOGIC := '0';
+  signal s_clk        : STD_LOGIC := '0';
+  signal count_data_q : STD_LOGIC_VECTOR (10 downto 0) := (others => '0');
+  signal ad_ram_addr  : STD_LOGIC := '0'; 
+  signal ctrl_ad_mode : std_logic := '0';
+
+  signal count_data_load : STD_LOGIC;
+  signal count_ram0_ce   : std_logic;
   signal count_ram0_sclr : std_logic;
+  signal mux_ram0_sel    : STD_LOGIC;
+  signal ad_ram_ena      : STD_LOGIC;
+  signal ad_ram_wea      : STD_LOGIC_VECTOR (0 downto 0);
+  signal count_ram0_q    : std_logic_vector (10 downto 0);
+  signal ad_ram_enb      : STD_LOGIC;
+  signal ram0_ena        : STD_LOGIC;
+  signal ram0_wea        : STD_LOGIC_VECTOR (0 downto 0);
 
   -- Clock period definitions
   constant sys_clk_period : time := 25  ns;
@@ -84,21 +104,38 @@ ARCHITECTURE behavior OF controller_ad_test IS
 BEGIN
   
   -- Instantiate the Unit Under Test (UUT)
-  uut: controller_ad PORT MAP (
-    clr             => clr,
-    sys_clk         => sys_clk,
+  uut : controller_ad PORT MAP (
+    m_reset         => m_reset,
     s_clk           => s_clk,
+    sys_clk         => sys_clk,
+    count_data_load => count_data_load,
+    count_data_q    => count_data_q,
+    count_ram0_q    => count_ram0_q,
+    count_ram0_ce   => count_ram0_ce,
+    count_ram0_sclr => count_ram0_sclr,
     mux_ram0_sel    => mux_ram0_sel,
     ad_ram_ena      => ad_ram_ena,
     ad_ram_wea      => ad_ram_wea,
     ad_ram_enb      => ad_ram_enb,
     ram0_ena        => ram0_ena,
     ram0_wea        => ram0_wea,
-    reg_ad_data     => reg_ad_data,
-    ad_ram0_addr    => ad_ram0_addr,
-    ad_latch_en     => ad_latch_en,
-    count_ram0_ce   => count_ram0_ce,
-    count_ram0_sclr => count_ram0_sclr
+    ctrl_ad_mode    => ctrl_ad_mode
+    );
+
+  data_counter: load_counter PORT map (
+    l    => (others=>'1'),
+    load => count_data_load,
+    clk  => s_clk,
+    ce   => '0',
+    sclr => '0',
+    q    => count_data_q
+    );
+
+  ram0_counter: counter PORT map (
+    clk  => s_clk,
+    ce   => count_ram0_ce,
+    sclr => count_ram0_sclr,
+    q    => count_ram0_q
     );
 
   -- Clock process definitions
@@ -121,17 +158,13 @@ BEGIN
   -- Stimulus process
   stim_proc: process
   begin		
-    clr <= '1';
-    -- hold reset state for 60 ns.
+    m_reset <= '1';
     wait for 60 ns;	
-    clr <= '0';
-
-    -- insert stimulus here 
-    ad_ram0_addr <= '1';
-    reg_ad_data <= "00010000";
-    
-    wait for 10000 ns;	
+    m_reset <= '0';
+    wait for s_clk_period;
+    ctrl_ad_mode <= '1';
+    wait for s_clk_period;
+    ctrl_ad_mode <= '0';
     wait;
   end process;
-
 END;

@@ -1,0 +1,17 @@
+# Output products list for <load_counter>
+_xmsgs/pn_parser.xmsgs
+core_resources.txt
+gui_latency.txt
+load_counter/doc/c_counter_binary_v11_0_readme.txt
+load_counter/doc/c_counter_binary_v11_0_vinfo.html
+load_counter/doc/ds215_counter.pdf
+load_counter.asy
+load_counter.gise
+load_counter.ngc
+load_counter.sym
+load_counter.vhd
+load_counter.vho
+load_counter.xco
+load_counter.xise
+load_counter_flist.txt
+load_counter_xmdf.tcl

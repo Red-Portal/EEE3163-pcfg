@@ -86,6 +86,17 @@ architecture Behavioral of control_signal_gen is
       );
   END component;
 
+  COMPONENT load_counter
+    PORT(
+      load : in std_logic;
+      i    : in std_logic_vector(10 downto 0);
+      clk  : IN  std_logic;
+      ce   : IN  std_logic;
+      sclr : IN  std_logic;
+      q    : OUT std_logic_vector(10 downto 0)
+      );
+  END component;
+
   COMPONENT counter
     PORT(
       clk  : IN  std_logic;
@@ -159,9 +170,10 @@ architecture Behavioral of control_signal_gen is
   signal ctrl_ad          : std_logic;
   signal ctrl_avg         : std_logic;
 
-  signal count_da_ce   : std_logic;
-  signal count_da_sclr : std_logic;
-  signal count_da_q    : std_logic_vector(10 downto 0);
+  signal count_data_load : std_logic;
+  signal count_da_ce     : std_logic;
+  signal count_da_sclr   : std_logic;
+  signal count_da_q      : std_logic_vector(10 downto 0);
 
   signal count_ad_ce   : std_logic;
   signal count_ad_sclr : std_logic;
@@ -214,7 +226,9 @@ architecture Behavioral of control_signal_gen is
                    );
   signal current_state, next_state: state_t;
 begin
-  data_counter: counter PORT MAP (
+  data_counter: load_counter PORT map (
+    i    => s_din,
+    load => count_data_load,
     clk  => s_clk,
     ce   => count_data_ce,
     sclr => count_data_sclr,
