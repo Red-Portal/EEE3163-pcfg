@@ -27,6 +27,7 @@
 --------------------------------------------------------------------------------
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
+use IEEE.numeric_std.all;
 
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
@@ -40,39 +41,42 @@ ARCHITECTURE behavior OF controller_da_test IS
   -- Component Declaration for the Unit Under Test (UUT)
   
   COMPONENT controller_da
-    PORT(
-      s_clk               : IN  std_logic;
-      sys_clk             : IN  std_logic;
-      m_reset             : IN  std_logic;
-      da_ram_ena          : OUT std_logic;
-      da_ram_wea          : OUT std_logic_vector(0 downto 0);
-      da_ram_addra        : OUT std_logic_vector(10 downto 0);
-      da_ram_enb          : OUT std_logic;
-      da_ram_addrb        : OUT std_logic_vector(10 downto 0);
-      ram1_enb            : OUT std_logic;
-      ram1_addrb          : OUT std_logic_vector(10 downto 0);
-      count_ram1_ce       : OUT std_logic;
-      count_ram1_sclr     : OUT std_logic;
-      count_ram1_q        : IN  std_logic_vector(10 downto 0);
-      reg_data_count_dout : IN  std_logic;
-      ctrl_da_start       : IN  std_logic;
-      ctrl_da_stop        : IN  std_logic;
-      count_da_ce         : OUT std_logic;
-      count_da_sclr       : OUT std_logic;
-      count_da_q          : IN  std_logic_vector(10 downto 0)
+    port(
+      s_clk               : in  STD_LOGIC;
+      sys_clk             : in  STD_LOGIC;
+      m_reset             : in  STD_LOGIC;
+      da_ram_ena          : out STD_LOGIC;
+      da_ram_wea          : out STD_LOGIC_VECTOR (0 downto 0);
+      da_ram_addra        : out STD_LOGIC_VECTOR (10 downto 0);
+      da_ram_enb          : out STD_LOGIC;
+      da_ram_addrb        : out STD_LOGIC_VECTOR (10 downto 0);
+      ram1_enb            : out STD_LOGIC;
+      count_ram1_ce       : out STD_LOGIC;
+      count_ram1_sclr     : out STD_LOGIC;
+      count_ram1_q        : in  STD_LOGIC_VECTOR (10 downto 0);
+      count_data_q        : in  STD_LOGIC_VECTOR (10 downto 0);
+      ctrl_da_start       : in  STD_LOGIC;
+      ctrl_da_stop        : in  STD_LOGIC
       );
-  END COMPONENT;
-  
+  END component;
 
+  COMPONENT counter
+    PORT(
+      clk  : IN  std_logic;
+      ce   : IN  std_logic;
+      sclr : IN  std_logic;
+      q    : OUT std_logic_vector(10 downto 0)
+      );
+  END component;
+  
   --Inputs
-  signal s_clk               : std_logic                     := '0';
-  signal sys_clk             : std_logic                     := '0';
-  signal m_reset             : std_logic                     := '0';
-  signal count_ram1_q        : std_logic_vector(10 downto 0) := (others => '0');
-  signal reg_data_count_dout : std_logic                     := '0';
-  signal ctrl_da_start       : std_logic                     := '0';
-  signal ctrl_da_stop        : std_logic                     := '0';
-  signal count_da_q          : std_logic_vector(10 downto 0) := (others => '0');
+  signal s_clk         : std_logic                     := '0';
+  signal sys_clk       : std_logic                     := '0';
+  signal m_reset       : std_logic                     := '0';
+  signal count_ram1_q  : std_logic_vector(10 downto 0) := (others => '1');
+  signal count_data_q  : std_logic_vector(10 downto 0) := (others => '0');
+  signal ctrl_da_start : std_logic                     := '0';
+  signal ctrl_da_stop  : std_logic                     := '0';
 
   --Outputs
   signal da_ram_ena      : std_logic;
@@ -81,39 +85,39 @@ ARCHITECTURE behavior OF controller_da_test IS
   signal da_ram_enb      : std_logic;
   signal da_ram_addrb    : std_logic_vector(10 downto 0);
   signal ram1_enb        : std_logic;
-  signal ram1_addrb      : std_logic_vector(10 downto 0);
   signal count_ram1_ce   : std_logic;
   signal count_ram1_sclr : std_logic;
-  signal count_da_ce     : std_logic;
-  signal count_da_sclr   : std_logic;
 
   -- Clock period definitions
-  constant s_clk_period   : time := 10 ns;
-  constant sys_clk_period : time := 10 ns;
+  constant s_clk_period   : time := 25 ns;
+  constant sys_clk_period : time := 200 ns;
   
 BEGIN
   
   -- Instantiate the Unit Under Test (UUT)
   uut: controller_da PORT MAP (
-    s_clk               => s_clk,
-    sys_clk             => sys_clk,
-    m_reset             => m_reset,
-    da_ram_ena          => da_ram_ena,
-    da_ram_wea          => da_ram_wea,
-    da_ram_addra        => da_ram_addra,
-    da_ram_enb          => da_ram_enb,
-    da_ram_addrb        => da_ram_addrb,
-    ram1_enb            => ram1_enb,
-    ram1_addrb          => ram1_addrb,
-    count_ram1_ce       => count_ram1_ce,
-    count_ram1_sclr     => count_ram1_sclr,
-    count_ram1_q        => count_ram1_q,
-    reg_data_count_dout => reg_data_count_dout,
-    ctrl_da_start       => ctrl_da_start,
-    ctrl_da_stop        => ctrl_da_stop,
-    count_da_ce         => count_da_ce,
-    count_da_sclr       => count_da_sclr,
-    count_da_q          => count_da_q
+    s_clk           => s_clk,
+    sys_clk         => sys_clk,
+    m_reset         => m_reset,
+    da_ram_ena      => da_ram_ena,
+    da_ram_wea      => da_ram_wea,
+    da_ram_addra    => da_ram_addra,
+    da_ram_enb      => da_ram_enb,
+    da_ram_addrb    => da_ram_addrb,
+    ram1_enb        => ram1_enb,
+    count_ram1_ce   => count_ram1_ce,
+    count_ram1_sclr => count_ram1_sclr,
+    count_ram1_q    => count_ram1_q,
+    count_data_q    => count_data_q,
+    ctrl_da_start   => ctrl_da_start,
+    ctrl_da_stop    => ctrl_da_stop
+    );
+
+  ram1_counter: counter PORT MAP (
+    clk   => s_clk,
+    ce    => count_ram1_ce,
+    sclr  => count_ram1_sclr,
+    q     => count_ram1_q
     );
 
   -- Clock process definitions
@@ -133,18 +137,28 @@ BEGIN
     wait for sys_clk_period/2;
   end process;
   
-
   -- Stimulus process
   stim_proc: process
   begin		
     -- hold reset state for 100 ns.
+    m_reset <= '1';
     wait for 100 ns;	
+    m_reset <= '0';
+    wait for s_clk_period;
 
-    wait for s_clk_period*10;
+    count_data_q <= "00000000100";
+    wait for s_clk_period;
 
-    -- insert stimulus here 
+    ctrl_da_start <= '1';
+    wait for s_clk_period;
+    ctrl_da_start <= '0';
+    wait for s_clk_period * 200;
+    ctrl_da_stop <= '1';
+    wait for s_clk_period;
+    ctrl_da_stop <= '0';
 
+    --count_ram1_q <= to_unsigned("100", 11);
+    wait for s_clk_period * 10;
     wait;
   end process;
-
 END;

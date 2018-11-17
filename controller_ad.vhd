@@ -1,3 +1,4 @@
+
 ----------------------------------------------------------------------------------
 -- Company: 
 -- Engineer: 
@@ -17,6 +18,7 @@
 -- Additional Comments: 
 --
 ----------------------------------------------------------------------------------
+
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 
@@ -58,7 +60,6 @@ architecture Behavioral of controller_ad is
                    st_read0,
                    st_read1
                    );
-
   signal CS, NS : state_t;
   
   COMPONENT counter
@@ -306,6 +307,5 @@ begin
         NS <= st_reset;
     end case;
   end process;
-
 end Behavioral;
 

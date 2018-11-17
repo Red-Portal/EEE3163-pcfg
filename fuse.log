@@ -1,16 +1,15 @@
-Running: /opt/Xilinx/14.7/ISE_DS/ISE/bin/lin64/unwrapped/fuse -intstyle ise -incremental -o /home/msca8h/Projects/EEE3163-pcfg/testbench_isim_beh.exe -prj /home/msca8h/Projects/EEE3163-pcfg/testbench_beh.prj work.testbench 
+Running: /opt/Xilinx/14.7/ISE_DS/ISE/bin/lin64/unwrapped/fuse -intstyle ise -incremental -o /home/msca8h/Projects/EEE3163-pcfg/controller_da_test_isim_beh.exe -prj /home/msca8h/Projects/EEE3163-pcfg/controller_da_test_beh.prj work.controller_da_test 
 ISim P.20131013 (signature 0xfbc00daa)
 Number of CPUs detected in this system: 8
 Turning on mult-threading, number of parallel sub-compilation jobs: 16 
 Determining compilation order of HDL files
 Parsing VHDL file "/home/msca8h/Projects/EEE3163-pcfg/ipcore_dir/counter.vhd" into library work
-Parsing VHDL file "/home/msca8h/Projects/EEE3163-pcfg/controller_pc.vhd" into library work
-Parsing VHDL file "/home/msca8h/Projects/EEE3163-pcfg/control_signal_gen.vhd" into library work
-Parsing VHDL file "/home/msca8h/Projects/EEE3163-pcfg/control_signal_gen_test.vhd" into library work
+Parsing VHDL file "/home/msca8h/Projects/EEE3163-pcfg/controller_da.vhd" into library work
+Parsing VHDL file "/home/msca8h/Projects/EEE3163-pcfg/controller_da_test.vhd" into library work
 Starting static elaboration
 Completed static elaboration
-Fuse Memory Usage: 90836 KB
-Fuse CPU Usage: 1080 ms
+Fuse Memory Usage: 90508 KB
+Fuse CPU Usage: 1110 ms
 Compiling package standard
 Compiling package std_logic_1164
 Compiling package numeric_std
@@ -31,12 +30,12 @@ Compiling architecture behavioral of entity c_addsub_v11_0_legacy [\c_addsub_v11
 Compiling architecture behavioral of entity c_counter_binary_v11_0_legacy [\c_counter_binary_v11_0_legacy("...]
 Compiling architecture behavioral of entity c_counter_binary_v11_0 [\c_counter_binary_v11_0(0,0,"spa...]
 Compiling architecture counter_a of entity counter [counter_default]
-Compiling architecture behavioral of entity controller_pc [controller_pc_default]
-Compiling architecture behavioral of entity control_signal_gen [control_signal_gen_default]
-Compiling architecture behavior of entity testbench
+Compiling architecture behavioral of entity controller_da [controller_da_default]
+Compiling architecture behavior of entity controller_da_test
 Time Resolution for simulation is 1ps.
-Compiled 30 VHDL Units
-Built simulation executable /home/msca8h/Projects/EEE3163-pcfg/testbench_isim_beh.exe
-Fuse Memory Usage: 1213348 KB
-Fuse CPU Usage: 1310 ms
-GCC CPU Usage: 3100 ms
+Waiting for 1 sub-compilation(s) to finish...
+Compiled 28 VHDL Units
+Built simulation executable /home/msca8h/Projects/EEE3163-pcfg/controller_da_test_isim_beh.exe
+Fuse Memory Usage: 1212976 KB
+Fuse CPU Usage: 1390 ms
+GCC CPU Usage: 3110 ms

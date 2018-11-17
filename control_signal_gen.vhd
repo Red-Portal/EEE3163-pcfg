@@ -122,12 +122,10 @@ architecture Behavioral of control_signal_gen is
   signal count_data_sclr : std_logic;
   signal count_data_q    : std_logic_vector(10 downto 0);
 
-  signal count_ram0_clk  : std_logic;
   signal count_ram0_ce   : std_logic;
   signal count_ram0_sclr : std_logic;
   signal count_ram0_q    : std_logic_vector(10 downto 0);
 
-  signal count_ram1_clk  : std_logic;
   signal count_ram1_ce   : std_logic;
   signal count_ram1_sclr : std_logic;
   signal count_ram1_q    : std_logic_vector(10 downto 0);
@@ -171,20 +169,20 @@ architecture Behavioral of control_signal_gen is
   type state_t is (st_reset,
                    st_idle,
                    st_transfer_mode,
-                     st_ad_mode,
-                     st_da_mode,
-                     st_avg_mode,
-                     st_pc0_clear,
-                     st_pc0_read_mode,
-                     st_pc0_read_wait,
-                     st_pc0_write_mode,
-                     st_pc0_write_wait,
-                     st_pc1_clear,
-                     st_pc1_read_mode,
-                     st_pc1_read_wait,
-                     st_pc1_write_mode,
-                     st_pc1_write_wait
-                     );
+                   st_ad_mode,
+                   st_da_mode,
+                   st_avg_mode,
+                   st_pc0_clear,
+                   st_pc0_read_mode,
+                   st_pc0_read_wait,
+                   st_pc0_write_mode,
+                   st_pc0_write_wait,
+                   st_pc1_clear,
+                   st_pc1_read_mode,
+                   st_pc1_read_wait,
+                   st_pc1_write_mode,
+                   st_pc1_write_wait
+                   );
   signal current_state, next_state: state_t;
 begin
   data_counter: counter PORT MAP (
