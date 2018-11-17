@@ -24,8 +24,8 @@ WARNING:HDLCompiler:946 - "/home/msca8h/Projects/EEE3163-pcfg/pcfg_top.vhd" Line
 Parsing VHDL file "/home/msca8h/Projects/EEE3163-pcfg/tb_pcfg.vhd" into library work
 Starting static elaboration
 Completed static elaboration
-Fuse Memory Usage: 107904 KB
-Fuse CPU Usage: 1190 ms
+Fuse Memory Usage: 107952 KB
+Fuse CPU Usage: 1040 ms
 Compiling package standard
 Compiling package std_logic_1164
 Compiling package std_logic_arith
@@ -68,9 +68,9 @@ Compiling architecture behavioral of entity control_signal_gen [control_signal_g
 Compiling architecture behavioral of entity PCFG_TOP [pcfg_top_default]
 Compiling architecture behavior of entity tb_pcfg
 Time Resolution for simulation is 1ps.
-Waiting for 7 sub-compilation(s) to finish...
+Waiting for 2 sub-compilation(s) to finish...
 Compiled 64 VHDL Units
 Built simulation executable /home/msca8h/Projects/EEE3163-pcfg/tb_pcfg_isim_beh.exe
-Fuse Memory Usage: 1234588 KB
-Fuse CPU Usage: 1600 ms
-GCC CPU Usage: 7120 ms
+Fuse Memory Usage: 1234640 KB
+Fuse CPU Usage: 1420 ms
+GCC CPU Usage: 4380 ms

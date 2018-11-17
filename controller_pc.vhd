@@ -44,10 +44,18 @@ entity controller_pc is
         count_data_ce : out STD_LOGIC);
 end controller_pc;
 architecture Behavioral of controller_pc is
-  type state_t is (st_idle, st_cntw, st_ready, st_r, st_w);
+  type state_t is (st_idle,
+                   st_ready,
+                   st_r,
+                   st_w,
+                   st_wait,
+                   st_cntr,
+                   st_cntw);
 
   signal current_state : state_t;
   signal next_state    : state_t;
+
+  signal s_debug_clk : std_logic;
 
 begin 
   clk_proc: process(s_clk, m_reset)
@@ -57,6 +65,14 @@ begin
     elsif (rising_edge(s_clk)) then
       current_state <= next_state;
     end if;
+  end process;
+
+  debug_clk_proc: process
+  begin
+    s_debug_clk <= '0';
+    wait for 2.5ns ;
+    s_debug_clk <= '1';
+    wait for 2.5ns;
   end process;
   
   pcfg_control_proc: process(s_clk, ctrl_startio, s_ren, s_wen)
@@ -78,6 +94,7 @@ begin
         end if;
 
       when st_ready =>
+        ram_enb       <= '1';
         count_ram_ce  <= '0';
         count_data_ce <= '0';
 
@@ -90,26 +107,38 @@ begin
         end if;
         
       when st_r =>
-        ram_enb       <= '1';
+        ram_enb       <= '0';
         mux_ram_sel   <= '1';
         
         if(s_ren = '0') then
-          next_state <= st_cntw;
+          next_state <= st_cntr;
         else
           next_state <= st_r;
         end if;
 
       when st_w =>
+        ram_enb       <= '0';
         ram_ena       <= '1';
         ram_wea       <= "1";
 
         mux_ram_sel   <= '1';
-        
-        if(s_wen = '0') then
-          next_state <= st_cntw;
+        next_state <= st_wait;
+
+      when st_wait =>
+        ram_ena       <= '0';
+        ram_wea       <= "0";
+        mux_ram_sel   <= '0';
+
+        if(s_ren = '1') then
+          next_state <= st_wait;
         else
-          next_state <= st_w;
+          next_state <= st_cntr;
         end if;
+
+      when st_cntr =>
+        count_ram_ce  <= '1';
+        mux_ram_sel   <= '0';
+        next_state   <= st_idle;
 
       when st_cntw =>
         count_ram_ce  <= '1';

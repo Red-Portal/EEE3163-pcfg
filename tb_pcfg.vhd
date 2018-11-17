@@ -128,7 +128,7 @@ ARCHITECTURE behavior OF tb_pcfg IS
     CMD_DATA_tmp 			<= '1';
     WEN_tmp 				<= '0';
     REN_tmp 				<= '0';
-    n_OE					<='0';
+    n_OE				<='0';
     Data_tmp				<= "ZZZZZZZZ";
     wait for m_clk_period*5;
     REN_tmp 				<= '1';
@@ -195,6 +195,12 @@ BEGIN
       CMD_RD('1' & x"81",m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);  -- RAM0에 100개 읽기
       wait for 1 us;
     end loop;
+
+    wait for 1 us;
+    CMD_RD('1' & x"72",m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);  -- RAM0에 100개 읽기
+    wait for 10 us;
+    CMD_RD('1' & x"74",m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);  -- RAM0에 100개 읽기
+
     -- insert stimulus here 
 
     wait;

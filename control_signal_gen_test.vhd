@@ -351,6 +351,13 @@ begin
     m_reset <= '0';
     s_oe_b <= '1';
 
+    wave_mode_pc0_write(mode_addr, s_wen, s_ren, s_oe_b);
+    wait for usb_clk_period;
+    wait for usb_clk_period;
+    wave_mode_pc0_write(mode_addr, s_wen, s_ren, s_oe_b);
+    wait for usb_clk_period;
+    wait for usb_clk_period;
+
     wait for usb_clk_period;
     wave_mode_pc0_read(mode_addr, s_wen, s_ren, s_oe_b);
     wait for usb_clk_period;
@@ -362,10 +369,10 @@ begin
     wait for usb_clk_period;
     wait for usb_clk_period;
 
-    wave_mode_pc0_write(mode_addr, s_wen, s_ren, s_oe_b);
+    wave_mode_pc1_write(mode_addr, s_wen, s_ren, s_oe_b);
     wait for usb_clk_period;
     wait for usb_clk_period;
-    wave_mode_pc0_write(mode_addr, s_wen, s_ren, s_oe_b);
+    wave_mode_pc1_write(mode_addr, s_wen, s_ren, s_oe_b);
     wait for usb_clk_period;
     wait for usb_clk_period;
 
@@ -376,12 +383,6 @@ begin
     wait for usb_clk_period;
     wait for usb_clk_period;
 
-    wave_mode_pc1_write(mode_addr, s_wen, s_ren, s_oe_b);
-    wait for usb_clk_period;
-    wait for usb_clk_period;
-    wave_mode_pc1_write(mode_addr, s_wen, s_ren, s_oe_b);
-    wait for usb_clk_period;
-    wait for usb_clk_period;
 
     wave_mode_transfer(mode_addr, s_wen, s_ren, s_oe_b);
     wait for usb_clk_period;

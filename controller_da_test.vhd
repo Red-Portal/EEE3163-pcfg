@@ -42,21 +42,20 @@ ARCHITECTURE behavior OF controller_da_test IS
   
   COMPONENT controller_da
     port(
-      s_clk               : in  STD_LOGIC;
-      sys_clk             : in  STD_LOGIC;
-      m_reset             : in  STD_LOGIC;
-      da_ram_ena          : out STD_LOGIC;
-      da_ram_wea          : out STD_LOGIC_VECTOR (0 downto 0);
-      da_ram_addra        : out STD_LOGIC_VECTOR (10 downto 0);
-      da_ram_enb          : out STD_LOGIC;
-      da_ram_addrb        : out STD_LOGIC_VECTOR (10 downto 0);
-      ram1_enb            : out STD_LOGIC;
-      count_ram1_ce       : out STD_LOGIC;
-      count_ram1_sclr     : out STD_LOGIC;
-      count_ram1_q        : in  STD_LOGIC_VECTOR (10 downto 0);
-      count_data_q        : in  STD_LOGIC_VECTOR (10 downto 0);
-      ctrl_da_start       : in  STD_LOGIC;
-      ctrl_da_stop        : in  STD_LOGIC
+      s_clk           : in  STD_LOGIC;
+      sys_clk         : in  STD_LOGIC;
+      m_reset         : in  STD_LOGIC;
+      da_ram_ena      : out STD_LOGIC;
+      da_ram_wea      : out STD_LOGIC_VECTOR (0 downto 0);
+      da_ram_addra    : out STD_LOGIC_VECTOR (10 downto 0);
+      da_ram_enb      : out STD_LOGIC;
+      da_ram_addrb    : out STD_LOGIC_VECTOR (10 downto 0);
+      ram1_enb        : out STD_LOGIC;
+      count_ram1_ce   : out STD_LOGIC;
+      count_ram1_sclr : out STD_LOGIC;
+      count_ram1_q    : in  STD_LOGIC_VECTOR (10 downto 0);
+      count_data_q    : in  STD_LOGIC_VECTOR (10 downto 0);
+      ctrl_da_mode    : in  STD_LOGIC
       );
   END component;
 
@@ -75,8 +74,7 @@ ARCHITECTURE behavior OF controller_da_test IS
   signal m_reset       : std_logic                     := '0';
   signal count_ram1_q  : std_logic_vector(10 downto 0) := (others => '1');
   signal count_data_q  : std_logic_vector(10 downto 0) := (others => '0');
-  signal ctrl_da_start : std_logic                     := '0';
-  signal ctrl_da_stop  : std_logic                     := '0';
+  signal ctrl_da_mode  : std_logic                     := '0';
 
   --Outputs
   signal da_ram_ena      : std_logic;
@@ -109,8 +107,7 @@ BEGIN
     count_ram1_sclr => count_ram1_sclr,
     count_ram1_q    => count_ram1_q,
     count_data_q    => count_data_q,
-    ctrl_da_start   => ctrl_da_start,
-    ctrl_da_stop    => ctrl_da_stop
+    ctrl_da_mode    => ctrl_da_mode
     );
 
   ram1_counter: counter PORT MAP (
@@ -149,13 +146,9 @@ BEGIN
     count_data_q <= "00000000100";
     wait for s_clk_period;
 
-    ctrl_da_start <= '1';
-    wait for s_clk_period;
-    ctrl_da_start <= '0';
+    ctrl_da_mode <= '1';
     wait for s_clk_period * 200;
-    ctrl_da_stop <= '1';
-    wait for s_clk_period;
-    ctrl_da_stop <= '0';
+    ctrl_da_mode <= '0';
 
     --count_ram1_q <= to_unsigned("100", 11);
     wait for s_clk_period * 10;

@@ -44,8 +44,7 @@ entity controller_da is
         count_ram1_sclr : out STD_LOGIC;
         count_ram1_q    : in  STD_LOGIC_VECTOR (10 downto 0);
         count_data_q    : in  STD_LOGIC_VECTOR (10 downto 0);
-        ctrl_da_start   : in  STD_LOGIC;
-        ctrl_da_stop    : in  STD_LOGIC
+        ctrl_da_mode    : in  STD_LOGIC
         );
 end controller_da;
 architecture Behavioral of controller_da is
@@ -90,7 +89,7 @@ begin
     end if;
   end process;
 
-  da_proc: process(sys_clk, ctrl_da_start, ctrl_da_stop)
+  da_proc: process(sys_clk, ctrl_da_mode)
   begin
     da_ram_addrb  <= count_da_q;
 
@@ -147,7 +146,7 @@ begin
     end if;
   end process;
 
-  ram1_proc: process(s_clk, ctrl_da_start, ctrl_da_stop)
+  ram1_proc: process(s_clk, ctrl_da_mode)
   begin
     da_ram_addra <= count_ram1_q;
      
@@ -160,7 +159,7 @@ begin
         da_ram_ena       <= '0';
         s_da_read_enable <= '0';
 
-        if(ctrl_da_start = '1') then
+        if(ctrl_da_mode = '1') then
           ram1_next_state <= st_clear;
         else
           ram1_next_state <= st_idle;
@@ -170,7 +169,7 @@ begin
         s_da_read_enable <= '1';
         count_ram1_sclr <= '1';
 
-        if(ctrl_da_stop = '1') then
+        if(ctrl_da_mode = '0') then
           ram1_next_state <= st_idle;
         else
           ram1_next_state <= st_write;
@@ -184,10 +183,10 @@ begin
         da_ram_wea       <= "1";
         da_ram_ena       <= '1';
 
-        if(count_ram1_q >= std_logic_vector(unsigned(count_data_q) - 1)) then
-          ram1_next_state <= st_stop_wait;
-        elsif(ctrl_da_stop = '1') then
+        if(ctrl_da_mode = '0') then
           ram1_next_state <= st_idle;
+        elsif(count_ram1_q >= std_logic_vector(unsigned(count_data_q) - 1)) then
+          ram1_next_state <= st_stop_wait;
         else
           ram1_next_state <= st_write;
         end if;
@@ -200,7 +199,7 @@ begin
         da_ram_wea       <= "0";
         da_ram_ena       <= '0';
 
-        if(ctrl_da_stop = '1') then
+        if(ctrl_da_mode = '0') then
           ram1_next_state <= st_idle;
         else
           ram1_next_state <= st_stop_wait;

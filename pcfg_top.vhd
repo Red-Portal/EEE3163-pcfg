@@ -249,7 +249,7 @@ architecture Behavioral of PCFG_TOP is
   signal da_ram_ena   : std_logic;
   signal da_ram_wea   : std_logic_vector(0 downto 0);
   signal da_ram_addra : std_logic_vector(10 downto 0);
-  signal da_ram_dina  : std_logic_vector(7 downto 0);
+  --signal da_ram_dina  : std_logic_vector(7 downto 0);
   signal da_ram_enb   : std_logic;
   signal da_ram_addrb : std_logic_vector(10 downto 0);
   signal da_ram_doutb : std_logic_vector(7 downto 0);
@@ -360,7 +360,7 @@ begin
     ena   => da_ram_ena,
     wea   => da_ram_wea,
     addra => da_ram_addra,
-    dina  => da_ram_dina,
+    dina  => ram1_doutb,
     clkb  => sys_clk,
     enb   => da_ram_enb,
     addrb => da_ram_addrb,

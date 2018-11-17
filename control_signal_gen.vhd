@@ -125,8 +125,7 @@ architecture Behavioral of control_signal_gen is
       count_ram1_sclr     : out STD_LOGIC;
       count_ram1_q        : in  STD_LOGIC_VECTOR (10 downto 0);
       count_data_q        : in  STD_LOGIC_VECTOR (10 downto 0);
-      ctrl_da_start       : in  STD_LOGIC;
-      ctrl_da_stop        : in  STD_LOGIC
+      ctrl_da_mode        : in  STD_LOGIC
       );
   END component;
 
@@ -155,11 +154,10 @@ architecture Behavioral of control_signal_gen is
 
   signal ctrl_pc0_startio : std_logic;
   signal ctrl_pc1_startio : std_logic;
-  signal ctrl_transfer  : std_logic;
-  signal ctrl_da_start  : std_logic;
-  signal ctrl_da_stop   : std_logic;
-  signal ctrl_ad        : std_logic;
-  signal ctrl_avg       : std_logic;
+  signal ctrl_transfer    : std_logic;
+  signal ctrl_da_mode     : std_logic;
+  signal ctrl_ad          : std_logic;
+  signal ctrl_avg         : std_logic;
 
   signal count_da_ce   : std_logic;
   signal count_da_sclr : std_logic;
@@ -174,6 +172,26 @@ architecture Behavioral of control_signal_gen is
 
   signal s_count_ram0_q : std_logic_vector(10 downto 0);
   signal s_count_ram1_q : std_logic_vector(10 downto 0);
+
+  signal s_pc0_ram_ena       : std_logic;
+  signal s_pc0_ram_wea       : std_logic_vector(0 downto 0);
+  signal s_pc0_ram_enb       : std_logic;
+  signal s_pc0_count_ram_ce  : std_logic;
+  signal s_pc0_count_data_ce : std_logic;
+
+  signal s_pc1_ram_ena       : std_logic;
+  signal s_pc1_ram_wea       : std_logic_vector(0 downto 0);
+  signal s_pc1_ram_enb       : std_logic;
+  signal s_pc1_count_ram_ce  : std_logic;
+  signal s_pc1_count_data_ce : std_logic;
+
+  signal s_da_count_ram1_ce   : std_logic;
+  signal s_da_count_ram1_sclr : std_logic;
+  signal s_da_ram1_enb        : std_logic;
+
+  signal s_count_data_sclr : std_logic;
+  signal s_count_ram0_sclr : std_logic;
+  signal s_count_ram1_sclr : std_logic;
 
   signal s_debug_clk : std_logic;
 
@@ -200,7 +218,7 @@ begin
     clk  => s_clk,
     ce   => count_data_ce,
     sclr => count_data_sclr,
-    q    => count_da_q
+    q    => count_data_q
     );
 
   ram0_counter: counter PORT MAP (
@@ -222,13 +240,13 @@ begin
     m_reset       => m_reset,
     s_ren         => s_ren,
     s_wen         => s_wen,
-    ram_ena       => ram0_ena,
-    ram_wea       => ram0_wea,
-    ram_enb       => ram0_enb,
+    ram_ena       => s_pc0_ram_ena,
+    ram_wea       => s_pc0_ram_wea,
+    ram_enb       => s_pc0_ram_enb,
     ctrl_startio  => ctrl_pc0_startio,
     mux_ram_sel   => s_pc0_mux_sel,
-    count_ram_ce  => count_ram0_ce,
-    count_data_ce => count_data_ce
+    count_ram_ce  => s_pc0_count_ram_ce,
+    count_data_ce => s_pc0_count_data_ce
     );
 
   pc1_control: controller_pc PORT map (
@@ -236,13 +254,13 @@ begin
     m_reset       => m_reset,
     s_ren         => s_ren,
     s_wen         => s_wen,
-    ram_ena       => ram1_ena,
-    ram_wea       => ram1_wea,
-    ram_enb       => ram1_enb,
+    ram_ena       => s_pc1_ram_ena,
+    ram_wea       => s_pc1_ram_wea,
+    ram_enb       => s_pc1_ram_enb,
     ctrl_startio  => ctrl_pc1_startio,
     mux_ram_sel   => s_pc1_mux_sel,
-    count_ram_ce  => count_ram0_ce,
-    count_data_ce => count_data_ce
+    count_ram_ce  => s_pc1_count_ram_ce,
+    count_data_ce => s_pc1_count_data_ce
     );
 
   da_control: controller_da PORT MAP (
@@ -254,19 +272,62 @@ begin
     da_ram_addra    => da_ram_addra,
     da_ram_enb      => da_ram_enb,
     da_ram_addrb    => da_ram_addrb,
-    ram1_enb        => ram1_enb,
-    count_ram1_ce   => count_ram1_ce,
-    count_ram1_sclr => count_ram1_sclr,
+    ram1_enb        => s_da_ram1_enb,
+    count_ram1_ce   => s_da_count_ram1_ce,
+    count_ram1_sclr => s_da_count_ram1_sclr,
     count_ram1_q    => count_ram1_q,
     count_data_q    => count_data_q,
-    ctrl_da_start   => ctrl_da_start,
-    ctrl_da_stop    => ctrl_da_stop
+    ctrl_da_mode    => ctrl_da_mode
     );
 
   ram0_addra <= count_ram0_q;
   ram0_addrb <= count_ram0_q;
   ram1_addra <= count_ram1_q;
   ram1_addrb <= count_ram1_q;
+
+  ram0_ena <= '1' when (s_pc0_ram_ena = '1' and current_state = st_pc0_write_mode) else
+              '0';
+  ram0_wea <= "1" when (s_pc0_ram_wea = "1" and current_state = st_pc0_write_mode) else
+              "0";
+  ram0_enb <= '1' when (s_pc0_ram_enb = '1' and current_state = st_pc0_read_mode) else
+              '0';
+
+  count_ram0_sclr <= '1' when (s_count_ram0_sclr = '1') else
+                     --'1' when (s_da_count_ram1_sclr and current_state = st_da_mode)
+                     '0';
+
+  count_ram0_ce <= '1' when (s_pc0_count_ram_ce = '1') else
+                   --'1' when (s_da_count_ram0_ce = '1' and current_state = st_da_mode) else
+                   '0';
+
+  ------------------------------------------------------------------------------------
+
+  ram1_ena <= '1' when (s_pc1_ram_ena = '1' and current_state = st_pc1_write_mode) else
+              '0';
+  ram1_wea <= "1" when (s_pc1_ram_wea = "1" and current_state = st_pc1_write_mode) else
+              "0";
+  ram1_enb <= '1' when (s_pc1_ram_enb = '1' and current_state = st_pc1_read_mode) else
+              '1' when (s_da_ram1_enb = '1' and current_state = st_da_mode) else
+              '0';
+
+  count_ram1_sclr <= '1' when (s_count_ram1_sclr = '1') else
+                     '1' when (s_da_count_ram1_sclr = '1' and current_state = st_da_mode) else
+                     '0';
+
+  count_ram1_ce <= '1' when (s_pc1_count_ram_ce = '1') else
+                   '1' when (s_da_count_ram1_ce = '1' and current_state = st_da_mode) else
+                   '0';
+  ------------------------------------------------------------------------------------
+
+  count_data_sclr <= '1' when (s_count_data_sclr = '1') else
+                     --'1' when (s_da_count_ram1_sclr and current_state = st_da_mode) else
+                     '0';
+
+  count_data_ce <= '1' when (s_pc0_count_data_ce = '1') else
+                   '1' when (s_pc1_count_data_ce = '1') else
+                   '0';
+
+  ------------------------------------------------------------------------------------
 
   pc_read_ready_flag   <= '1' when ((s_oe_b = '0') and ((mode_addr = mode_pc0)
                                                         or (mode_addr = mode_pc1))) else
@@ -309,29 +370,28 @@ begin
   begin
     case current_state is
       when st_reset =>
-        count_data_sclr      <= '1';
-        count_ram0_sclr      <= '1';
-        count_ram1_sclr      <= '1';
-        next_state           <= st_idle;
-        ctrl_pc0_startio     <= '0';
-        ctrl_pc1_startio     <= '0';
-        ctrl_transfer        <= '0';
-        ctrl_da_start        <= '0';
-        ctrl_da_stop         <= '0';
-        ctrl_ad              <= '0';
-        ctrl_avg             <= '0';
+        s_count_data_sclr <= '1';
+        s_count_ram0_sclr <= '1';
+        s_count_ram1_sclr <= '1';
+        ctrl_pc0_startio  <= '0';
+        ctrl_pc1_startio  <= '0';
+        ctrl_transfer     <= '0';
+        ctrl_da_mode      <= '0';
+        ctrl_ad           <= '0';
+        ctrl_avg          <= '0';
+
+        next_state        <= st_idle;
         
       when st_idle =>
-        count_data_sclr      <= '0';
-        count_ram0_sclr      <= '0';
-        count_ram1_sclr      <= '0';
-        ctrl_pc0_startio     <= '0';
-        ctrl_pc1_startio     <= '0';
-        ctrl_transfer        <= '0';
-        ctrl_da_start        <= '0';
-        ctrl_da_stop         <= '0';
-        ctrl_ad              <= '0';
-        ctrl_avg             <= '0';
+        s_count_data_sclr <= '0';
+        s_count_ram0_sclr <= '0';
+        s_count_ram1_sclr <= '0';
+        ctrl_pc0_startio  <= '0';
+        ctrl_pc1_startio  <= '0';
+        ctrl_transfer     <= '0';
+        ctrl_da_mode      <= '0';
+        ctrl_ad           <= '0';
+        ctrl_avg          <= '0';
 
         if(mode_addr = mode_pc0) then
           next_state <= st_pc0_clear;
@@ -355,6 +415,7 @@ begin
         end if;
 
       when st_da_mode =>
+        ctrl_da_mode <= '1';
         if(mode_addr = mode_da_stop) then
           next_state <= st_idle;
         else
@@ -369,8 +430,8 @@ begin
         end if;
         
       when st_pc0_clear =>
-        count_data_sclr <= '1';
-        count_ram0_sclr <= '1';
+        s_count_data_sclr <= '1';
+        s_count_ram0_sclr <= '1';
 
         if(pc_read_ready_flag = '1') then
           next_state <= st_pc0_read_mode;
@@ -381,8 +442,8 @@ begin
         end if;
 
       when st_pc0_read_mode =>
-        count_data_sclr <= '0';
-        count_ram0_sclr <= '0';
+        s_count_data_sclr <= '0';
+        s_count_ram0_sclr <= '0';
         ctrl_pc0_startio <= '1';
 
         if(pc_read_ready_flag = '1') then
@@ -403,8 +464,8 @@ begin
         end if;
 
       when st_pc0_write_mode =>
-        count_data_sclr <= '0';
-        count_ram0_sclr <= '0';
+        s_count_data_sclr <= '0';
+        s_count_ram0_sclr <= '0';
         ctrl_pc0_startio <= '1';
 
         if(pc_write_ready_flag = '1') then
@@ -425,8 +486,8 @@ begin
         end if;
 
       when st_pc1_clear =>
-        count_ram1_sclr <= '1';
-        count_data_sclr <= '1';
+        s_count_ram1_sclr <= '1';
+        s_count_data_sclr <= '1';
 
         if(pc_read_ready_flag = '1') then
           next_state <= st_pc1_read_mode;
@@ -437,8 +498,8 @@ begin
         end if;
 
       when st_pc1_read_mode =>
-        count_data_sclr <= '0';
-        count_ram1_sclr <= '0';
+        s_count_data_sclr <= '0';
+        s_count_ram1_sclr <= '0';
         ctrl_pc1_startio <= '1';
 
         if(pc_read_ready_flag = '1') then
@@ -459,8 +520,8 @@ begin
         end if;
 
       when st_pc1_write_mode =>
-        count_data_sclr <= '0';
-        count_ram1_sclr <= '0';
+        s_count_data_sclr <= '0';
+        s_count_ram1_sclr <= '0';
         ctrl_pc1_startio <= '1';
 
         if(pc_write_ready_flag = '1') then
