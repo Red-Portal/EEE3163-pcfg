@@ -49,7 +49,8 @@ ARCHITECTURE behavior OF controller_ad_test IS
       count_ram0_ce   : out std_logic;
       count_ram0_sclr : out std_logic;
       mux_ram0_sel    : out STD_LOGIC;
-      ad_ram_addr     : out STD_LOGIC_vector (7 downto 0);
+      ad_ram_addra    : out STD_LOGIC_vector (7 downto 0);
+      ad_ram_addrb    : out STD_LOGIC_vector (7 downto 0);
       ad_ram_ena      : out STD_LOGIC;
       ad_ram_wea      : out STD_LOGIC_VECTOR (0 downto 0);
       ad_ram_enb      : out STD_LOGIC;
@@ -83,9 +84,10 @@ ARCHITECTURE behavior OF controller_ad_test IS
   signal sys_clk      : STD_LOGIC := '0';
   signal s_clk        : STD_LOGIC := '0';
   signal count_data_q : STD_LOGIC_VECTOR (10 downto 0) := (others => '0');
-  signal ad_ram_addr  : STD_LOGIC := '0'; 
   signal ctrl_ad_mode : std_logic := '0';
 
+  signal ad_ram_addra    : STD_LOGIC;
+  signal ad_ram_addrb    : STD_LOGIC;
   signal count_data_load : STD_LOGIC;
   signal count_ram0_ce   : std_logic;
   signal count_ram0_sclr : std_logic;

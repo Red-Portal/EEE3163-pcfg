@@ -1,23 +1,57 @@
-Running: /opt/Xilinx/14.7/ISE_DS/ISE/bin/lin64/unwrapped/fuse -intstyle ise -incremental -o /home/msca8h/Projects/EEE3163-pcfg/controller_ad_test_isim_beh.exe -prj /home/msca8h/Projects/EEE3163-pcfg/controller_ad_test_beh.prj work.controller_ad_test 
+Running: /opt/Xilinx/14.7/ISE_DS/ISE/bin/lin64/unwrapped/fuse -intstyle ise -incremental -o /home/msca8h/Projects/EEE3163-pcfg/tb_pcfg_isim_beh.exe -prj /home/msca8h/Projects/EEE3163-pcfg/tb_pcfg_beh.prj work.tb_pcfg 
 ISim P.20131013 (signature 0xfbc00daa)
 Number of CPUs detected in this system: 8
 Turning on mult-threading, number of parallel sub-compilation jobs: 16 
 Determining compilation order of HDL files
+Parsing VHDL file "/home/msca8h/Projects/EEE3163-pcfg/ipcore_dir/memory_block.vhd" into library work
 Parsing VHDL file "/home/msca8h/Projects/EEE3163-pcfg/ipcore_dir/counter.vhd" into library work
 Parsing VHDL file "/home/msca8h/Projects/EEE3163-pcfg/ipcore_dir/load_counter.vhd" into library work
+Parsing VHDL file "/home/msca8h/Projects/EEE3163-pcfg/tw_8254_cnt.vhd" into library work
+Parsing VHDL file "/home/msca8h/Projects/EEE3163-pcfg/controller_pc.vhd" into library work
+Parsing VHDL file "/home/msca8h/Projects/EEE3163-pcfg/controller_da.vhd" into library work
 Parsing VHDL file "/home/msca8h/Projects/EEE3163-pcfg/controller_ad.vhd" into library work
-Parsing VHDL file "/home/msca8h/Projects/EEE3163-pcfg/controller_ad_test.vhd" into library work
+Parsing VHDL file "/home/msca8h/Projects/EEE3163-pcfg/top_8254.vhd" into library work
+Parsing VHDL file "/home/msca8h/Projects/EEE3163-pcfg/multiplexer_3to1.vhd" into library work
+Parsing VHDL file "/home/msca8h/Projects/EEE3163-pcfg/multiplexer_2to1.vhd" into library work
+Parsing VHDL file "/home/msca8h/Projects/EEE3163-pcfg/fdce9.vhd" into library work
+Parsing VHDL file "/home/msca8h/Projects/EEE3163-pcfg/fdce8.vhd" into library work
+Parsing VHDL file "/home/msca8h/Projects/EEE3163-pcfg/fdce.vhd" into library work
+Parsing VHDL file "/home/msca8h/Projects/EEE3163-pcfg/control_signal_gen.vhd" into library work
+WARNING:HDLCompiler:946 - "/home/msca8h/Projects/EEE3163-pcfg/control_signal_gen.vhd" Line 254: Actual for formal port l is neither a static name nor a globally static expression
+Parsing VHDL file "/home/msca8h/Projects/EEE3163-pcfg/address_decoder.vhd" into library work
+Parsing VHDL file "/home/msca8h/Projects/EEE3163-pcfg/pcfg_top.vhd" into library work
+WARNING:HDLCompiler:946 - "/home/msca8h/Projects/EEE3163-pcfg/pcfg_top.vhd" Line 303: Actual for formal port m_reset is neither a static name nor a globally static expression
+WARNING:HDLCompiler:946 - "/home/msca8h/Projects/EEE3163-pcfg/pcfg_top.vhd" Line 309: Actual for formal port m_cs_b is neither a static name nor a globally static expression
+WARNING:HDLCompiler:946 - "/home/msca8h/Projects/EEE3163-pcfg/pcfg_top.vhd" Line 310: Actual for formal port m_wr_b is neither a static name nor a globally static expression
+WARNING:HDLCompiler:946 - "/home/msca8h/Projects/EEE3163-pcfg/pcfg_top.vhd" Line 472: Actual for formal port m_reset is neither a static name nor a globally static expression
+Parsing VHDL file "/home/msca8h/Projects/EEE3163-pcfg/tb_pcfg.vhd" into library work
 Starting static elaboration
 Completed static elaboration
-Fuse Memory Usage: 93568 KB
-Fuse CPU Usage: 1150 ms
+Fuse Memory Usage: 110636 KB
+Fuse CPU Usage: 1200 ms
 Compiling package standard
 Compiling package std_logic_1164
-Compiling package numeric_std
-Compiling package textio
-Compiling package bip_utils_pkg_v2_0
 Compiling package std_logic_arith
 Compiling package std_logic_unsigned
+Compiling package vcomponents
+Compiling package numeric_std
+Compiling architecture ibufg_v of entity IBUFG [\IBUFG("DONT_CARE","0",true,"DEF...]
+Compiling architecture behavioral of entity TW_8254_CNT [tw_8254_cnt_default]
+Compiling architecture behavioral of entity TOP_8254 [top_8254_default]
+Compiling package textio
+Compiling package std_logic_textio
+Compiling architecture output_stage_behavioral of entity BLK_MEM_GEN_V7_3_output_stage [\BLK_MEM_GEN_V7_3_output_stage("...]
+Compiling architecture softecc_output_reg_stage_behavioral of entity BLK_MEM_GEN_V7_3_softecc_output_reg_stage [\BLK_MEM_GEN_V7_3_softecc_output...]
+Compiling architecture mem_module_behavioral of entity BLK_MEM_GEN_V7_3_mem_module [\BLK_MEM_GEN_V7_3_mem_module("bl...]
+Compiling architecture behavioral of entity BLK_MEM_GEN_V7_3 [\BLK_MEM_GEN_V7_3("blk_mem_gen_v...]
+Compiling architecture memory_block_a of entity memory_block [memory_block_default]
+Compiling architecture behavior of entity fdce8 [fdce8_default]
+Compiling architecture behavior of entity fdce9 [fdce9_default]
+Compiling architecture behavior of entity fdce [fdce_default]
+Compiling architecture behavioral of entity multiplexer_2to1 [multiplexer_2to1_default]
+Compiling architecture behavioral of entity multiplexer_3to1 [multiplexer_3to1_default]
+Compiling architecture behavioral of entity address_decoder [address_decoder_default]
+Compiling package bip_utils_pkg_v2_0
 Compiling package xbip_counter_v2_0_pkg
 Compiling package c_counter_binary_v11_0_pkg
 Compiling package xbip_counter_v2_0_xst_comp
@@ -28,19 +62,24 @@ Compiling package c_mux_bus_v11_0_comp
 Compiling package c_reg_fd_v11_0_comp
 Compiling architecture behavioral of entity c_reg_fd_v11_0 [\c_reg_fd_v11_0(11,"0","0",1,0,1...]
 Compiling architecture behavioral of entity c_addsub_v11_0_legacy [\c_addsub_v11_0_legacy(11,11,11,...]
-Compiling architecture behavioral of entity c_counter_binary_v11_0_legacy [\c_counter_binary_v11_0_legacy("...]
-Compiling architecture behavioral of entity c_counter_binary_v11_0 [\c_counter_binary_v11_0(0,0,"spa...]
-Compiling architecture counter_a of entity counter [counter_default]
-Compiling architecture behavioral of entity controller_ad [controller_ad_default]
-Compiling architecture behavioral of entity c_addsub_v11_0_legacy [\c_addsub_v11_0_legacy(11,11,11,...]
 Compiling architecture behavioral of entity c_mux_bus_v11_0 [\c_mux_bus_v11_0("virtex6","virt...]
 Compiling architecture behavioral of entity c_counter_binary_v11_0_legacy [\c_counter_binary_v11_0_legacy("...]
 Compiling architecture behavioral of entity c_counter_binary_v11_0 [\c_counter_binary_v11_0(0,0,"spa...]
 Compiling architecture load_counter_a of entity load_counter [load_counter_default]
-Compiling architecture behavior of entity controller_ad_test
+Compiling architecture behavioral of entity c_addsub_v11_0_legacy [\c_addsub_v11_0_legacy(11,11,11,...]
+Compiling architecture behavioral of entity c_counter_binary_v11_0_legacy [\c_counter_binary_v11_0_legacy("...]
+Compiling architecture behavioral of entity c_counter_binary_v11_0 [\c_counter_binary_v11_0(0,0,"spa...]
+Compiling architecture counter_a of entity counter [counter_default]
+Compiling architecture behavioral of entity controller_pc [controller_pc_default]
+Compiling architecture behavioral of entity controller_da [controller_da_default]
+Compiling architecture behavioral of entity controller_ad [controller_ad_default]
+Compiling architecture behavioral of entity control_signal_gen [control_signal_gen_default]
+Compiling architecture behavioral of entity PCFG_TOP [pcfg_top_default]
+Compiling architecture behavior of entity tb_pcfg
 Time Resolution for simulation is 1ps.
-Compiled 38 VHDL Units
-Built simulation executable /home/msca8h/Projects/EEE3163-pcfg/controller_ad_test_isim_beh.exe
-Fuse Memory Usage: 1215232 KB
-Fuse CPU Usage: 1470 ms
-GCC CPU Usage: 3870 ms
+Waiting for 3 sub-compilation(s) to finish...
+Compiled 76 VHDL Units
+Built simulation executable /home/msca8h/Projects/EEE3163-pcfg/tb_pcfg_isim_beh.exe
+Fuse Memory Usage: 1236900 KB
+Fuse CPU Usage: 1670 ms
+GCC CPU Usage: 5840 ms

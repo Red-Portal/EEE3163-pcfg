@@ -174,10 +174,10 @@ BEGIN
   stim_proc: process
   begin		
     -- hold reset state for 100 ns.
+    m_reset_b  <= '0';
     wait for 100 ns;	
     m_reset_b  <= '1';
-    wait for 100 us;
-    
+
     -- 8254 setting (m_clk를 8분주해서 div_clk을 만들기 위한 과정
     CMD_WR("101000011","00110110",m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);
     wait for 10 us;
@@ -186,22 +186,26 @@ BEGIN
     CMD_WR("101000000","00000000",m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);  -- MSB 00
     wait for 10 us;
 
-    for i in 0 to 99 loop			
-      CMD_WR('1' & x"81",conv_std_logic_vector(i,8),m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);	-- RAM0에 100개 쓰기
-      wait for 1 us;
-    end loop;
-    
-    for i in 0 to 99 loop
-      CMD_RD('1' & x"81",m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);  -- RAM0에 100개 읽기
-      wait for 1 us;
-    end loop;
-
-    wait for 1 us;
-    CMD_RD('1' & x"72",m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);  -- RAM0에 100개 읽기
+    CMD_WR('1' & x"76",conv_std_logic_vector(127,8),m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);	-- RAM0에 100개 쓰기
     wait for 10 us;
-    CMD_RD('1' & x"74",m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);  -- RAM0에 100개 읽기
 
-    -- insert stimulus here 
+
+    -- for i in 0 to 99 loop			
+    --   CMD_WR('1' & x"81",conv_std_logic_vector(i,8),m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);	-- RAM0에 100개 쓰기
+    --   wait for 1 us;
+    -- end loop;
+    
+    -- for i in 0 to 99 loop
+    --   CMD_RD('1' & x"81",m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);  -- RAM0에 100개 읽기
+    --   wait for 1 us;
+    -- end loop;
+
+    -- wait for 1 us;
+    -- CMD_RD('1' & x"72",m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);  -- RAM0에 100개 읽기
+    -- wait for 10 us;
+    -- CMD_RD('1' & x"74",m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);  -- RAM0에 100개 읽기
+
+    -- -- insert stimulus here 
 
     wait;
   end process;

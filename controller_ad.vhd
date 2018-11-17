@@ -42,7 +42,8 @@ entity controller_ad is
         count_ram0_ce   : out std_logic;
         count_ram0_sclr : out std_logic;
         mux_ram0_sel    : out STD_LOGIC;
-        ad_ram_addr     : out std_logic_vector(10 downto 0);
+        ad_ram_addra    : out std_logic_vector(10 downto 0);
+        ad_ram_addrb    : out std_logic_vector(10 downto 0);
         ad_ram_ena      : out STD_LOGIC;
         ad_ram_wea      : out STD_LOGIC_VECTOR (0 downto 0);
         ad_ram_enb      : out STD_LOGIC;
@@ -99,7 +100,7 @@ begin
   
   da_proc: process(sys_clk)
   begin 
-    ad_ram_addr <= count_ad_q; 
+    ad_ram_addra <= count_ad_q; 
 
     case ad_current_state is
       when st_idle =>
@@ -176,7 +177,6 @@ begin
 
       when st_clear =>
         count_ram0_sclr <= '1';
-
         ram0_next_state <= st_write;
 
       when st_write =>
