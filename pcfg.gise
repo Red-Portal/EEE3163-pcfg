@@ -69,7 +69,7 @@
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
     </transform>
-    <transform xil_pn:end_ts="1542400234" xil_pn:in_ck="6918599214322265935" xil_pn:name="TRAN_copyAbstractToPostAbstractSimulation" xil_pn:start_ts="1542400234">
+    <transform xil_pn:end_ts="1542432401" xil_pn:in_ck="6918599214322265935" xil_pn:name="TRAN_copyAbstractToPostAbstractSimulation" xil_pn:start_ts="1542432400">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
       <outfile xil_pn:name="address_decoder.vhd"/>
@@ -114,7 +114,7 @@
       <outfile xil_pn:name="ipcore_dir/memory_block.ngc"/>
       <outfile xil_pn:name="ipcore_dir/memory_block.vhd"/>
     </transform>
-    <transform xil_pn:end_ts="1542400234" xil_pn:in_ck="8466336372918115406" xil_pn:name="TRAN_copyPostAbstractToPreSimulation" xil_pn:start_ts="1542400234">
+    <transform xil_pn:end_ts="1542432401" xil_pn:in_ck="6918599214322265935" xil_pn:name="TRAN_copyPostAbstractToPreSimulation" xil_pn:start_ts="1542432401">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
       <outfile xil_pn:name="address_decoder.vhd"/>
@@ -132,7 +132,6 @@
       <outfile xil_pn:name="fdce8.vhd"/>
       <outfile xil_pn:name="fdce9.vhd"/>
       <outfile xil_pn:name="fdce_test.vhd"/>
-      <outfile xil_pn:name="ipcore_dir/counter.vhd"/>
       <outfile xil_pn:name="memory_block_test.vhd"/>
       <outfile xil_pn:name="multiplexer_2to1.vhd"/>
       <outfile xil_pn:name="multiplexer_2to1_test.vhd"/>
@@ -144,7 +143,7 @@
       <outfile xil_pn:name="top_8254.vhd"/>
       <outfile xil_pn:name="tw_8254_cnt.vhd"/>
     </transform>
-    <transform xil_pn:end_ts="1542400237" xil_pn:in_ck="-2503275161712246832" xil_pn:name="TRAN_ISimulateBehavioralModelRunFuse" xil_pn:prop_ck="2805029009167249705" xil_pn:start_ts="1542400234">
+    <transform xil_pn:end_ts="1542432403" xil_pn:in_ck="-2503275161712246832" xil_pn:name="TRAN_ISimulateBehavioralModelRunFuse" xil_pn:prop_ck="2805029009167249705" xil_pn:start_ts="1542432401">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
       <status xil_pn:value="OutOfDateForOutputs"/>
@@ -156,7 +155,7 @@
       <outfile xil_pn:name="testbench_isim_beh.exe"/>
       <outfile xil_pn:name="xilinxsim.ini"/>
     </transform>
-    <transform xil_pn:end_ts="1542400237" xil_pn:in_ck="-1518783071507110736" xil_pn:name="TRAN_ISimulateBehavioralModel" xil_pn:prop_ck="-4925071806236459146" xil_pn:start_ts="1542400237">
+    <transform xil_pn:end_ts="1542432403" xil_pn:in_ck="-1518783071507110736" xil_pn:name="TRAN_ISimulateBehavioralModel" xil_pn:prop_ck="-4925071806236459146" xil_pn:start_ts="1542432403">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
       <outfile xil_pn:name="isim.cmd"/>

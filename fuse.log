@@ -9,8 +9,8 @@ Parsing VHDL file "/home/msca8h/Projects/EEE3163-pcfg/control_signal_gen.vhd" in
 Parsing VHDL file "/home/msca8h/Projects/EEE3163-pcfg/control_signal_gen_test.vhd" into library work
 Starting static elaboration
 Completed static elaboration
-Fuse Memory Usage: 90832 KB
-Fuse CPU Usage: 1130 ms
+Fuse Memory Usage: 90836 KB
+Fuse CPU Usage: 1080 ms
 Compiling package standard
 Compiling package std_logic_1164
 Compiling package numeric_std
@@ -37,6 +37,6 @@ Compiling architecture behavior of entity testbench
 Time Resolution for simulation is 1ps.
 Compiled 30 VHDL Units
 Built simulation executable /home/msca8h/Projects/EEE3163-pcfg/testbench_isim_beh.exe
-Fuse Memory Usage: 1213340 KB
-Fuse CPU Usage: 1460 ms
-GCC CPU Usage: 3720 ms
+Fuse Memory Usage: 1213348 KB
+Fuse CPU Usage: 1310 ms
+GCC CPU Usage: 3100 ms

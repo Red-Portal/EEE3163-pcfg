@@ -166,23 +166,25 @@ architecture Behavioral of control_signal_gen is
   signal s_pc1_data_count_ce : std_logic;
   signal s_pc1_ram_count_ce  : std_logic;
 
+  signal s_debug_clk : std_logic;
+
   type state_t is (st_reset,
                    st_idle,
                    st_transfer_mode,
-                   st_ad_mode,
-                   st_da_mode,
-                   st_avg_mode,
-                   st_pc0_clear,
-                   st_pc0_read_mode,
-                   st_pc0_read_wait,
-                   st_pc0_write_mode,
-                   st_pc0_write_wait,
-                   st_pc1_clear,
-                   st_pc1_read_mode,
-                   st_pc1_read_wait,
-                   st_pc1_write_mode,
-                   st_pc1_write_wait
-                   );
+                     st_ad_mode,
+                     st_da_mode,
+                     st_avg_mode,
+                     st_pc0_clear,
+                     st_pc0_read_mode,
+                     st_pc0_read_wait,
+                     st_pc0_write_mode,
+                     st_pc0_write_wait,
+                     st_pc1_clear,
+                     st_pc1_read_mode,
+                     st_pc1_read_wait,
+                     st_pc1_write_mode,
+                     st_pc1_write_wait
+                     );
   signal current_state, next_state: state_t;
 begin
   data_counter: counter PORT MAP (
@@ -272,6 +274,15 @@ begin
                              and mode_addr = mode_pc1) else
                   "11";
 
+
+  debug_clk_proc: process
+  begin
+    s_debug_clk <= '0';
+    wait for 2.5ns ;
+    s_debug_clk <= '1';
+    wait for 2.5ns;
+  end process;
+
   clk_proc: process(s_clk, m_reset)
   begin
     if(m_reset = '1') then
@@ -281,7 +292,8 @@ begin
     end if;
   end process;
 
-  pcfg_control_proc: process(s_clk, mode_addr, s_ren, s_wen)
+  pcfg_control_proc: process(s_debug_clk, mode_addr, s_ren, s_wen)
+  --pcfg_control_proc: process(s_clk, mode_addr, s_ren, s_wen)
   --pcfg_control_proc: process (mode_addr, s_ren, s_wen)
   begin
     -- if(rising_edge(s_clk)) then
