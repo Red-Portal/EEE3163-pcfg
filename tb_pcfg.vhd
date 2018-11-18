@@ -174,9 +174,9 @@ BEGIN
   stim_proc: process
   begin		
     -- hold reset state for 100 ns.
-    wait for 100 ns;	
-    m_reset_b  <= '1';
+    m_reset_b  <= '0';
     wait for 100 us;
+    m_reset_b  <= '1';
     
     -- 8254 setting (m_clk를 8분주해서 div_clk을 만들기 위한 과정
     CMD_WR("101000011","00110110",m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);
@@ -188,33 +188,32 @@ BEGIN
 
 
     --- PC mode test
-    for i in 0 to 14 loop			
+    for i in 1 to 100 loop			
       CMD_WR('1' & x"80",conv_std_logic_vector(i,8),m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);	-- WR RAM0 upto 14  
       wait for 1 us;
     end loop;
     
-    for i in 0 to 14 loop
-      CMD_RD('1' & x"80",m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);  -- RD RAM0 upto 14  
-      wait for 1 us;
-    end loop;
+    -- for i in 0 to 14 loop
+    --   CMD_RD('1' & x"80",m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);  -- RD RAM0 upto 14  
+    --   wait for 1 us;
+    -- end loop;
 
-    wait for 1 us;
+    -- wait for 1 us;
     
-    for i in 0 to 19 loop
-      CMD_WR('1' & x"60",conv_std_logic_vector(i,8),m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);  -- DATA TRANSFER 20
-      wait for 1 us;
-    end loop;
+    -- for i in 0 to 19 loop
+    --   CMD_WR('1' & x"60",conv_std_logic_vector(i,8),m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);  -- DATA TRANSFER 20
+    --   wait for 1 us;
+    -- end loop;
     
-    for i in 0 to 14 loop
-      CMD_RD('1' & x"81",m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);  -- RD RAM1 upto 14
-      wait for 1 us;
-    end loop;
-    
-    
-    
-    
-    
-    
+    -- for i in 0 to 14 loop
+    --   CMD_RD('1' & x"81",m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);  -- RD RAM1 upto 14
+    --   wait for 1 us;
+    -- end loop;
+
+    m_address <= "000000000" ;
+    CMD_RD('1' & x"50", m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);  -- RD RAM1 upto 14
+    wait for 500 us;
+    CMD_RD('1' & x"81", m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);	-- WR RAM0 upto 14  
     
     -- insert stimulus here 
 

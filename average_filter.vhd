@@ -88,7 +88,10 @@ architecture Behavioral of average_filter is
                    st_avg,
                    st_avg_clear,
                    st_zero,
-                   st_write);
+                   st_write1,
+                   st_write2,
+                   st_write3
+                   );
 
   signal reg_q   : std_logic_vector(10 downto 0);
   signal reg_clr : std_logic;
@@ -152,12 +155,11 @@ begin
 
   reg_b <= count_q;
 
-  acc_b <= din                                          when (current_state = st_acc) else
-           std_logic_vector(resize(unsigned(reg_q), 8)) when (current_state = st_avg) else
+  acc_b <= std_logic_vector(resize(unsigned(din), 9))  when (current_state = st_acc) else
+           std_logic_vector(resize(unsigned(reg_q), 9)) when (current_state = st_avg) else
            (others => '0');
 
-  dout <= reg_out_q when (s_done = '1') else
-          (others => '0');
+  dout <= reg_out_q;
 
   done <= s_done;
 
@@ -232,23 +234,31 @@ begin
         acc_ce     <= '1';
         acc_add    <= '0';
         reg_ce     <= '0';
-        reg_ce     <= '0';
-        reg_out_ce <= '1';
 
         if(unsigned(acc_q) <= unsigned(reg_q)) then
-          next_state <= st_write;
+          next_state <= st_write1;
         else
           next_state <= st_avg;
         end if;
 
-      when st_write =>
+      when st_write1 =>
         acc_sclr   <= '0';
         count_ce   <= '0';
         acc_ce     <= '0';
+        reg_out_ce <= '1';
+
+        next_state <= st_write2;
+
+      when st_write2 =>
         reg_out_ce <= '0';
         s_done     <= '1';
 
-        next_state <= st_write;
+        next_state <= st_write3;
+
+      when st_write3 =>
+        s_done     <= '0';
+
+        next_state <= st_reset;
 
       when others =>
         next_state <= st_reset;

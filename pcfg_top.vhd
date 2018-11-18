@@ -73,6 +73,11 @@ architecture Behavioral of PCFG_TOP is
       s_ren        : in  STD_LOGIC;
       s_oe_b       : in std_logic;
 
+      filter_ce    : out STD_LOGIC;
+      filter_avg   : out STD_LOGIC;
+      filter_reset : out STD_LOGIC;
+      filter_done  : in  STD_LOGIC;
+
       ram0_ena     : out STD_LOGIC;
       ram0_wea     : out STD_LOGIC_VECTOR (0 downto 0);
       ram0_addra   : out STD_LOGIC_VECTOR (10 downto 0);
@@ -198,7 +203,30 @@ architecture Behavioral of PCFG_TOP is
       );
   END component;
 
+  COMPONENT average_filter
+    PORT(
+      m_reset : IN  std_logic;
+      s_clk   : IN  std_logic;
+      din     : IN  std_logic_vector(7 downto 0);
+      ce      : IN  std_logic;
+      avg     : IN  std_logic;
+      dout    : OUT std_logic_vector(7 downto 0);
+      done    : out std_logic
+      );
+  END COMPONENT;
+
   signal s_reset_addr : std_logic;
+
+  signal s_filter_ce    : std_logic;
+  signal s_filter_avg   : std_logic;
+  signal s_filter_done  : std_logic;
+  signal s_filter_reset : std_logic;
+  signal filter_reset : std_logic;
+  signal filter_out     : std_logic_vector(7 downto 0);
+
+  signal s_ram1_ena   : std_logic;
+  signal s_ram1_wea   : std_logic_vector(0 downto 0);
+  signal s_ram1_addra : std_logic_vector(10 downto 0);
 
   signal s_data     : std_logic_vector(7 downto 0);
   signal s_address  : std_logic_vector(8 downto 0);
@@ -211,8 +239,6 @@ architecture Behavioral of PCFG_TOP is
   signal mux_ram1_sel : std_logic_vector(1 downto 0);
   signal mux_out_sel  : std_logic;
   signal mux_out_o    : std_logic_vector(7 downto 0);
-  signal filter_out   : std_logic_vector(7 downto 0);
-  signal filter_in    : std_logic_vector(7 downto 0);
 
   signal da_latch_en  : std_logic;
   signal ad_latch_en  : std_logic;
@@ -282,7 +308,9 @@ begin
 ------Originally inputs to both sig were blank. 
 ------Just filled them w/ something to shut up error msg.(June)
 
-
+  filter_reset <= '1' when (s_filter_reset = '1') else
+                  '1' when (not (m_reset_b = '1')) else
+                  '0';
 -----------================  don't change this ==================-------------------
 
 
@@ -468,10 +496,19 @@ begin
     s_reset_addr => s_reset
     );
 
+  filter: average_filter PORT MAP (
+    m_reset => filter_reset,
+    s_clk   => s_clk,
+    din     => ram0_doutb,
+    ce      => s_filter_ce,
+    avg     => s_filter_avg,
+    dout    => filter_out,
+    done    => s_filter_done
+    );
+
   controller: control_signal_gen port map(
     m_reset      => not m_reset_b,
     s_reset_addr => s_reset_addr,
-
     s_clk        => s_clk,
     sys_clk      => sys_clk,
     mode_addr    => mode_addr,
@@ -479,35 +516,33 @@ begin
     s_wen        => s_wen,
     s_ren        => s_ren,
     s_oe_b       => s_oe_b,
-
+    filter_ce    => s_filter_ce,
+    filter_avg   => s_filter_avg,
+    filter_done  => s_filter_done,
+    filter_reset => s_filter_reset,
     ram0_ena     => ram0_ena,
     ram0_wea     => ram0_wea,
     ram0_addra   => ram0_addra,
     ram0_enb     => ram0_enb,
     ram0_addrb   => ram0_addrb,
-
     ram1_ena     => ram1_ena,
     ram1_wea     => ram1_wea,
     ram1_addra   => ram1_addra,
     ram1_enb     => ram1_enb,
     ram1_addrb   => ram1_addrb,
-
     da_ram_ena   => da_ram_ena,
     da_ram_wea   => da_ram_wea,
     da_ram_addra => da_ram_addra,
     da_ram_enb   => da_ram_enb,
     da_ram_addrb => da_ram_addrb,
-
     ad_ram_ena   => ad_ram_ena,
     ad_ram_wea   => ad_ram_wea,
     ad_ram_addra => ad_ram_addra,
     ad_ram_enb   => ad_ram_enb,
     ad_ram_addrb => ad_ram_addrb,
-
     mux_out_sel  => mux_out_sel,
     mux_ram0_sel => mux_ram0_sel,
     mux_ram1_sel => mux_ram1_sel,
-
     s_dout_en    => s_dout_en,
     m_led        => m_led,
     m_TP         => m_TP
