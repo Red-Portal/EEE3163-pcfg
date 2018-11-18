@@ -36,9 +36,9 @@
          <ClosedNodesVersion>1</ClosedNodesVersion>
       </ClosedNodes>
       <SelectedItems/>
-      <ScrollbarPosition orientation="vertical" >8</ScrollbarPosition>
+      <ScrollbarPosition orientation="vertical" >13</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
-      <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000000000000010000000000000000000000000000000000000751000000040101000100000000000000000000000064ffffffff0000008100000000000000040000004f0000000100000000000000290000000100000000000000750000000100000000000006640000000100000000</ViewHeaderState>
+      <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000000000000010000000000000000000000000000000000000391000000040101000100000000000000000000000064ffffffff0000008100000000000000040000004f0000000100000000000000290000000100000000000000750000000100000000000002a40000000100000000</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
       <CurrentItem>pcfg_top.vhd</CurrentItem>
    </ItemView>
@@ -59,13 +59,13 @@
          <ClosedNode>/memory_block_test - behavior |home|msca8h|Projects|EEE3163-pcfg|memory_block_test.vhd</ClosedNode>
       </ClosedNodes>
       <SelectedItems>
-         <SelectedItem>tb_pcfg - behavior (/home/msca8h/Projects/EEE3163-pcfg/tb_pcfg.vhd)</SelectedItem>
+         <SelectedItem>out_reg - fdce8 - behavior (/home/msca8h/Projects/EEE3163-pcfg/fdce8.vhd)</SelectedItem>
       </SelectedItems>
-      <ScrollbarPosition orientation="vertical" >18</ScrollbarPosition>
+      <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
       <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000020200000001000000010000006400000211000000020000000000000000000000000200000064ffffffff000000810000000300000002000002110000000100000003000000000000000100000003</ViewHeaderState>
       <UserChangedColumnWidths orientation="horizontal" >true</UserChangedColumnWidths>
-      <CurrentItem>tb_pcfg - behavior (/home/msca8h/Projects/EEE3163-pcfg/tb_pcfg.vhd)</CurrentItem>
+      <CurrentItem>out_reg - fdce8 - behavior (/home/msca8h/Projects/EEE3163-pcfg/fdce8.vhd)</CurrentItem>
    </ItemView>
    <ItemView engineview="BehavioralSim" sourcetype="" guiview="Process" >
       <ClosedNodes>
@@ -152,6 +152,17 @@
       <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
       <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
       <ViewHeaderState orientation="horizontal" >000000ff00000000000000010000000100000000000000000000000000000000000000000000000178000000010000000100000000000000000000000064ffffffff000000810000000000000001000001780000000100000000</ViewHeaderState>
+      <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
+      <CurrentItem/>
+   </ItemView>
+   <ItemView engineview="BehavioralSim" sourcetype="DESUT_VERILOG" guiview="Process" >
+      <ClosedNodes>
+         <ClosedNodesVersion>1</ClosedNodesVersion>
+      </ClosedNodes>
+      <SelectedItems/>
+      <ScrollbarPosition orientation="vertical" >0</ScrollbarPosition>
+      <ScrollbarPosition orientation="horizontal" >0</ScrollbarPosition>
+      <ViewHeaderState orientation="horizontal" />
       <UserChangedColumnWidths orientation="horizontal" >false</UserChangedColumnWidths>
       <CurrentItem/>
    </ItemView>

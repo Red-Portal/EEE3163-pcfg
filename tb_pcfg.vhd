@@ -174,11 +174,11 @@ BEGIN
   stim_proc: process
   begin		
     -- hold reset state for 100 ns.
-    m_reset_b  <= '0';
     wait for 100 ns;	
     m_reset_b  <= '1';
-
-    -- 8254 setting (m_clk¸¦ 8ºÐÁÖÇØ¼­ div_clkÀ» ¸¸µé±â À§ÇÑ °úÁ¤
+    wait for 100 us;
+    
+    -- 8254 setting (m_clkÅ¾Å  8ÂºÃÃÃ–Ã‡Ã˜Å’Â­ div_clkÃ€Â» Å¾Å¾ÂµÃ©Â±Ã¢ Ã€Â§Ã‡Ã‘ Â°ÃºÃâ‚¬
     CMD_WR("101000011","00110110",m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);
     wait for 10 us;
     CMD_WR("101000000","00001000",m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);	-- LSB 08
@@ -186,26 +186,37 @@ BEGIN
     CMD_WR("101000000","00000000",m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);  -- MSB 00
     wait for 10 us;
 
-    CMD_WR('1' & x"76",conv_std_logic_vector(127,8),m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);	-- RAM0¿¡ 100°³ ¾²±â
-    wait for 10 us;
 
-
-    -- for i in 0 to 99 loop			
-    --   CMD_WR('1' & x"81",conv_std_logic_vector(i,8),m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);	-- RAM0¿¡ 100°³ ¾²±â
-    --   wait for 1 us;
-    -- end loop;
+    --- PC mode test
+    for i in 0 to 14 loop			
+      CMD_WR('1' & x"80",conv_std_logic_vector(i,8),m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);	-- RAM0Â¿Â¡ 15Â°Â³ Å¸Â²Â±Ã¢
+      wait for 1 us;
+    end loop;
     
-    -- for i in 0 to 99 loop
-    --   CMD_RD('1' & x"81",m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);  -- RAM0¿¡ 100°³ ÀÐ±â
-    --   wait for 1 us;
-    -- end loop;
+    for i in 0 to 14 loop
+      CMD_RD('1' & x"80",m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);  -- RAM0Â¿Â¡ 15Â°Â³ Ã€ÃÂ±Ã¢
+      wait for 1 us;
+    end loop;
 
-    -- wait for 1 us;
-    -- CMD_RD('1' & x"72",m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);  -- RAM0¿¡ 100°³ ÀÐ±â
-    -- wait for 10 us;
-    -- CMD_RD('1' & x"74",m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);  -- RAM0¿¡ 100°³ ÀÐ±â
-
-    -- -- insert stimulus here 
+    wait for 1 us;
+    
+    for i in 0 to 19 loop
+      CMD_WR('1' & x"60",conv_std_logic_vector(i,8),m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);  -- DATA TRANSFER 20Â°Â³
+      wait for 1 us;
+    end loop;
+    
+    for i in 0 to 14 loop
+      CMD_RD('1' & x"81",m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);  -- RAM1Â¿Â¡ 15Â°Â³ Ã€ÃÂ±Ã¢
+      wait for 1 us;
+    end loop;
+    
+    
+    
+    
+    
+    
+    
+    -- insert stimulus here 
 
     wait;
   end process;

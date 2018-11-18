@@ -32,11 +32,18 @@
     <file xil_pn:branch="BehavioralSim" xil_pn:fileType="FILE_ISIM_EXE" xil_pn:name="TW_8254_CNT_isim_beh.exe"/>
     <file xil_pn:fileType="FILE_ISIM_MISC" xil_pn:name="TW_8254_CNT_isim_beh.wdb"/>
     <file xil_pn:fileType="FILE_XST_PROJECT" xil_pn:name="TW_8254_CNT_stx_beh.prj"/>
+    <file xil_pn:branch="BehavioralSim" xil_pn:fileType="FILE_ISIM_EXE" xil_pn:name="accumulator_test_isim_beh.exe"/>
+    <file xil_pn:fileType="FILE_XST_PROJECT" xil_pn:name="accumulator_test_stx_beh.prj"/>
     <file xil_pn:branch="BehavioralSim" xil_pn:fileType="FILE_ISIM_EXE" xil_pn:name="address_decoder_test_isim_beh.exe"/>
     <file xil_pn:fileType="FILE_XST_PROJECT" xil_pn:name="address_decoder_test_stx_beh.prj"/>
+    <file xil_pn:fileType="FILE_XST_PROJECT" xil_pn:name="average_filter_test_beh.prj"/>
+    <file xil_pn:branch="BehavioralSim" xil_pn:fileType="FILE_ISIM_EXE" xil_pn:name="average_filter_test_isim_beh.exe"/>
+    <file xil_pn:fileType="FILE_ISIM_MISC" xil_pn:name="average_filter_test_isim_beh.wdb"/>
+    <file xil_pn:fileType="FILE_XST_PROJECT" xil_pn:name="average_filter_test_stx_beh.prj"/>
     <file xil_pn:branch="BehavioralSim" xil_pn:fileType="FILE_ISIM_EXE" xil_pn:name="control_signal_gen_isim_beh.exe"/>
     <file xil_pn:fileType="FILE_XST_PROJECT" xil_pn:name="control_signal_gen_stx_beh.prj"/>
     <file xil_pn:branch="BehavioralSim" xil_pn:fileType="FILE_ISIM_EXE" xil_pn:name="controller_ad_test_isim_beh.exe"/>
+    <file xil_pn:fileType="FILE_ISIM_MISC" xil_pn:name="controller_ad_test_isim_beh.wdb"/>
     <file xil_pn:fileType="FILE_XST_PROJECT" xil_pn:name="controller_ad_test_stx_beh.prj"/>
     <file xil_pn:branch="BehavioralSim" xil_pn:fileType="FILE_ISIM_EXE" xil_pn:name="controller_da_test_isim_beh.exe"/>
     <file xil_pn:fileType="FILE_XST_PROJECT" xil_pn:name="controller_da_test_stx_beh.prj"/>
@@ -48,7 +55,6 @@
     <file xil_pn:fileType="FILE_LOG" xil_pn:name="ipcore_dir/coregen.log"/>
     <file xil_pn:fileType="FILE_DIRECTORY" xil_pn:name="isim"/>
     <file xil_pn:branch="BehavioralSim" xil_pn:fileType="FILE_CMD" xil_pn:name="isim.cmd"/>
-    <file xil_pn:branch="BehavioralSim" xil_pn:fileType="FILE_LOG" xil_pn:name="isim.log"/>
     <file xil_pn:branch="BehavioralSim" xil_pn:fileType="FILE_ISIM_EXE" xil_pn:name="memory_block_test_isim_beh.exe"/>
     <file xil_pn:fileType="FILE_XST_PROJECT" xil_pn:name="memory_block_test_stx_beh.prj"/>
     <file xil_pn:branch="BehavioralSim" xil_pn:fileType="FILE_ISIM_EXE" xil_pn:name="multiplexer_2to1_isim_beh.exe"/>
@@ -68,21 +74,25 @@
   </files>
 
   <transforms xmlns="http://www.xilinx.com/XMLSchema">
-    <transform xil_pn:end_ts="1542481136" xil_pn:name="TRAN_copyInitialToAbstractSimulation" xil_pn:start_ts="1542481136">
+    <transform xil_pn:end_ts="1542525358" xil_pn:name="TRAN_copyInitialToAbstractSimulation" xil_pn:start_ts="1542525358">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
     </transform>
-    <transform xil_pn:end_ts="1542481302" xil_pn:in_ck="6918599214322265935" xil_pn:name="TRAN_copyAbstractToPostAbstractSimulation" xil_pn:start_ts="1542481302">
+    <transform xil_pn:end_ts="1542547291" xil_pn:in_ck="-528298564951077880" xil_pn:name="TRAN_copyAbstractToPostAbstractSimulation" xil_pn:start_ts="1542547291">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
+      <outfile xil_pn:name="accumulator_test.vhd"/>
       <outfile xil_pn:name="address_decoder.vhd"/>
       <outfile xil_pn:name="address_decoder_test.vhd"/>
+      <outfile xil_pn:name="average_filter.vhd"/>
+      <outfile xil_pn:name="average_filter_test.vhd"/>
       <outfile xil_pn:name="control_signal_gen.vhd"/>
       <outfile xil_pn:name="control_signal_gen_test.vhd"/>
       <outfile xil_pn:name="controller_ad.vhd"/>
       <outfile xil_pn:name="controller_ad_test.vhd"/>
       <outfile xil_pn:name="controller_da.vhd"/>
       <outfile xil_pn:name="controller_da_test.vhd"/>
+      <outfile xil_pn:name="controller_dt.vhd"/>
       <outfile xil_pn:name="controller_pc.vhd"/>
       <outfile xil_pn:name="counter_test.vhd"/>
       <outfile xil_pn:name="fdce.vhd"/>
@@ -101,29 +111,39 @@
       <outfile xil_pn:name="top_8254.vhd"/>
       <outfile xil_pn:name="tw_8254_cnt.vhd"/>
     </transform>
-    <transform xil_pn:end_ts="1542481136" xil_pn:name="TRAN_xawsToSimhdl" xil_pn:prop_ck="-5341502638493830005" xil_pn:start_ts="1542481136">
+    <transform xil_pn:end_ts="1542543643" xil_pn:name="TRAN_xawsToSimhdl" xil_pn:prop_ck="-8505810097779428331" xil_pn:start_ts="1542543643">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
+      <status xil_pn:value="OutOfDateForProperties"/>
     </transform>
-    <transform xil_pn:end_ts="1542481136" xil_pn:name="TRAN_schematicsToHdlSim" xil_pn:prop_ck="-3241590594312758973" xil_pn:start_ts="1542481136">
+    <transform xil_pn:end_ts="1542543643" xil_pn:name="TRAN_schematicsToHdlSim" xil_pn:prop_ck="4804959168437497037" xil_pn:start_ts="1542543643">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
+      <status xil_pn:value="OutOfDateForProperties"/>
     </transform>
-    <transform xil_pn:end_ts="1542481136" xil_pn:in_ck="-5812363854921444457" xil_pn:name="TRAN_regenerateCoresSim" xil_pn:prop_ck="5637516411374166078" xil_pn:start_ts="1542481136">
+    <transform xil_pn:end_ts="1542540730" xil_pn:in_ck="-8983074856880850466" xil_pn:name="TRAN_regenerateCoresSim" xil_pn:prop_ck="5637516411374166078" xil_pn:start_ts="1542540730">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
+      <outfile xil_pn:name="ipcore_dir/accumulator.ngc"/>
+      <outfile xil_pn:name="ipcore_dir/accumulator.vhd"/>
       <outfile xil_pn:name="ipcore_dir/counter.ngc"/>
       <outfile xil_pn:name="ipcore_dir/counter.vhd"/>
       <outfile xil_pn:name="ipcore_dir/load_counter.ngc"/>
       <outfile xil_pn:name="ipcore_dir/load_counter.vhd"/>
-      <outfile xil_pn:name="ipcore_dir/memory_block.ngc"/>
-      <outfile xil_pn:name="ipcore_dir/memory_block.vhd"/>
     </transform>
-    <transform xil_pn:end_ts="1542481302" xil_pn:in_ck="-7976999739207124084" xil_pn:name="TRAN_copyPostAbstractToPreSimulation" xil_pn:start_ts="1542481302">
+    <transform xil_pn:end_ts="1542545741" xil_pn:in_ck="7440058329862795773" xil_pn:name="TRAN_copyPostAbstractToPreSimulation" xil_pn:start_ts="1542545741">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
+      <status xil_pn:value="OutOfDateForInputs"/>
+      <status xil_pn:value="OutOfDateForPredecessor"/>
+      <status xil_pn:value="OutOfDateForOutputs"/>
+      <status xil_pn:value="InputChanged"/>
+      <status xil_pn:value="OutputChanged"/>
+      <outfile xil_pn:name="accumulator_test.vhd"/>
       <outfile xil_pn:name="address_decoder.vhd"/>
       <outfile xil_pn:name="address_decoder_test.vhd"/>
+      <outfile xil_pn:name="average_filter.vhd"/>
+      <outfile xil_pn:name="average_filter_test.vhd"/>
       <outfile xil_pn:name="control_signal_gen.vhd"/>
       <outfile xil_pn:name="control_signal_gen_test.vhd"/>
       <outfile xil_pn:name="controller_ad.vhd"/>
@@ -137,8 +157,6 @@
       <outfile xil_pn:name="fdce8.vhd"/>
       <outfile xil_pn:name="fdce9.vhd"/>
       <outfile xil_pn:name="fdce_test.vhd"/>
-      <outfile xil_pn:name="ipcore_dir/counter.vhd"/>
-      <outfile xil_pn:name="ipcore_dir/load_counter.vhd"/>
       <outfile xil_pn:name="memory_block_test.vhd"/>
       <outfile xil_pn:name="multiplexer_2to1.vhd"/>
       <outfile xil_pn:name="multiplexer_2to1_test.vhd"/>
@@ -150,24 +168,31 @@
       <outfile xil_pn:name="top_8254.vhd"/>
       <outfile xil_pn:name="tw_8254_cnt.vhd"/>
     </transform>
-    <transform xil_pn:end_ts="1542481305" xil_pn:in_ck="-6589326777876359090" xil_pn:name="TRAN_ISimulateBehavioralModelRunFuse" xil_pn:prop_ck="1654146490968088371" xil_pn:start_ts="1542481302">
+    <transform xil_pn:end_ts="1542545744" xil_pn:in_ck="-5445322007629327429" xil_pn:name="TRAN_ISimulateBehavioralModelRunFuse" xil_pn:prop_ck="1680517386774845191" xil_pn:start_ts="1542545741">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
+      <status xil_pn:value="OutOfDateForInputs"/>
+      <status xil_pn:value="OutOfDateForProperties"/>
+      <status xil_pn:value="OutOfDateForPredecessor"/>
       <status xil_pn:value="OutOfDateForOutputs"/>
+      <status xil_pn:value="InputChanged"/>
       <status xil_pn:value="OutputChanged"/>
+      <outfile xil_pn:name="average_filter_test_beh.prj"/>
+      <outfile xil_pn:name="average_filter_test_isim_beh.exe"/>
       <outfile xil_pn:name="fuse.log"/>
       <outfile xil_pn:name="isim"/>
-      <outfile xil_pn:name="isim.log"/>
-      <outfile xil_pn:name="tb_pcfg_beh.prj"/>
-      <outfile xil_pn:name="tb_pcfg_isim_beh.exe"/>
       <outfile xil_pn:name="xilinxsim.ini"/>
     </transform>
-    <transform xil_pn:end_ts="1542481306" xil_pn:in_ck="-2922517922004109700" xil_pn:name="TRAN_ISimulateBehavioralModel" xil_pn:prop_ck="-4441317525850371424" xil_pn:start_ts="1542481305">
+    <transform xil_pn:end_ts="1542545744" xil_pn:in_ck="-3794603908893694536" xil_pn:name="TRAN_ISimulateBehavioralModel" xil_pn:prop_ck="7358037265878300340" xil_pn:start_ts="1542545744">
       <status xil_pn:value="SuccessfullyRun"/>
       <status xil_pn:value="ReadyToRun"/>
-      <outfile xil_pn:name="isim.cmd"/>
-      <outfile xil_pn:name="isim.log"/>
-      <outfile xil_pn:name="tb_pcfg_isim_beh.wdb"/>
+      <status xil_pn:value="OutOfDateForInputs"/>
+      <status xil_pn:value="OutOfDateForProperties"/>
+      <status xil_pn:value="OutOfDateForPredecessor"/>
+      <status xil_pn:value="OutOfDateForOutputs"/>
+      <status xil_pn:value="InputRemoved"/>
+      <status xil_pn:value="OutputChanged"/>
+      <status xil_pn:value="OutputRemoved"/>
     </transform>
     <transform xil_pn:name="TRAN_SubProjectAbstractToPreProxy">
       <status xil_pn:value="SuccessfullyRun"/>

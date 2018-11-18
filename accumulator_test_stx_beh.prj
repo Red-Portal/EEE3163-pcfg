@@ -1,0 +1,2 @@
+vhdl isim_temp "ipcore_dir/accumulator.vhd"
+vhdl isim_temp "accumulator_test.vhd"
