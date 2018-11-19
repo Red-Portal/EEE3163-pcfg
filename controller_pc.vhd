@@ -41,7 +41,7 @@ entity controller_pc is
         ram_enb       : out STD_LOGIC;
         mux_ram_sel   : out std_logic;
         count_ram_ce  : out STD_LOGIC;
-        count_data_ce : out STD_LOGIC;
+        count_data_ce : out STD_LOGIC
         );
 end controller_pc;
 
