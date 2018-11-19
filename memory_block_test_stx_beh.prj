@@ -1,2 +1,0 @@
-vhdl isim_temp "ipcore_dir/memory_block.vhd"
-vhdl isim_temp "memory_block_test.vhd"

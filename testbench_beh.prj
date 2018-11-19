@@ -1,7 +1,0 @@
-vhdl work "ipcore_dir/counter.vhd"
-vhdl work "controller_pc.vhd"
-vhdl work "controller_filter.vhd"
-vhdl work "controller_dt.vhd"
-vhdl work "controller_da.vhd"
-vhdl work "control_signal_gen.vhd"
-vhdl work "control_signal_gen_test.vhd"

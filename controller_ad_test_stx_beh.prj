@@ -1,4 +1,0 @@
-vhdl isim_temp "ipcore_dir/counter.vhd"
-vhdl isim_temp "ipcore_dir/load_counter.vhd"
-vhdl isim_temp "controller_ad.vhd"
-vhdl isim_temp "controller_ad_test.vhd"

@@ -1,6 +1,0 @@
-vhdl isim_temp "ipcore_dir/load_counter.vhd"
-vhdl isim_temp "ipcore_dir/accumulator.vhd"
-vhdl isim_temp "fdce8.vhd"
-vhdl isim_temp "fdce11.vhd"
-vhdl isim_temp "average_filter.vhd"
-vhdl isim_temp "average_filter_test.vhd"
