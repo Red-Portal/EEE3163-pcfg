@@ -68,11 +68,11 @@ architecture Behavioral of controller_pc is
 
 begin 
   count_ram_ce <= '1' when (current_state = st_cntr) else
-						'1' when (current_state = st_cntw) else
-						'0';
+                  '1' when (current_state = st_cntw) else
+                  '0';
 						
   count_data_ce <= '1' when (current_state = st_cntw) else
-						 '0';
+                   '0';
 						 
   ram_ena <= '1' when (current_state = st_w) else
 				 '0';

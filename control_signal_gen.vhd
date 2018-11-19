@@ -260,7 +260,6 @@ architecture Behavioral of control_signal_gen is
   signal s_ad_mux_ram0_sel    : std_logic;
   signal s_ad_ram0_ena        : std_logic;
   signal s_ad_ram0_wea        : std_logic_vector(0 downto 0);
-  signal s_ad_count_data_ce   : std_logic;
 
 ------- some signals regarding dt_mode
   signal s_dt_ram_ena      : std_logic;
@@ -482,7 +481,8 @@ begin
                      '1' when (current_state = st_pc0_clear) else
                      '0';
 
-  count_data_ce <= '1' when (current_state = st_pc1_clear) else
+  count_data_ce <= '1' when (s_pc0_count_data_ce = '1') else
+                   '1' when (s_pc1_count_data_ce = '1') else
                    '1' when (current_state = st_ad_setup) else
                    '0';
 
