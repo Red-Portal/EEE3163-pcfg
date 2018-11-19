@@ -345,7 +345,7 @@ begin
     ctrl_startio  => ctrl_pc1_startio,
     mux_ram_sel   => s_pc1_mux_sel,
     count_ram_ce  => s_pc1_count_ram_ce,
-    count_data_ce => s_pc1_count_data_ce,
+    count_data_ce => s_pc1_count_data_ce
     );
 
   ad_control: controller_ad PORT MAP (
