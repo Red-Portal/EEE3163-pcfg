@@ -52,14 +52,17 @@ architecture Behavioral of controller_filter is
   signal next_state    : state_t;
 
 begin
+  filter_reset <= '1' when (current_state = st_clear) else
+                  '0';
+  
   count_ram0_sclr <= '1' when (current_state = st_clear) else
-                     '1' when (current_state = st_write) else
                      '0';
   count_ram0_ce <= '1' when (current_state = st_outputlag) else
                    '1' when (current_state = st_write) else
                    '0';
 
   ram0_enb <= '1' when (current_state = st_outputlag) else
+              '1' when (current_state = st_write) else
               '0';
 
   filter_ce <= '1' when (current_state = st_outputlag) else
@@ -97,7 +100,7 @@ begin
         next_state <= st_write;
 
       when st_write =>
-        if(unsigned(count_ram0_q) - 1 <= unsigned(data_count)) then
+        if(unsigned(count_ram0_q) <= unsigned(data_count) + 1) then
           next_state <= st_write;
         else
           next_state <= st_compute;
