@@ -62,7 +62,9 @@ architecture Behavioral of controller_da is
                    st_write,
                    st_writeclear,
                    st_stop_wait,
-                   st_clear);
+                   st_clear,
+						 st_deep_reset
+						 );
 
   signal count_da_ce   : std_logic;
   signal count_da_sclr : std_logic;
@@ -100,7 +102,8 @@ begin
   da_ram_enb <= '0' when (da_current_state = st_clear) else
                 '1';
 
-  count_da_sclr <= '1' when (da_current_state = st_clear) else
+  count_da_sclr <= '1' when (da_current_state = st_deep_reset) else
+						 '1' when (da_current_state = st_clear) else
                    '1' when (da_current_state = st_writeclear) else
                    '0';
 
@@ -136,7 +139,7 @@ begin
   da_clk_proc: process(sys_clk, m_reset)
   begin
     if(m_reset = '1') then
-      da_current_state <= st_idle;
+      da_current_state <= st_deep_reset;
     elsif (rising_edge(sys_clk)) then
       da_current_state <= da_next_state;
     end if;
@@ -145,6 +148,9 @@ begin
   da_proc: process(sys_clk, ctrl_da_mode, count_data_q)
   begin
     case da_current_state is
+      when st_deep_reset =>
+			da_next_state <= st_idle;	 
+	 
       when st_idle =>
         if(s_da_read_enable = '1') then
           da_next_state <= st_clear;
