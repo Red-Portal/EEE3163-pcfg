@@ -37,6 +37,24 @@ architecture Behavioral of controller_dt is
   signal s_debug_clk : std_logic;
 
 begin
+
+  ram_ena <= '1' when (current_state = st_dt) else
+				 '0';
+	 
+  ram_wea <= "1" when (current_state = st_dt) else
+				 "0";
+	 
+  ram_enb <= '1' when (current_state = st_ready) else
+				 '1' when (current_state = st_dt) else
+				 '0';
+	 
+  mux_ram_sel <= '1' when (current_state = st_dt) else
+					  '0';
+	 
+  count_ram_ce <= '1' when (current_state = st_cntdt) else
+						'0';
+
+
   clk_proc: process(s_clk, m_reset)
   begin
     if(m_reset = '1') then
@@ -53,25 +71,19 @@ begin
     s_debug_clk <= '1';
     wait for 2.5ns;
   end process;
-
---p,s count_ram_ce : ram0 and ram1 have to share single ce
---p,s count_ram_clr : maybe ctrled at above level 'ctrl sig gen'? 
---						 no count_ram_clr at ctrlr_pc either...
---p,s ram_ena : of ram1
---p,s ram_wea : of ram1 
---p,s ram_enb : of ram0
---p,s mux_ram_sel : of mux_ram1, sig id Din1(= "01")
+  
 
   pcfg_control_proc: process(s_clk, ctrl_startio, s_wen)
-  begin
+  
+  begin 
     case current_state is
       when st_idle =>
-        count_ram_ce  <= '0';
---        count_data_ce <= '0';
-        ram_ena       <= '0';
-        ram_wea       <= "0";
-        ram_enb       <= '0';
-        mux_ram_sel   <= '0';
+--        count_ram_ce  <= '0';
+----        count_data_ce <= '0';
+--        ram_ena       <= '0';
+--        ram_wea       <= "0";
+--        ram_enb       <= '0';
+--        mux_ram_sel   <= '0';
 
         if(ctrl_startio = '1') then
           next_state <= st_ready;
@@ -82,11 +94,11 @@ begin
       when st_ready =>
 --        count_ram_ce  <= '0';
 --        count_data_ce <= '0';
-        ram_ena       <= '0';
-        ram_wea       <= "0";
-        ram_enb       <= '1';
+--        ram_ena       <= '0';
+--        ram_wea       <= "0";
+---        ram_enb       <= '1';
         
-        mux_ram_sel   <= '0';
+--        mux_ram_sel   <= '0';
 
         if(s_wen = '1') then
           next_state <= st_dt;
@@ -95,20 +107,20 @@ begin
         end if;
         
       when st_dt =>
-        ram_ena       <= '1';
-        ram_wea       <= "1";
-        ram_enb       <= '1';
+--        ram_ena       <= '1';
+--        ram_wea       <= "1";
+--        ram_enb       <= '1';
         
-        mux_ram_sel   <= '1';
+--        mux_ram_sel   <= '1';
 -- have to wr only 1 cycle controller_pc 
         next_state <= st_wait;
 
       when st_wait =>
-        ram_ena       <= '0';
-        ram_wea       <= "0";
-        ram_enb       <= '0';
+--        ram_ena       <= '0';
+--        ram_wea       <= "0";
+--        ram_enb       <= '0';
         
-        mux_ram_sel   <= '0';
+--        mux_ram_sel   <= '0';
 
         if(s_wen = '1') then
           next_state <= st_wait;
@@ -117,12 +129,12 @@ begin
         end if;
 
       when st_cntdt =>
-        count_ram_ce  <= '1';
+--        count_ram_ce  <= '1';
 --		  count_data_ce <= '1';
-        ram_ena       <= '0';
-        ram_enb       <= '0';		  
-        ram_wea       <= "0";
-        mux_ram_sel   <= '0';
+--        ram_ena       <= '0';
+--        ram_enb       <= '0';		  
+--        ram_wea       <= "0";
+--        mux_ram_sel   <= '0';
 -- have to cnt only 1 cycle controller_pc 
         next_state   <= st_idle;
 
