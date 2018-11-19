@@ -416,7 +416,7 @@ begin
     q            => s_data,
     clock        => s_clk,
     clear        => '0',
-    clock_enable => '1'
+    clock_enable => m_cmd_data
     );
 
   out_latch : fdce8 PORT MAP (
@@ -424,7 +424,7 @@ begin
     q            => outlatch_dout,
     clock        => s_clk,
     clear        => '0',
-    clock_enable => '1'
+    clock_enable => m_cmd_data
     );
 
   da_latch : fdce8 PORT MAP (
@@ -448,7 +448,7 @@ begin
     q            => s_address_latch_q,
     clock        => s_clk,
     clear        => '0',
-    clock_enable => '1'
+    clock_enable => m_cmd_data
     );
 
   ren_latch : fdce1 PORT MAP (
@@ -456,7 +456,7 @@ begin
     q            => s_ren_latch_q,
     clock        => s_clk,
     clear        => '0',
-    clock_enable => '1'
+    clock_enable => m_cmd_data
     );
 
   wen_latch : fdce1 PORT MAP (
@@ -464,7 +464,7 @@ begin
     q            => s_wen_latch_q,
     clock        => s_clk,
     clear        => '0',
-    clock_enable => '1'
+    clock_enable => m_cmd_data
     );
 
   oe_latch : fdce1 PORT MAP (
@@ -472,16 +472,16 @@ begin
     q            => s_oe_b_latch_q,
     clock        => s_clk,
     clear        => '0',
-    clock_enable => '1'
+    clock_enable => m_cmd_data
     );
 
-  cmd_latch : fdce1 PORT MAP (
-    d            => m_cmd_data,
-    q            => s_cmd_data,
-    clock        => s_clk,
-    clear        => '0',
-    clock_enable => '1'
-    );
+--  cmd_latch : fdce1 PORT MAP (
+--    d            => m_cmd_data,
+--    q            => s_cmd_data,
+--    clock        => s_clk,
+--    clear        => '0',
+--    clock_enable => '1'
+--    );
 
   out_mux: multiplexer_2to1 port map(
     sel => mux_out_sel, 
