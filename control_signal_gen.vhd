@@ -346,7 +346,6 @@ begin
     mux_ram_sel   => s_pc1_mux_sel,
     count_ram_ce  => s_pc1_count_ram_ce,
     count_data_ce => s_pc1_count_data_ce,
-    led => m_led
     );
 
   ad_control: controller_ad PORT MAP (
