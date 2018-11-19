@@ -79,10 +79,7 @@ architecture Behavioral of controller_ad is
   signal count_ad2_q    : std_logic_vector(10 downto 0);
 
   signal s_ad_count_ad_ce     : std_logic;
-  signal s_ad_count_ad_sclr   : std_logic;
-  signal s_ram0_count_ad_ce   : std_logic;
-  signal s_ram0_count_ad_sclr : std_logic;
-
+  
   signal ad_current_state   : state_t;
   signal ad_next_state      : state_t;
   signal ram0_current_state : state_t;
@@ -105,8 +102,8 @@ begin
     q    => count_ad2_q
     );
 
-  s_ad_count_ad_sclr <= '1' when(ad_current_state = st_write) else
-                        '0';
+  count_ad_sclr <= '1' when(ad_current_state = st_write) else
+                   '0';
 
   ad_ram_ena <= '1' when(ad_current_state = st_write) else
                 '0';

@@ -224,10 +224,6 @@ architecture Behavioral of PCFG_TOP is
   signal filter_reset : std_logic;
   signal filter_out     : std_logic_vector(7 downto 0);
 
-  signal s_ram1_ena   : std_logic;
-  signal s_ram1_wea   : std_logic_vector(0 downto 0);
-  signal s_ram1_addra : std_logic_vector(10 downto 0);
-
   signal s_data     : std_logic_vector(7 downto 0);
   signal s_address  : std_logic_vector(8 downto 0);
   signal s_cmd_data : std_logic;
@@ -239,11 +235,6 @@ architecture Behavioral of PCFG_TOP is
   signal mux_ram1_sel : std_logic_vector(1 downto 0);
   signal mux_out_sel  : std_logic;
   signal mux_out_o    : std_logic_vector(7 downto 0);
-
-  signal da_latch_en  : std_logic;
-  signal ad_latch_en  : std_logic;
-  signal in_latch_en  : std_logic;
-  signal out_latch_en : std_logic;
 
   signal mode_addr    : std_logic_vector(2 downto 0);
 

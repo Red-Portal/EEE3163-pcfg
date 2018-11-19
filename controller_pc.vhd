@@ -97,7 +97,8 @@ begin
     end if;
   end process;
 
-  pcfg_control_proc: process(s_clk, s_debug_clk, ctrl_startio, s_ren, s_wen)
+  pcfg_control_proc: process(s_clk, s_debug_clk, ctrl_startio,
+                             s_ren, s_wen, current_state)
   begin
     --if(rising_edge(s_clk)) then
     case current_state is

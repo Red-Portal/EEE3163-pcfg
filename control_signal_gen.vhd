@@ -233,14 +233,6 @@ architecture Behavioral of control_signal_gen is
   signal ctrl_ad          : std_logic;
   signal ctrl_avg         : std_logic;
 
-  signal count_da_ce   : std_logic;
-  signal count_da_sclr : std_logic;
-  signal count_da_q    : std_logic_vector(10 downto 0);
-
-  signal count_ad_ce   : std_logic;
-  signal count_ad_sclr : std_logic;
-  signal count_ad_q    : std_logic_vector(10 downto 0);
-
   signal s_pc0_mux_sel : std_logic;
   signal s_pc1_mux_sel : std_logic;
 
