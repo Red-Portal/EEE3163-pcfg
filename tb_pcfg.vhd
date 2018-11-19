@@ -193,26 +193,31 @@ BEGIN
     CMD_WR("101000000","00000000",m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);  -- MSB 00
     wait for 10 us;
 
-    CMD_WR('1' & x"76",std_logic_vector(to_unsigned(128, 9)), m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);  -- DATA TRANSFER 20
-    wait for 20 us;
+    -- CMD_WR('1' & x"76",std_logic_vector(to_unsigned(128, 9)), m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);  -- DATA TRANSFER 20
+    -- wait for 20 us;
 
-    CMD_WR('1' & x"50",std_logic_vector(to_unsigned(128, 9)), m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);  -- DATA TRANSFER 20
-    wait for 50 us;
+    -- CMD_WR('1' & x"50",std_logic_vector(to_unsigned(128, 9)), m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);  -- DATA TRANSFER 20
+    -- wait for 50 us;
 
-    m_address <= "000000000";
-    CMD_RD('1' & x"81", m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);  -- DATA TRANSFER 20
-    wait for 50 us;
+    -- m_address <= "000000000";
+    -- CMD_RD('1' & x"81", m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);  -- DATA TRANSFER 20
+    -- wait for 50 us;
 
-    -- --- PC mode test
-    -- for i in 1 to 100 loop			
-    --   cmd_wr('1' & x"80",conv_std_logic_vector(i,8),m_address,m_data,m_cmd_data,m_wen,m_ren,m_oe_b);	-- wr ram0 upto 14  
-    --   wait for 1 us;
-    -- end loop;
+    --- PC mode test
+    for i in 1 to 128 loop			
+      cmd_wr('1' & x"80",conv_std_logic_vector(i,8),m_address,m_data,m_cmd_data,m_wen,m_ren,m_oe_b);	-- wr ram0 upto 14  
+      wait for 1 us;
+    end loop;
+
+    for i in 1 to 128 loop			
+      cmd_WR('1' & x"60","00000000",m_address,m_data,m_cmd_data,m_wen,m_ren,m_oe_b);	-- wr ram0 upto 14  
+      wait for 1 us;
+    end loop;
     
-    -- for i in 0 to 128 loop
-    --   CMD_RD('1' & x"80",m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);  -- RD RAM0 upto 14  
-    --   wait for 1 us;
-    -- end loop;
+    for i in 1 to 128 loop
+      CMD_RD('1' & x"81",m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);  -- RD RAM0 upto 14  
+      wait for 1 us;
+    end loop;
 
     -- wait for 1 us;
     

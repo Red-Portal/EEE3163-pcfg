@@ -75,7 +75,7 @@ begin
     wait for 2.5ns;
   end process;
   
-  pcfg_control_proc: process(s_clk, ctrl_startio, s_ren, s_wen)
+  pcfg_control_proc: process(s_clk, s_debug_clk, ctrl_startio, s_ren, s_wen)
   begin
     --if(rising_edge(s_clk)) then
     case current_state is
@@ -98,9 +98,9 @@ begin
         count_ram_ce  <= '0';
         count_data_ce <= '0';
 
-        if(s_ren = '1') then
+        if((s_ren = '1') AND (ctrl_startio = '1')) then
           next_state <= st_r;
-        elsif(s_wen = '1') then
+        elsif((s_wen = '1') AND (ctrl_startio = '1')) then
           next_state <= st_w;
         else
           next_state <= st_ready;
