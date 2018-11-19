@@ -155,7 +155,8 @@ begin
     end if;
   end process;
   
-  ad_proc: process(sys_clk)
+  ad_proc: process(sys_clk, count_ad_q, ad_current_state,
+                   ctrl_ad_mode, count_data_q)
   begin 
     ad_ram_addra <= count_ad_q; 
 
@@ -186,7 +187,7 @@ begin
     end case;
   end process;
 
-  ram0_clk_proc: process(s_clk)
+  ram0_clk_proc: process(s_clk, m_reset)
   begin
     if(m_reset = '1') then
       ram0_current_state <= st_idle;
@@ -195,7 +196,8 @@ begin
     end if;
   end process;
   
-  ram0_proc: process(s_clk)
+  ram0_proc: process(s_clk, count_ad2_q, ram0_current_state,
+                     s_ram0_write_enable, count_ram0_q, count_data_q)
   begin
     ad_ram_addrb <= count_ad2_q; 
 

@@ -217,6 +217,7 @@ architecture Behavioral of control_signal_gen is
   signal count_ram0_sclr : std_logic;
   signal count_ram0_q    : std_logic_vector(10 downto 0);
   signal count_data_load : std_logic;
+  signal count_data_l    : std_logic_vector(10 downto 0);
 
   signal count_ram1_ce   : std_logic;
   signal count_ram1_sclr : std_logic;
@@ -304,7 +305,7 @@ architecture Behavioral of control_signal_gen is
   signal current_state, next_state: state_t;
 begin
   data_counter: load_counter PORT MAP (
-    l      => std_logic_vector(resize(unsigned(s_data), 11)),
+    l      => count_data_l,
     load   => count_data_load,
     clk    => s_clk,
     ce     => count_data_ce,
@@ -488,6 +489,8 @@ begin
   count_data_load <= '1' when (current_state = st_ad_setup) else
                      '0';
 
+  count_data_l <= std_logic_vector(resize(unsigned(s_data), 11));
+
   ------------------------------------------------------------------------------------
 
   pc_read_ready_flag   <= '1' when ((s_oe_b = '0') and ((mode_addr = mode_pc0)
@@ -540,7 +543,9 @@ begin
     end if;
   end process;
 
-  pcfg_control_proc: process(s_clk, mode_addr, s_ren, s_wen)
+  pcfg_control_proc: process(s_clk, mode_addr, s_ren, s_wen,
+                             current_state, filter_done,
+                             pc_read_ready_flag, pc_write_ready_flag)
   begin
     case current_state is
       when st_reset =>

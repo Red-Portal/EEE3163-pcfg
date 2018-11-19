@@ -107,10 +107,6 @@ begin
   count_da_ce <= '1' when (da_current_state = st_write) else
                  '0';
 
-  da_ram_enb <= '1' when (da_current_state = st_write) else
-                '1' when (da_current_state = st_writeclear) else
-                '0';
-
   s_da_read_enable <= '0' when (ram1_current_state = st_idle) else
                       '1';
 
@@ -146,7 +142,9 @@ begin
     end if;
   end process;
 
-  da_proc: process(sys_clk, ctrl_da_mode)
+  da_proc: process(sys_clk, ctrl_da_mode, count_ad2_q,
+                   ram0_current_state, s_ram0_write_enable,
+                   count_ram0_q, count_data_q)
   begin
     case da_current_state is
       when st_idle =>
@@ -194,7 +192,8 @@ begin
     end if;
   end process;
 
-  ram1_proc: process(s_clk, ctrl_da_mode)
+  ram1_proc: process(s_clk, ctrl_da_mode, ram1_current_state,
+                     count_ram1_q, count_data_q)
   begin
     case ram1_current_state is
       when st_idle =>

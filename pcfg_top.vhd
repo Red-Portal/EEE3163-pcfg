@@ -173,7 +173,7 @@ architecture Behavioral of PCFG_TOP is
       );
   END component;
 
-  COMPONENT fdce
+  COMPONENT fdce1
     PORT(
       clock        : IN  std_logic;
       clock_enable : IN  std_logic;
@@ -443,7 +443,7 @@ begin
     clock_enable => '1'
     );
 
-  ren_latch : fdce PORT MAP (
+  ren_latch : fdce1 PORT MAP (
     d            => m_ren,
     q            => s_ren,
     clock        => s_clk,
@@ -451,7 +451,7 @@ begin
     clock_enable => '1'
     );
 
-  wen_latch : fdce PORT MAP (
+  wen_latch : fdce1 PORT MAP (
     d            => m_wen,
     q            => s_wen,
     clock        => s_clk,
@@ -459,7 +459,7 @@ begin
     clock_enable => '1'
     );
 
-  oe_latch : fdce PORT MAP (
+  oe_latch : fdce1 PORT MAP (
     d            => m_oe_b,
     q            => s_oe_b,
     clock        => s_clk,
@@ -467,7 +467,7 @@ begin
     clock_enable => '1'
     );
 
-  cmd_latch : fdce PORT MAP (
+  cmd_latch : fdce1 PORT MAP (
     d            => m_cmd_data,
     q            => s_cmd_data,
     clock        => s_clk,

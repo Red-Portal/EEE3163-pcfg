@@ -208,7 +208,8 @@ begin
     end if;
   end process;
 
-  avg_proc: process(s_clk, ce, din, avg, count_q, acc_q)
+  avg_proc: process(s_clk, ce, din, avg, count_q,
+                    acc_q, current_state, reg_q)
   begin
     case current_state is
       when st_reset =>

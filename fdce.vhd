@@ -29,14 +29,14 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity fdce is
+entity fdce1 is
     Port ( clock : in  STD_LOGIC;
            clock_enable : in  STD_LOGIC;
            clear : in  STD_LOGIC;
            d : in  STD_LOGIC;
            q : out  STD_LOGIC);
-end fdce;
-architecture behavior of fdce is
+end fdce1;
+architecture behavior of fdce1 is
 begin
   clk_proc: process (clock, clear)
   begin

@@ -204,26 +204,44 @@ BEGIN
     -- wait for 50 us;
 
     --- PC mode test
-    for i in 1 to 128 loop			
-      cmd_wr('1' & x"80",conv_std_logic_vector(i,8),m_address,m_data,m_cmd_data,m_wen,m_ren,m_oe_b);	-- wr ram0 upto 14  
-      wait for 1 us;
-    end loop;
+    -- for i in 1 to 128 loop			
+    --   cmd_wr('1' & x"80",conv_std_logic_vector(i,8),m_address,m_data,m_cmd_data,m_wen,m_ren,m_oe_b);	-- wr ram0 upto 14  
+    --   wait for 1 us;
+    -- end loop;
+    -- wait for 10 us;
+
+    -- for i in 1 to 128 loop			
+    --   cmd_rd('1' & x"80",m_address,m_data,m_cmd_data,m_wen,m_ren,m_oe_b);	-- wr ram0 upto 14  
+    --   wait for 1 us;
+    -- end loop;
+    -- wait for 10 us;
+
+    cmd_wr('1' & x"76",conv_std_logic_vector(128,8),m_address,m_data,m_cmd_data,m_wen,m_ren,m_oe_b);	-- wr ram0 upto 14  
+    wait for 100 us;
 
     for i in 1 to 128 loop			
       cmd_WR('1' & x"60","00000000",m_address,m_data,m_cmd_data,m_wen,m_ren,m_oe_b);	-- wr ram0 upto 14  
       wait for 1 us;
     end loop;
+    wait for 100 us;
     
     -- for i in 1 to 128 loop
     --   CMD_RD('1' & x"81",m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);  -- RD RAM0 upto 14  
     --   wait for 1 us;
     -- end loop;
 
-    CMD_WR('1' & x"72","00000000",m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);  -- DATA TRANSFER 20
+    CMD_WR('1' & x"72","00000000",m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);
     wait for 500 us;
 
-    CMD_WR('1' & x"74","00000000",m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);  -- DATA TRANSFER 20
-    wait for 1 us;
+    CMD_WR('1' & x"74","00000000",m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);
+    wait for 10 us;
+
+    CMD_WR('1' & x"50","00000000",m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);  -- DATA TRANSFER 20
+    wait for 500 us;
+
+    m_address <= "000000000";
+    cmd_rd('1' & x"81", m_address, m_data,m_cmd_data,m_wen,m_ren,m_oe_b);	-- wr ram0 upto 14  
+    wait for 10 us;
 
     -- wait for 1 us;
     

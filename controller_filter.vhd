@@ -62,7 +62,8 @@ begin
   end process;
 
 
-  filter_proc: process(s_clk)
+  filter_proc: process(s_clk, current_state, ctrl_filter,
+                       count_ram0_q, data_count)
   begin
     case current_state is
       when st_idle => 
