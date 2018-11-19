@@ -29,6 +29,7 @@ LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
 use IEEE.STD_LOGIC_ARITH.ALL;
 use IEEE.STD_LOGIC_UNSIGNED.ALL;
+use IEEE.numeric_std.all;
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
 --USE ieee.numeric_std.ALL;
@@ -139,8 +140,6 @@ ARCHITECTURE behavior OF tb_pcfg IS
     n_OE					<='1';
     wait for 10 ns;
   end CMD_RD;
-
-  
 BEGIN
   
   -- Instantiate the Unit Under Test (UUT)
@@ -160,6 +159,14 @@ BEGIN
     m_led => m_led,
     m_TP => m_TP
     );
+
+  adc_process: process
+  begin
+    for i in 1 to 64 loop			
+      m_ADC_data <= std_logic_vector(to_unsigned(i, 8));
+      wait for 200 ns;
+    end loop;
+  end process;
 
   -- Clock process definitions
   m_clk_process :process
@@ -186,12 +193,13 @@ BEGIN
     CMD_WR("101000000","00000000",m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);  -- MSB 00
     wait for 10 us;
 
+    CMD_WR('1' & x"76",std_logic_vector(to_unsigned(128, 9)), m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);  -- DATA TRANSFER 20
 
-    --- PC mode test
-    for i in 1 to 100 loop			
-      CMD_WR('1' & x"80",conv_std_logic_vector(i,8),m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);	-- WR RAM0 upto 14  
-      wait for 1 us;
-    end loop;
+    -- --- PC mode test
+    -- for i in 1 to 100 loop			
+    --   CMD_WR('1' & x"80",conv_std_logic_vector(i,8),m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);	-- WR RAM0 upto 14  
+    --   wait for 1 us;
+    -- end loop;
     
     -- for i in 0 to 14 loop
     --   CMD_RD('1' & x"80",m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);  -- RD RAM0 upto 14  
@@ -210,10 +218,10 @@ BEGIN
     --   wait for 1 us;
     -- end loop;
 
-    m_address <= "000000000" ;
-    CMD_RD('1' & x"50", m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);  -- RD RAM1 upto 14
-    wait for 500 us;
-    CMD_RD('1' & x"81", m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);	-- WR RAM0 upto 14  
+    -- m_address <= "000000000" ;
+    -- CMD_RD('1' & x"50", m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);  -- RD RAM1 upto 14
+    -- wait for 500 us;
+    -- CMD_RD('1' & x"81", m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);	-- WR RAM0 upto 14  
     
     -- insert stimulus here 
 

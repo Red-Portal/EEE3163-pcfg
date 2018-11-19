@@ -32,8 +32,6 @@ USE ieee.std_logic_1164.ALL;
 --USE ieee.numeric_std.ALL;
 
 ENTITY controller_ad_test IS
-END controller_ad_test;
-
 ARCHITECTURE behavior OF controller_ad_test IS 
   
   -- Component Declaration for the Unit Under Test (UUT)

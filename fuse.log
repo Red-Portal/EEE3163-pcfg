@@ -14,12 +14,14 @@ Parsing VHDL file "/home/msca8h/Projects/EEE3163-pcfg/controller_pc.vhd" into li
 Parsing VHDL file "/home/msca8h/Projects/EEE3163-pcfg/controller_filter.vhd" into library work
 Parsing VHDL file "/home/msca8h/Projects/EEE3163-pcfg/controller_dt.vhd" into library work
 Parsing VHDL file "/home/msca8h/Projects/EEE3163-pcfg/controller_da.vhd" into library work
+Parsing VHDL file "/home/msca8h/Projects/EEE3163-pcfg/controller_ad.vhd" into library work
 Parsing VHDL file "/home/msca8h/Projects/EEE3163-pcfg/top_8254.vhd" into library work
 Parsing VHDL file "/home/msca8h/Projects/EEE3163-pcfg/multiplexer_3to1.vhd" into library work
 Parsing VHDL file "/home/msca8h/Projects/EEE3163-pcfg/multiplexer_2to1.vhd" into library work
 Parsing VHDL file "/home/msca8h/Projects/EEE3163-pcfg/fdce9.vhd" into library work
 Parsing VHDL file "/home/msca8h/Projects/EEE3163-pcfg/fdce.vhd" into library work
 Parsing VHDL file "/home/msca8h/Projects/EEE3163-pcfg/control_signal_gen.vhd" into library work
+WARNING:HDLCompiler:946 - "/home/msca8h/Projects/EEE3163-pcfg/control_signal_gen.vhd" Line 310: Actual for formal port l is neither a static name nor a globally static expression
 Parsing VHDL file "/home/msca8h/Projects/EEE3163-pcfg/average_filter.vhd" into library work
 Parsing VHDL file "/home/msca8h/Projects/EEE3163-pcfg/address_decoder.vhd" into library work
 Parsing VHDL file "/home/msca8h/Projects/EEE3163-pcfg/pcfg_top.vhd" into library work
@@ -30,14 +32,14 @@ WARNING:HDLCompiler:946 - "/home/msca8h/Projects/EEE3163-pcfg/pcfg_top.vhd" Line
 Parsing VHDL file "/home/msca8h/Projects/EEE3163-pcfg/tb_pcfg.vhd" into library work
 Starting static elaboration
 Completed static elaboration
-Fuse Memory Usage: 112308 KB
-Fuse CPU Usage: 1120 ms
+Fuse Memory Usage: 112392 KB
+Fuse CPU Usage: 1080 ms
 Compiling package standard
 Compiling package std_logic_1164
 Compiling package std_logic_arith
 Compiling package std_logic_unsigned
-Compiling package vcomponents
 Compiling package numeric_std
+Compiling package vcomponents
 Compiling architecture ibufg_v of entity IBUFG [\IBUFG("DONT_CARE","0",true,"DEF...]
 Compiling architecture behavioral of entity TW_8254_CNT [tw_8254_cnt_default]
 Compiling architecture behavioral of entity TOP_8254 [top_8254_default]
@@ -84,6 +86,7 @@ Compiling architecture behavioral of entity c_counter_binary_v11_0_legacy [\c_co
 Compiling architecture behavioral of entity c_counter_binary_v11_0 [\c_counter_binary_v11_0(0,0,"spa...]
 Compiling architecture counter_a of entity counter [counter_default]
 Compiling architecture behavioral of entity controller_pc [controller_pc_default]
+Compiling architecture behavioral of entity controller_ad [controller_ad_default]
 Compiling architecture behavioral of entity controller_da [controller_da_default]
 Compiling architecture behavioral of entity controller_dt [controller_dt_default]
 Compiling architecture behavioral of entity controller_filter [controller_filter_default]
@@ -92,8 +95,8 @@ Compiling architecture behavioral of entity PCFG_TOP [pcfg_top_default]
 Compiling architecture behavior of entity tb_pcfg
 Time Resolution for simulation is 1ps.
 Waiting for 13 sub-compilation(s) to finish...
-Compiled 95 VHDL Units
+Compiled 97 VHDL Units
 Built simulation executable /home/msca8h/Projects/EEE3163-pcfg/tb_pcfg_isim_beh.exe
-Fuse Memory Usage: 1245016 KB
-Fuse CPU Usage: 1740 ms
-GCC CPU Usage: 10880 ms
+Fuse Memory Usage: 1245164 KB
+Fuse CPU Usage: 1590 ms
+GCC CPU Usage: 6680 ms
