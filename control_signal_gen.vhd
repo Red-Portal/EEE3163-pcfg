@@ -277,10 +277,6 @@ architecture Behavioral of control_signal_gen is
   signal s_dt_mux_sel      : std_logic;
 --------------------------------------
 
-  signal s_count_data_sclr : std_logic;
-  signal s_count_ram0_sclr : std_logic;
-  signal s_count_ram1_sclr : std_logic;
-
   signal s_debug_clk : std_logic;
 
   type state_t is (st_reset,
@@ -304,6 +300,7 @@ architecture Behavioral of control_signal_gen is
                    st_dt_transfer, ----------
                    st_dt_wait ----------
                    );
+
   signal current_state, next_state: state_t;
 begin
   data_counter: load_counter PORT MAP (
@@ -421,72 +418,75 @@ begin
 
   ram0_addra <= count_ram0_q;
   ram0_addrb <= count_ram0_q;
-  ram1_addra <= (others=>'0') when (filter_done = '1') else
+  ram1_addra <= (others=>'0') when (current_state = st_avg_done_mode) else
                 count_ram1_q;
   ram1_addrb <= count_ram1_q;
 
-  filter_reset    <= '1' when (s_filter_reset = '1') else
-                     '1' when (current_state = st_reset) else
-                     '0';
+  filter_reset <= '1' when (s_filter_reset = '1') else
+                  '1' when (current_state = st_reset) else
+                  '0';
 
-  ram0_ena <= '1' when (s_pc0_ram_ena = '1' and current_state = st_pc0_write_mode) else
+  ram0_ena <= '1' when (s_pc0_ram_ena = '1') else
               '1' when (s_ad_ram0_ena = '1') else
               '0';
-  ram0_wea <= "1" when (s_pc0_ram_wea = "1" and current_state = st_pc0_write_mode) else
+  ram0_wea <= "1" when (s_pc0_ram_wea = "1") else
               "1" when (s_ad_ram0_wea = "1") else
               "0";
-  ram0_enb <= '1' when (s_pc0_ram_enb = '1' and current_state = st_pc0_read_mode) else
-              '1' when (s_dt_ram_enb = '1' and current_state = st_dt_transfer) else ----------------
+  ram0_enb <= '1' when (s_pc0_ram_enb = '1') else
+              '1' when (s_dt_ram_enb = '1') else ----------------
               '1' when (s_filter_ram0_enb = '1') else
               '0';
 
-  count_ram0_sclr <= '1' when (s_count_ram0_sclr = '1') else
+  count_ram0_sclr <= '1' when (current_state = st_reset) else
                      '1' when (current_state = st_dt_clear) else
-                     --'1' when (s_da_count_ram1_sclr and current_state = st_da_mode)
+                     '1' when (current_state = st_pc0_clear) else
                      '1' when (s_ad_count_ram0_sclr = '1') else
                      '1' when (s_filter_count_ram0_sclr = '1') else
                      '0';
 
   count_ram0_ce <= '1' when (s_pc0_count_ram_ce = '1') else
                    '1' when (s_dt_count_ram_ce = '1') else -------------
-                   --'1' when (s_da_count_ram0_ce = '1' and current_state = st_da_mode) else
                    '1' when (s_ad_count_ram0_ce = '1') else
                    '1' when (s_filter_count_ram0_ce = '1') else
                    '0';
 
   ------------------------------------------------------------------------------------
 
-  ram1_ena <= '1' when (s_pc1_ram_ena = '1' and current_state = st_pc1_write_mode) else
-              '1' when (s_dt_ram_ena = '1' and current_state = st_dt_transfer) else
+  ram1_ena <= '1' when (s_pc1_ram_ena = '1') else
+              '1' when (s_dt_ram_ena = '1') else
               '1' when (current_state = st_avg_done_mode) else
               '0';
-  ram1_wea <= "1" when (s_pc1_ram_wea = "1" and current_state = st_pc1_write_mode) else
-              "1" when (s_dt_ram_wea = "1" and current_state = st_dt_transfer) else
+  ram1_wea <= "1" when (s_pc1_ram_wea = "1") else
+              "1" when (s_dt_ram_wea = "1") else
               "1" when (current_state = st_avg_done_mode) else
               "0";
-  ram1_enb <= '1' when (s_pc1_ram_enb = '1' and current_state = st_pc1_read_mode) else
-              '1' when (s_da_ram1_enb = '1' and current_state = st_da_mode) else
+  ram1_enb <= '1' when (s_pc1_ram_enb = '1') else
+              '1' when (s_da_ram1_enb = '1') else
               '0';
 
-  count_ram1_sclr <= '1' when (s_count_ram1_sclr = '1') else
-                     '1' when (s_da_count_ram1_sclr = '1' and current_state = st_da_mode) else
+  count_ram1_sclr <= '1' when (current_state = st_reset) else
+                     '1' when (current_state = st_pc1_clear) else
+                     '1' when (s_da_count_ram1_sclr = '1') else
                      '1' when (current_state = st_dt_clear) else
                      '0';
 
   count_ram1_ce <= '1' when (s_pc1_count_ram_ce = '1') else
-                   '1' when (s_dt_count_ram_ce = '1') else -------------
-                   '1' when (s_da_count_ram1_ce = '1' and current_state = st_da_mode) else
+                   '1' when (s_dt_count_ram_ce = '1') else
+                   '1' when (s_da_count_ram1_ce = '1') else
                    '0';
   ------------------------------------------------------------------------------------
 
-  count_data_sclr <= '1' when (s_count_data_sclr = '1') else
-                     --'1' when (s_da_count_ram1_sclr and current_state = st_da_mode) else
+  count_data_sclr <= '1' when (current_state = st_reset) else
+                     '1' when (current_state = st_pc1_clear) else
+                     '1' when (current_state = st_pc0_clear) else
                      '0';
 
-  count_data_ce <= '1' when (s_pc0_count_data_ce = '1') else
-                   '1' when (s_ad_count_data_ce = '1') else
-                   '1' when (s_pc1_count_data_ce = '1') else
+  count_data_ce <= '1' when (current_state = st_pc1_clear) else
+                   '1' when (current_state = st_ad_setup) else
                    '0';
+
+  count_data_load <= '1' when (current_state = st_ad_setup) else
+                     '0';
 
   ------------------------------------------------------------------------------------
 
@@ -497,9 +497,6 @@ begin
                                                         or (mode_addr = mode_pc1))) else
                           '0';
   
---  dt_transfer_ready_flag <= '1' when (mode_addr = mode_transfer) else --------------------
---									 '0';
-
   s_dout_en <= pc_read_ready_flag;
 
   mux_out_sel <= '1' when (s_pc0_mux_sel = '1' and s_pc1_mux_sel = '0') else
@@ -513,6 +510,26 @@ begin
                   "01" when (mode_addr = mode_transfer) else
                   "10" when (pc_write_ready_flag = '1') else
                   "11";
+
+  ctrl_avg <= '1' when (current_state = st_avg_mode) else
+              '0';
+
+  ctrl_ad <= '1' when (current_state = st_ad_mode) else
+             '0';
+
+  ctrl_da_mode <= '1' when (current_state = st_da_mode) else
+                  '0';
+
+  ctrl_transfer <= '1' when (current_state = st_dt_transfer) else
+                   '0';
+
+  ctrl_pc0_startio <= '1' when (current_state = st_pc0_read_mode) else
+                      '1' when (current_state = st_pc0_write_mode) else
+                      '0';
+
+  ctrl_pc1_startio <= '1' when (current_state = st_pc1_read_mode) else
+                      '1' when (current_state = st_pc1_write_mode) else
+                      '0';
 
   debug_clk_proc: process
   begin
@@ -535,33 +552,9 @@ begin
   begin
     case current_state is
       when st_reset =>
-        s_count_data_sclr  <= '1';
-        s_count_ram0_sclr  <= '1';
-        s_count_ram1_sclr  <= '1';
-        s_ad_count_data_ce <= '0';
-        count_data_load    <= '0';
-        ctrl_pc0_startio   <= '0';
-        ctrl_pc1_startio   <= '0';
-        ctrl_transfer      <= '0';
-        ctrl_da_mode       <= '0';
-        ctrl_ad            <= '0';
-        ctrl_avg           <= '0';
-
-        next_state        <= st_idle;
+        next_state <= st_idle;
         
       when st_idle =>
-        s_count_data_sclr  <= '0';
-        s_count_ram0_sclr  <= '0';
-        s_count_ram1_sclr  <= '0';
-        s_ad_count_data_ce <= '0';
-        count_data_load    <= '0';
-        ctrl_pc0_startio   <= '0';
-        ctrl_pc1_startio   <= '0';
-        ctrl_transfer      <= '0';
-        ctrl_da_mode       <= '0';
-        ctrl_ad            <= '0';
-        ctrl_avg           <= '0';
-
         if(mode_addr = mode_pc0) then
           next_state <= st_pc0_clear;
         elsif(mode_addr = mode_pc1) then
@@ -577,8 +570,6 @@ begin
         end if;
 
       when st_avg_mode =>
-        ctrl_avg <= '1';
-        
         if(mode_addr = mode_ad or filter_done = '0') then
           next_state <= st_avg_mode;
         elsif(filter_done = '1') then
@@ -591,16 +582,9 @@ begin
         next_state <= st_idle;
 
       when st_ad_setup =>
-        s_ad_count_data_ce <= '1';
-        count_data_load <= '1';
-
         next_state <= st_ad_mode;
 
       when st_ad_mode =>
-        ctrl_ad <= '1';
-        s_ad_count_data_ce <= '0';
-        count_data_load <= '0';
-
         if(mode_addr = mode_ad) then
           next_state <= st_ad_mode;
         else
@@ -608,8 +592,6 @@ begin
         end if;
 
       when st_da_mode =>
-        ctrl_da_mode <= '1';
-
         if(mode_addr = mode_da_stop) then
           next_state <= st_idle;
         else
@@ -620,8 +602,6 @@ begin
         next_state <= st_dt_transfer;
         
       when st_dt_transfer => --------------
-        ctrl_transfer <= '1';
-        
         if(mode_addr = "000") then
           next_state <= st_dt_wait;
         else
@@ -629,8 +609,6 @@ begin
         end if;
         
       when st_dt_wait => --------------
-        ctrl_transfer <= '0';
-        
         if(mode_addr = mode_transfer) then 
           next_state <= st_dt_transfer;
         elsif(mode_addr = "000") then
@@ -640,9 +618,6 @@ begin
         end if;
         
       when st_pc0_clear =>
-        s_count_data_sclr <= '1'; -- THIS IS DISABLED!!!!!!
-        s_count_ram0_sclr <= '1';
-
         if(pc_read_ready_flag = '1') then
           next_state <= st_pc0_read_mode;
         elsif(pc_write_ready_flag = '1') then
@@ -652,10 +627,6 @@ begin
         end if;
 
       when st_pc0_read_mode =>
-        s_count_data_sclr <= '0';
-        s_count_ram0_sclr <= '0';
-        ctrl_pc0_startio <= '1';
-
         if(pc_read_ready_flag = '1') then
           next_state <= st_pc0_read_mode;
         else
@@ -663,8 +634,6 @@ begin
         end if;
 
       when st_pc0_read_wait =>
-        ctrl_pc0_startio <= '0';
-
         if(mode_addr = mode_pc0 and pc_read_ready_flag = '1') then
           next_state <= st_pc0_read_mode;
         elsif(mode_addr = "000") then
@@ -674,10 +643,6 @@ begin
         end if;
 
       when st_pc0_write_mode =>
-        s_count_data_sclr <= '0';
-        s_count_ram0_sclr <= '0';
-        ctrl_pc0_startio <= '1';
-
         if(pc_write_ready_flag = '1') then
           next_state <= st_pc0_write_mode;
         else
@@ -685,8 +650,6 @@ begin
         end if;
 
       when st_pc0_write_wait =>
-        ctrl_pc0_startio <= '0';
-
         if(mode_addr = mode_pc0 and pc_write_ready_flag = '1') then
           next_state <= st_pc0_write_mode;
         elsif(mode_addr = "000") then
@@ -696,9 +659,6 @@ begin
         end if;
 
       when st_pc1_clear =>
-        s_count_ram1_sclr <= '1';
-        s_count_data_sclr <= '1';
-
         if(pc_read_ready_flag = '1') then
           next_state <= st_pc1_read_mode;
         elsif(pc_write_ready_flag = '1') then
@@ -708,10 +668,6 @@ begin
         end if;
 
       when st_pc1_read_mode =>
-        s_count_data_sclr <= '0'; 
-        s_count_ram1_sclr <= '0';
-        ctrl_pc1_startio <= '1';
-
         if(pc_read_ready_flag = '1') then
           next_state <= st_pc1_read_mode;
         else
@@ -719,8 +675,6 @@ begin
         end if;
 
       when st_pc1_read_wait =>
-        ctrl_pc1_startio <= '0';
-
         if(mode_addr = mode_pc1 and pc_read_ready_flag = '1') then
           next_state <= st_pc1_read_mode;
         elsif(mode_addr = "000") then
@@ -730,10 +684,6 @@ begin
         end if;
 
       when st_pc1_write_mode =>
-        s_count_data_sclr <= '0';
-        s_count_ram1_sclr <= '0';
-        ctrl_pc1_startio <= '1';
-
         if(pc_write_ready_flag = '1') then
           next_state <= st_pc1_write_mode;
         else
@@ -741,8 +691,6 @@ begin
         end if;
 
       when st_pc1_write_wait =>
-        ctrl_pc1_startio <= '0';
-
         if(mode_addr = mode_pc1 and pc_write_ready_flag = '1') then
           next_state <= st_pc1_write_mode;
         elsif(mode_addr = "000") then
