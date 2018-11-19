@@ -214,10 +214,16 @@ BEGIN
       wait for 1 us;
     end loop;
     
-    for i in 1 to 128 loop
-      CMD_RD('1' & x"81",m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);  -- RD RAM0 upto 14  
-      wait for 1 us;
-    end loop;
+    -- for i in 1 to 128 loop
+    --   CMD_RD('1' & x"81",m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);  -- RD RAM0 upto 14  
+    --   wait for 1 us;
+    -- end loop;
+
+    CMD_WR('1' & x"72","00000000",m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);  -- DATA TRANSFER 20
+    wait for 500 us;
+
+    CMD_WR('1' & x"72","00000000",m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);  -- DATA TRANSFER 20
+    wait for 1 us;
 
     -- wait for 1 us;
     

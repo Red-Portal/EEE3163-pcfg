@@ -58,13 +58,19 @@ architecture Behavioral of controller_da is
   END component;
 
   type state_t is (st_idle,
+                   st_outputlag,
                    st_write,
+                   st_writeclear,
                    st_stop_wait,
                    st_clear);
 
   signal count_da_ce   : std_logic;
   signal count_da_sclr : std_logic;
   signal count_da_q    : std_logic_vector(10 downto 0);
+
+  signal count_da2_ce   : std_logic;
+  signal count_da2_sclr : std_logic;
+  signal count_da2_q    : std_logic_vector(10 downto 0);
 
   signal da_current_state   : state_t;
   signal da_next_state      : state_t;
@@ -78,6 +84,13 @@ begin
     ce   => count_da_ce,
     sclr => count_da_sclr,
     q    => count_da_q
+    );
+
+  da_counter2: counter PORT MAP (
+    clk  => s_clk,
+    ce   => count_da2_ce,
+    sclr => count_da2_sclr,
+    q    => count_da2_q
     );
 
   da_clk_proc: process(sys_clk, m_reset)
@@ -125,8 +138,20 @@ begin
 
         if(s_da_read_enable = '0') then
           da_next_state <= st_idle;
-        elsif(count_da_q >= std_logic_vector(unsigned(count_data_q) - 1)) then
-          da_next_state <= st_clear;
+        elsif(unsigned(count_da_q) + 2 = unsigned(count_data_q)) then
+          da_next_state <= st_writeclear;
+        else
+          da_next_state <= st_write;
+        end if;
+
+      when st_writeclear =>
+        da_ram_enb    <= '1';
+        da_ram_addrb  <= count_da_q;
+        count_da_ce   <= '0';
+        count_da_sclr <= '1';
+
+        if(s_da_read_enable = '0') then
+          da_next_state <= st_idle;
         else
           da_next_state <= st_write;
         end if;
@@ -148,7 +173,7 @@ begin
 
   ram1_proc: process(s_clk, ctrl_da_mode)
   begin
-    da_ram_addra <= count_ram1_q;
+    da_ram_addra <= count_da2_q;
      
     case ram1_current_state is
       when st_idle =>
@@ -158,6 +183,8 @@ begin
         da_ram_wea       <= "0";
         da_ram_ena       <= '0';
         s_da_read_enable <= '0';
+        count_da2_ce     <= '0';
+        count_da2_sclr   <= '0';
 
         if(ctrl_da_mode = '1') then
           ram1_next_state <= st_clear;
@@ -167,7 +194,23 @@ begin
 
       when st_clear =>
         s_da_read_enable <= '1';
-        count_ram1_sclr <= '1';
+        count_ram1_sclr  <= '1';
+        count_da2_sclr   <= '1';
+
+        if(ctrl_da_mode = '0') then
+          ram1_next_state <= st_idle;
+        else
+          ram1_next_state <= st_outputlag;
+        end if;
+
+      when st_outputlag =>
+        s_da_read_enable <= '1';
+        ram1_enb         <= '1';
+        count_ram1_ce    <= '1';
+        count_ram1_sclr  <= '0';
+        count_da2_sclr   <= '0';
+        da_ram_wea       <= "0";
+        da_ram_ena       <= '0';
 
         if(ctrl_da_mode = '0') then
           ram1_next_state <= st_idle;
@@ -177,15 +220,17 @@ begin
 
       when st_write =>
         s_da_read_enable <= '1';
-        count_ram1_ce    <= '1';
-        count_ram1_sclr  <= '0';
         ram1_enb         <= '1';
+        count_ram1_ce    <= '1';
+        count_da2_ce     <= '1';
         da_ram_wea       <= "1";
         da_ram_ena       <= '1';
+        count_ram1_sclr  <= '0';
+        count_da2_sclr   <= '0';
 
         if(ctrl_da_mode = '0') then
           ram1_next_state <= st_idle;
-        elsif(count_ram1_q >= std_logic_vector(unsigned(count_data_q) - 1)) then
+        elsif(unsigned(count_ram1_q) = unsigned(count_data_q)) then
           ram1_next_state <= st_stop_wait;
         else
           ram1_next_state <= st_write;
@@ -193,9 +238,11 @@ begin
 
       when st_stop_wait =>
         s_da_read_enable <= '1';
+        ram1_enb         <= '0';
         count_ram1_ce    <= '0';
         count_ram1_sclr  <= '0';
-        ram1_enb         <= '0';
+        count_da2_ce     <= '0';
+        count_da2_sclr   <= '0';
         da_ram_wea       <= "0";
         da_ram_ena       <= '0';
 
