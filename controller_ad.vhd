@@ -73,6 +73,10 @@ architecture Behavioral of controller_ad is
   signal count_ad_ce   : std_logic;
   signal count_ad_sclr : std_logic;
   signal count_ad_q    : std_logic_vector(10 downto 0);
+  
+  signal count_ad2_ce   : std_logic;
+  signal count_ad2_sclr : std_logic;
+  signal count_ad2_q    : std_logic_vector(10 downto 0);
 
   signal s_ad_count_ad_ce     : std_logic;
   signal s_ad_count_ad_sclr   : std_logic;
@@ -87,16 +91,18 @@ architecture Behavioral of controller_ad is
   signal s_ram0_write_enable : std_logic;
 
 begin
-  count_ad_ce <= '1' when (s_ad_count_ad_ce = '1') or (s_ram0_count_ad_ce = '1') else
-                 '0';
-  count_ad_sclr <= '1' when (s_ad_count_ad_sclr = '1') or (s_ram0_count_ad_sclr = '1') else
-                   '0';
-  
   ad_counter: counter PORT MAP (
     clk  => sys_clk,
     ce   => count_ad_ce,
     sclr => count_ad_sclr,
     q    => count_ad_q
+    );
+
+  ad_counter2: counter PORT MAP (
+    clk  => s_clk,
+    ce   => count_ad2_ce,
+    sclr => count_ad2_sclr,
+    q    => count_ad2_q
     );
 
   ad_clk_proc: process(sys_clk, m_reset)
@@ -116,8 +122,8 @@ begin
       when st_idle =>
         ad_ram_ena          <= '0';
         ad_ram_wea          <= "0";
-        s_ad_count_ad_ce    <= '0';
-        s_ad_count_ad_sclr  <= '0';
+        count_ad_ce         <= '0';
+        count_ad_sclr       <= '0';
         s_ram0_write_enable <= '0';
 
         if(ctrl_ad_mode = '1') then
@@ -132,10 +138,10 @@ begin
         ad_next_state <= st_write;
 
       when st_write =>
-        ad_ram_ena         <= '1';
-        ad_ram_wea         <= "1";
-        s_ad_count_ad_sclr <= '0';
-        s_ad_count_ad_ce   <= '1';
+        ad_ram_ena    <= '1';
+        ad_ram_wea    <= "1";
+        count_ad_sclr <= '0';
+        count_ad_ce   <= '1';
 
         if(unsigned(count_ad_q) >= unsigned(count_data_q)) then
           ad_next_state <= st_wait;
@@ -146,7 +152,7 @@ begin
       when st_wait =>
         ad_ram_ena          <= '0';
         ad_ram_wea          <= "0";
-        s_ad_count_ad_ce    <= '0';
+        count_ad_ce         <= '0';
         s_ram0_write_enable <= '1';
 
         ad_next_state <= st_idle;
@@ -168,19 +174,19 @@ begin
   
   ram0_proc: process(s_clk)
   begin
-    ad_ram_addrb <= count_ad_q; 
+    ad_ram_addrb <= count_ad2_q; 
 
     case ram0_current_state is 
       when st_idle =>
-        ad_ram_enb           <= '0';
-        count_ram0_ce        <= '0';
-        count_ram0_sclr      <= '0';
-        s_ram0_count_ad_ce   <= '0';
-        s_ram0_count_ad_sclr <= '0';
-        count_ram0_sclr      <= '0';
-        ram0_ena             <= '0';
-        ram0_wea             <= "0";
-        mux_ram0_sel         <= '0';
+        ad_ram_enb      <= '0';
+        count_ram0_ce   <= '0';
+        count_ram0_sclr <= '0';
+        count_ad2_ce    <= '0';
+        count_ad2_sclr  <= '0';
+        count_ram0_sclr <= '0';
+        ram0_ena        <= '0';
+        ram0_wea        <= "0";
+        mux_ram0_sel    <= '0';
 
         if(s_ram0_write_enable = '1') then
           ram0_next_state <= st_clear;
@@ -189,43 +195,45 @@ begin
         end if;
 
       when st_clear =>
-        count_ram0_sclr      <= '1';
-        s_ram0_count_ad_sclr <= '1';
+        count_ram0_sclr <= '1';
+        count_ad2_sclr  <= '1';
+
+        ram0_next_state <= st_outputlag;
+
+      when st_outputlag =>
+        count_ad2_ce   <= '1';
+        count_ad2_sclr <= '0';
+        ad_ram_enb     <= '1';
+        count_ram0_ce  <= '0';
 
         ram0_next_state <= st_write;
 
-      when st_outputlag =>
-        ad_ram_enb      <= '1';
-        count_ram0_ce   <= '1';
-
-        ram0_next_state      <= st_write;
-
       when st_write =>
-        ad_ram_enb           <= '1';
-        s_ram0_count_ad_ce   <= '1';
-        s_ram0_count_ad_sclr <= '0';
-        count_ram0_ce        <= '1';
-        count_ram0_sclr      <= '0';
-        ram0_ena             <= '1';
-        ram0_wea             <= "1";
-        mux_ram0_sel         <= '1';
+        ad_ram_enb      <= '1';
+        count_ad2_ce    <= '1';
+        count_ram0_ce   <= '1';
+        count_ram0_sclr <= '0';
+        ram0_ena        <= '1';
+        ram0_wea        <= "1";
+        mux_ram0_sel    <= '1';
 
         if(unsigned(count_ram0_q) >= unsigned(count_data_q)) then
-          ram0_next_state <= st_writelag;
+        --ram0_next_state <= st_writelag;
+          ram0_next_state <= st_idle;
         else
           ram0_next_state <= st_write;
         end if;
 
-      when st_writelag =>
-        ad_ram_enb         <= '0';
-        count_ram0_ce      <= '0';
-        count_ram0_sclr    <= '0';
-        s_ram0_count_ad_ce <= '1';
-        ram0_ena           <= '1';
-        ram0_wea           <= "1";
-        mux_ram0_sel       <= '1';
+      -- when st_writelag =>
+      --   ad_ram_enb      <= '0';
+      --   count_ram0_ce   <= '0';
+      --   count_ram0_sclr <= '0';
+      --   count_ad2_ce    <= '0';
+      --   ram0_ena        <= '1';
+      --   ram0_wea        <= "1";
+      --   mux_ram0_sel    <= '1';
 
-        ram0_next_state <= st_idle;
+      --   ram0_next_state <= st_idle;
 
       when others =>
         ram0_next_state <= st_idle;
