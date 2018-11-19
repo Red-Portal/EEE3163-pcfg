@@ -42,7 +42,6 @@ entity controller_pc is
         mux_ram_sel   : out std_logic;
         count_ram_ce  : out STD_LOGIC;
         count_data_ce : out STD_LOGIC;
-        led           : out STD_LOGIC_vector(6 downto 0)
         );
 end controller_pc;
 
@@ -89,15 +88,6 @@ begin
   mux_ram_sel <= '1' when (current_state = st_r) else
                  '1' when (current_state = st_w) else
                  '0';
-
-  led <= "0000001" when(current_state = st_idle) else
-         "0000010" when(current_state = st_ready) else
-         "0000011" when(current_state = st_r) else   
-         "0000100" when(current_state = st_cntr) else
-          "0000101" when(current_state = st_w) else
-          "0000110" when(current_state = st_waitw) else
-          "0000111" when(current_state = st_cntw) else
-          "0000000";
   
   clk_proc: process(s_clk, m_reset)
   begin
