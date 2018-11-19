@@ -216,7 +216,7 @@ architecture Behavioral of PCFG_TOP is
   END component;
 
 
-  signal s_address_latch_q : std_logic;
+  signal s_address_latch_q : std_logic_vector(8 downto 0);
   signal s_ren_latch_q     : std_logic;
   signal s_wen_latch_q     : std_logic;
   signal s_oe_b_latch_q    : std_logic;
