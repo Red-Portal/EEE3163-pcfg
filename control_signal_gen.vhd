@@ -409,10 +409,10 @@ begin
     count_ram0_q    => count_ram0_q
     );
 
-  m_led <= "0000001" when(st_idle) else
-           "0000010" when(st_pc0_clear) else
-           "0000011" when(st_pc0_read_mode) else   
-           "0000100" when(st_pc0_read_wait) else
+  m_led <= "0000001" when(current_state = st_idle) else
+           "0000010" when(current_state = st_pc0_clear) else
+           "0000011" when(current_state = st_pc0_read_mode) else   
+           "0000100" when(current_state = st_pc0_read_wait) else
            "0000000";
 
 
