@@ -52,6 +52,23 @@ architecture Behavioral of controller_filter is
   signal next_state    : state_t;
 
 begin
+  count_ram0_sclr <= '1' when (current_state = st_clear) else
+                     '1' when (current_state = st_write) else
+                     '0';
+  count_ram0_ce <= '1' when (current_state = st_outputlag) else
+                   '1' when (current_state = st_write) else
+                   '0';
+
+  ram0_enb <= '1' when (current_state = st_outputlag) else
+              '0';
+
+  filter_ce <= '1' when (current_state = st_outputlag) else
+               '1' when (current_state = st_write) else
+               '0';
+
+  filter_avg <= '1' when (current_state = st_wait) else
+                '0';
+  
   clk_proc: process(s_clk, m_reset)
   begin
     if(m_reset = '1') then
@@ -67,11 +84,6 @@ begin
   begin
     case current_state is
       when st_idle => 
-        filter_ce <= '0';
-        filter_avg <= '0';
-        count_ram0_ce <= '0';
-        count_ram0_sclr <= '0';
-
         if(ctrl_filter = '1') then
           next_state <= st_clear;
         else
@@ -79,26 +91,12 @@ begin
         end if;
 
       when st_clear =>
-        --filter_reset <= '1';
-        count_ram0_sclr <= '1';
         next_state <= st_outputlag;
 
       when st_outputlag =>
-        filter_reset    <= '0';
-        count_ram0_sclr <= '0';
-        count_ram0_ce   <= '1';
-        ram0_enb        <= '1';
-        filter_ce       <= '1';
-
         next_state <= st_write;
 
       when st_write =>
-        filter_reset    <= '0';
-        count_ram0_sclr <= '0';
-        count_ram0_ce   <= '1';
-        ram0_enb        <= '1';
-        filter_ce       <= '1';
-
         if(unsigned(count_ram0_q) - 1 <= unsigned(data_count)) then
           next_state <= st_write;
         else
@@ -106,16 +104,9 @@ begin
         end if;
 
       when st_compute =>
-        filter_ce     <= '0';
-        count_ram0_ce <= '0';
-        filter_avg    <= '1';
-        ram0_enb      <= '0';
-
         next_state <= st_wait;
 
       when st_wait =>
-        filter_avg <= '0';
-
         if(ctrl_filter = '0') then
           next_state <= st_idle;
         else

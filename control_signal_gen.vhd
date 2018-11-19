@@ -556,6 +556,8 @@ begin
           next_state <= st_ad_setup;
         elsif(mode_addr = mode_avg) then
           next_state <= st_avg_mode;
+        else 
+          next_state <= st_idle;
         end if;
 
       when st_avg_mode =>

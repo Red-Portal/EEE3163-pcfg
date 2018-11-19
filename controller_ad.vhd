@@ -207,7 +207,6 @@ begin
         end if;
 
       when st_clear =>
-
         ram0_next_state <= st_outputlag;
 
       when st_outputlag =>

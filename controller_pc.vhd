@@ -103,13 +103,6 @@ begin
     --if(rising_edge(s_clk)) then
     case current_state is
       when st_idle =>
---        count_ram_ce  <= '0';
---        count_data_ce <= '0';
---        ram_ena       <= '0';
---        ram_wea       <= "0";
---        ram_enb       <= '0';
---        mux_ram_sel   <= '0';
-
         if(ctrl_startio = '1') then
           next_state <= st_ready;
         else
@@ -117,10 +110,6 @@ begin
         end if;
 
       when st_ready =>
---        ram_enb       <= '1';
---        count_ram_ce  <= '0';
---        count_data_ce <= '0';
-
         if((s_ren = '1') AND (ctrl_startio = '1')) then
           next_state <= st_r;
         elsif((s_wen = '1') AND (ctrl_startio = '1')) then
@@ -130,9 +119,6 @@ begin
         end if;
         
       when st_r =>
---        ram_enb       <= '0';
----        mux_ram_sel   <= '1';
-        
         if(s_ren = '0') then
           next_state <= st_cntr;
         else
@@ -140,19 +126,9 @@ begin
         end if;
 
       when st_w =>
---        ram_enb       <= '0';
----        ram_ena       <= '1';
----        ram_wea       <= "1";
-
----        mux_ram_sel   <= '1';
-		  
         next_state <= st_waitw;
 
       when st_waitw =>
---        ram_ena       <= '0';
---        ram_wea       <= "0";
---        mux_ram_sel   <= '0';
-
         if(s_wen = '1') then
           next_state <= st_waitw;
         else
@@ -160,18 +136,14 @@ begin
         end if;
 
       when st_cntr =>
---        count_ram_ce  <= '1';
---        mux_ram_sel   <= '0';
         next_state   <= st_idle;
 
       when st_cntw =>
---        count_ram_ce  <= '1';
---        count_data_ce <= '1';
---        mux_ram_sel   <= '0';
         next_state   <= st_idle;
 
       when others =>
         next_state <= st_idle;
+
     end case;
 --    end if;
   end process;
