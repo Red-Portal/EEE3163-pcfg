@@ -123,7 +123,8 @@ architecture Behavioral of control_signal_gen is
           ram_enb       : out STD_LOGIC;
           mux_ram_sel   : out std_logic;
           count_ram_ce  : out STD_LOGIC;
-          count_data_ce : out STD_LOGIC
+          count_data_ce : out STD_LOGIC;
+          led           : out STD_LOGIC_vector(6 downto 0)
           );
   end component;
 
@@ -343,7 +344,8 @@ begin
     ctrl_startio  => ctrl_pc1_startio,
     mux_ram_sel   => s_pc1_mux_sel,
     count_ram_ce  => s_pc1_count_ram_ce,
-    count_data_ce => s_pc1_count_data_ce
+    count_data_ce => s_pc1_count_data_ce,
+    led => m_led
     );
 
   ad_control: controller_ad PORT MAP (
@@ -407,13 +409,6 @@ begin
     count_ram0_sclr => s_filter_count_ram0_sclr,
     count_ram0_q    => count_ram0_q
     );
-
-  m_led <= "0000001" when(current_state = st_idle) else
-           "0000010" when(current_state = st_pc0_clear) else
-           "0000011" when(current_state = st_pc0_read_mode) else   
-           "0000100" when(current_state = st_pc0_read_wait) else
-           "0000000";
-
 
   ram0_addra <= count_ram0_q;
 
