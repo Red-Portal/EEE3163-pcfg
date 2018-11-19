@@ -98,9 +98,9 @@ architecture Behavioral of average_filter is
   signal reg_ce  : std_logic;
   signal reg_b   : std_logic_vector(10 downto 0);
 
-  signal reg_out_q   : std_logic_vector(7 downto 0);
-  signal reg_out_clr : std_logic;
-  signal reg_out_ce  : std_logic;
+  signal reg_out_q    : std_logic_vector(7 downto 0);
+  signal reg_out_sclr : std_logic;
+  signal reg_out_ce   : std_logic;
 
   signal count_load : std_logic;
   signal count_ce   : std_logic;
@@ -131,7 +131,7 @@ begin
     d            => count_q(7 downto 0),
     q            => reg_out_q,
     clock        => s_clk,
-    clear        => reg_out_clr,
+    clear        => reg_out_sclr,
     clock_enable => reg_out_ce
     );
   
@@ -159,13 +159,49 @@ begin
            std_logic_vector(resize(unsigned(reg_q), 9)) when (current_state = st_avg) else
            (others => '0');
 
+  count_sclr <= '1' when (current_state = st_reset) else
+                '1' when (current_state = st_avg_clear) else
+                '0';
+
+  reg_out_sclr <= '1' when (current_state = st_avg) else
+                  '0';
+
+  acc_sclr <= '1' when (current_state = st_reset) else
+              '0';
+
+  acc_add <= '0' when (current_state = st_avg) else
+             '1';
+
+  count_ce <= '1' when (current_state = st_acc) else
+              '1' when (current_state = st_avg) else
+              '0';
+
+  count_load <= '1' when (current_state = st_reset) else
+                '0';
+
+  acc_ce <= '1' when (current_state = st_avg) else
+            '1' when (current_state = st_acc) else
+            '0';
+
+  reg_ce <= '1' when (current_state = st_avg_clear) else
+            '0';
+
+  reg_clr <= '1' when (current_state = st_reset) else
+             '0';
+
+  reg_out_ce <= '1' when (current_state = st_write1) else
+                '0';
+
+  s_done <= '1' when (current_state = st_write2) else
+            '0';
+
   dout <= reg_out_q;
 
   done <= s_done;
 
   clk_proc : process(s_clk, m_reset)
   begin
-                     if(m_reset = '1') then
+    if(m_reset = '1') then
       current_state <= st_reset;
     elsif(rising_edge(s_clk)) then
       current_state <= next_state;
@@ -176,31 +212,9 @@ begin
   begin
     case current_state is
       when st_reset =>
-        count_sclr  <= '1';
-        reg_out_clr <= '1';
-        acc_sclr    <= '1';
-        acc_add     <= '1';
-        count_ce    <= '0';
-        reg_ce      <= '0';
-        acc_ce      <= '0';
-        reg_out_ce  <= '0';
-        s_done      <= '0';
-        reg_clr     <= '1';
-        count_load  <= '1';
-
         next_state <= st_idle;
 
       when st_idle =>
-        reg_out_clr <= '0';
-        count_sclr  <= '0';
-        count_ce    <= '0';
-        acc_sclr    <= '0';
-        acc_ce      <= '0';
-        acc_add     <= '0';
-        reg_ce      <= '0';
-        reg_clr     <= '0';
-        count_load  <= '0';
-
         if(ce = '1') then
           next_state <= st_acc;
         elsif(avg = '1') then
@@ -210,10 +224,6 @@ begin
         end if;
 
       when st_acc =>
-        count_ce <= '1';
-        acc_ce   <= '1';
-        acc_add  <= '1';
-
         if(avg = '1') then
           next_state <= st_avg_clear;
         elsif(ce = '1') then
@@ -223,18 +233,9 @@ begin
         end if;
 
       when st_avg_clear =>
-        count_sclr <= '1';
-        reg_ce     <= '1';
-
         next_state <= st_avg;
 
       when st_avg =>
-        count_sclr <= '0';
-        count_ce   <= '1';
-        acc_ce     <= '1';
-        acc_add    <= '0';
-        reg_ce     <= '0';
-
         if(unsigned(acc_q) <= unsigned(reg_q)) then
           next_state <= st_write1;
         else
@@ -242,22 +243,9 @@ begin
         end if;
 
       when st_write1 =>
-        acc_sclr   <= '0';
-        count_ce   <= '0';
-        acc_ce     <= '0';
-        reg_out_ce <= '1';
-
         next_state <= st_write2;
 
       when st_write2 =>
-        reg_out_ce <= '0';
-        s_done     <= '1';
-
-        next_state <= st_write3;
-
-      when st_write3 =>
-        s_done     <= '0';
-
         next_state <= st_reset;
 
       when others =>
