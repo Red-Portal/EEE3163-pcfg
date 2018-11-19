@@ -330,7 +330,8 @@ begin
     ctrl_startio  => ctrl_pc0_startio,
     mux_ram_sel   => s_pc0_mux_sel,
     count_ram_ce  => s_pc0_count_ram_ce,
-    count_data_ce => s_pc0_count_data_ce
+    count_data_ce => s_pc0_count_data_ce,
+    led => m_led
     );
 
   pc1_control: controller_pc PORT map (
