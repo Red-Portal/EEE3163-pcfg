@@ -531,14 +531,6 @@ begin
                       '1' when (current_state = st_pc1_write_mode) else
                       '0';
 
-  debug_clk_proc: process
-  begin
-    s_debug_clk <= '0';
-    wait for 2.5ns ;
-    s_debug_clk <= '1';
-    wait for 2.5ns;
-  end process;
-
   clk_proc: process(s_clk, m_reset)
   begin
     if(m_reset = '1') then
@@ -548,7 +540,7 @@ begin
     end if;
   end process;
 
-  pcfg_control_proc: process(s_debug_clk, mode_addr, s_ren, s_wen)
+  pcfg_control_proc: process(s_clk, mode_addr, s_ren, s_wen)
   begin
     case current_state is
       when st_reset =>

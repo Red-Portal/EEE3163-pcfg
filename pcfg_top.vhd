@@ -341,6 +341,14 @@ begin
     m_out2    => open
     );
 
+  m_led(6 downto 0) <= s_led;
+  s_led(0) <= ram0_ena;
+  s_led(1) <= ram0_enb;
+  s_led(2) <= ram1_ena;
+  s_led(3) <= ram1_enb;
+  s_led(4) <= ad_ram_ena;
+  s_led(5) <= da_ram_ena;
+
 --for debug
   m_TP(0)  <= s_clk; --test point. for s_clk     ̰ɷ äϴϱ ٲٸ  ȵ
   m_TP(1)  <= sys_clk;--test for 8254 output.   ̰ɷ äϴϱ ٲٸ  ȵ
@@ -544,8 +552,8 @@ begin
     mux_ram0_sel => mux_ram0_sel,
     mux_ram1_sel => mux_ram1_sel,
     s_dout_en    => s_dout_en,
-    m_led        => m_led,
-    m_TP         => m_TP
+    m_led        => open,
+    m_TP         => open
     );
 
   m_led(6 downto 0)<=s_led(6 downto 0);

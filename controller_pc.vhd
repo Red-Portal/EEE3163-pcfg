@@ -97,14 +97,6 @@ begin
     end if;
   end process;
 
-  debug_clk_proc: process
-  begin
-    s_debug_clk <= '0';
-    wait for 2.5ns ;
-    s_debug_clk <= '1';
-    wait for 2.5ns;
-  end process;
-  
   pcfg_control_proc: process(s_clk, s_debug_clk, ctrl_startio, s_ren, s_wen)
   begin
     --if(rising_edge(s_clk)) then
