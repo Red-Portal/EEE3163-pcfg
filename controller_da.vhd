@@ -142,9 +142,7 @@ begin
     end if;
   end process;
 
-  da_proc: process(sys_clk, ctrl_da_mode, count_ad2_q,
-                   ram0_current_state, s_ram0_write_enable,
-                   count_ram0_q, count_data_q)
+  da_proc: process(sys_clk, ctrl_da_mode, count_data_q)
   begin
     case da_current_state is
       when st_idle =>
