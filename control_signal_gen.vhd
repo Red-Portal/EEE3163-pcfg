@@ -76,7 +76,7 @@ entity control_signal_gen is
     mux_ram1_sel : out STD_LOGIC_VECTOR (1 downto 0);
 
     s_dout_en    : out STD_LOGIC;
-    m_led        : out STD_LOGIC_VECTOR (7 downto 0);
+    m_led        : out STD_LOGIC_VECTOR (6 downto 0);
     m_TP         : out STD_LOGIC_VECTOR (1 downto 0)
     );
 end control_signal_gen;
@@ -408,6 +408,13 @@ begin
     count_ram0_sclr => s_filter_count_ram0_sclr,
     count_ram0_q    => count_ram0_q
     );
+
+  m_led <= "0000001" when(st_idle) else
+           "0000010" when(st_pc0_clear) else
+           "0000011" when(st_pc0_read_mode) else   
+           "0000100" when(st_pc0_read_wait) else
+           "0000000";
+
 
   ram0_addra <= count_ram0_q;
 
