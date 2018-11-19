@@ -81,6 +81,7 @@ begin
 				 "0";
   
   ram_enb <= '1' when (current_state = st_r) else
+             '1' when (current_state = st_ready) else
 				 '0';
   
   mux_ram_sel <= '1' when (current_state = st_r) else

@@ -329,7 +329,7 @@ begin
   pc0_control: controller_pc PORT map (
     s_clk         => s_clk,
     m_reset       => m_reset,
-    s_ren         => s_ren,
+    s_ren         => NOT(s_oe_b),
     s_wen         => s_wen,
     ram_ena       => s_pc0_ram_ena,
     ram_wea       => s_pc0_ram_wea,
@@ -343,7 +343,7 @@ begin
   pc1_control: controller_pc PORT map (
     s_clk         => s_clk,
     m_reset       => m_reset,
-    s_ren         => s_ren,
+    s_ren         => NOT(s_oe_b),
     s_wen         => s_wen,
     ram_ena       => s_pc1_ram_ena,
     ram_wea       => s_pc1_ram_wea,
