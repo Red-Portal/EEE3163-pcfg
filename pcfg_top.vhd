@@ -307,7 +307,7 @@ begin
            '0';
 
   s_oe_b <= s_oe_b_latch_q when(m_cmd_data = '1') else
-            '0';
+            '1';
   
 --clks
   m_DAC_clk    <= s_clk;    --- ʿ clock ϼ
