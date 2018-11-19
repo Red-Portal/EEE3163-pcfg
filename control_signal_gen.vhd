@@ -426,17 +426,17 @@ begin
   ram0_enb <= '1' when (s_pc0_ram_enb = '1' or s_dt_ram_enb = '1' or s_filter_ram0_enb = '1') else
               '0';
 
-  count_ram0_sclr <= '1' when (current_state = st_reset
-                               or current_state = st_dt_clear
-                               or current_state = st_pc0_clear
-                               or s_ad_count_ram0_sclr = '1'
-                               or s_filter_count_ram0_sclr = '1') else
+  count_ram0_sclr <= '1' when (current_state = st_reset) else
+                     '1' when (current_state = st_dt_clear) else
+                     '1' when (current_state = st_pc0_clear) else
+                     '1' when (s_ad_count_ram0_sclr = '1') else
+                     '1' when (s_filter_count_ram0_sclr = '1') else
                      '0';
 
-  count_ram0_ce <= '1' when (s_pc0_count_ram_ce = '1'
-                             or s_dt_count_ram_ce = '1'
-                             or s_ad_count_ram0_ce = '1'
-                             or s_filter_count_ram0_ce = '1') else
+  count_ram0_ce <= '1' when (s_pc0_count_ram_ce = '1') else
+                   '1' when (s_dt_count_ram_ce = '1') else -------------
+                   '1' when (s_ad_count_ram0_ce = '1') else
+                   '1' when (s_filter_count_ram0_ce = '1') else
                    '0';
 
   ------------------------------------------------------------------------------------
