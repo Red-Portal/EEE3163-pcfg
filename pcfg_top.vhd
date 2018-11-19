@@ -475,13 +475,13 @@ begin
     clock_enable => m_cmd_data
     );
 
---  cmd_latch : fdce1 PORT MAP (
---    d            => m_cmd_data,
---    q            => s_cmd_data,
---    clock        => s_clk,
---    clear        => '0',
---    clock_enable => '1'
---    );
+  cmd_latch : fdce1 PORT MAP (
+    d            => m_cmd_data,
+    q            => s_cmd_data,
+    clock        => s_clk,
+    clear        => '0',
+    clock_enable => m_cmd_data
+    );
 
   out_mux: multiplexer_2to1 port map(
     sel => mux_out_sel, 
