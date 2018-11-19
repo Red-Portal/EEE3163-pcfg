@@ -297,16 +297,16 @@ architecture Behavioral of PCFG_TOP is
   signal s_led         : std_logic_vector(6 downto 0);
 
 begin
-  s_address <= s_address_latch_q when (s_cmd_data = '1') else
+  s_address <= s_address_latch_q when (m_cmd_data = '1') else
                (others => '0');
 
-  s_ren <= s_ren_latch_q when(s_cmd_data = '1') else
-               '0';
-
-  s_wen <= s_wen_latch_q when(s_cmd_data = '1') else
+  s_ren <= s_ren_latch_q when(m_cmd_data = '1') else
            '0';
 
-  s_oe_b <= s_oe_b_latch_q when(s_cmd_data = '1') else
+  s_wen <= s_wen_latch_q when(m_cmd_data = '1') else
+           '0';
+
+  s_oe_b <= s_oe_b_latch_q when(m_cmd_data = '1') else
             '0';
   
 --clks
