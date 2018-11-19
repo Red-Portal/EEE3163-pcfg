@@ -472,7 +472,7 @@ begin
     q            => s_cmd_data,
     clock        => s_clk,
     clear        => '0',
-    clock_enable => m_cmd_data
+    clock_enable => '1'
     );
 
   out_mux: multiplexer_2to1 port map(
