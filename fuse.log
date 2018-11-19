@@ -33,7 +33,7 @@ Parsing VHDL file "/home/msca8h/Projects/EEE3163-pcfg/tb_pcfg.vhd" into library 
 Starting static elaboration
 Completed static elaboration
 Fuse Memory Usage: 112412 KB
-Fuse CPU Usage: 1160 ms
+Fuse CPU Usage: 1080 ms
 Compiling package standard
 Compiling package std_logic_1164
 Compiling package std_logic_arith
@@ -94,9 +94,9 @@ Compiling architecture behavioral of entity control_signal_gen [control_signal_g
 Compiling architecture behavioral of entity PCFG_TOP [pcfg_top_default]
 Compiling architecture behavior of entity tb_pcfg
 Time Resolution for simulation is 1ps.
-Waiting for 12 sub-compilation(s) to finish...
+Waiting for 11 sub-compilation(s) to finish...
 Compiled 97 VHDL Units
 Built simulation executable /home/msca8h/Projects/EEE3163-pcfg/tb_pcfg_isim_beh.exe
 Fuse Memory Usage: 1245200 KB
-Fuse CPU Usage: 1660 ms
-GCC CPU Usage: 6640 ms
+Fuse CPU Usage: 1600 ms
+GCC CPU Usage: 6650 ms

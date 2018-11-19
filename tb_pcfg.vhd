@@ -222,7 +222,7 @@ BEGIN
     CMD_WR('1' & x"72","00000000",m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);  -- DATA TRANSFER 20
     wait for 500 us;
 
-    CMD_WR('1' & x"72","00000000",m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);  -- DATA TRANSFER 20
+    CMD_WR('1' & x"74","00000000",m_address,m_data,m_cmd_data,m_wen,m_ren,m_OE_b);  -- DATA TRANSFER 20
     wait for 1 us;
 
     -- wait for 1 us;
