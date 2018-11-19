@@ -93,6 +93,50 @@ begin
     q    => count_da2_q
     );
 
+  da_ram_addrb  <= count_da_q;
+
+  da_ram_addra <= count_da2_q;
+
+  da_ram_enb <= '0' when (da_current_state = st_clear) else
+                '1';
+
+  count_da_sclr <= '1' when (da_current_state = st_clear) else
+                   '1' when (da_current_state = st_writeclear) else
+                   '0';
+
+  count_da_ce <= '1' when (da_current_state = st_write) else
+                 '0';
+
+  da_ram_enb <= '1' when (da_current_state = st_write) else
+                '1' when (da_current_state = st_writeclear) else
+                '0';
+
+  s_da_read_enable <= '0' when (ram1_current_state = st_idle) else
+                      '1';
+
+  count_ram1_sclr <= '1' when (ram1_current_state = st_clear) else
+                     '0';
+
+  count_ram1_ce <= '1' when (ram1_current_state = st_outputlag) else
+                   '1' when (ram1_current_state = st_write) else
+                   '0';
+
+  count_da2_sclr <= '1' when (ram1_current_state = st_clear) else
+                    '0';
+
+  count_da2_ce <= '1' when (ram1_current_state = st_write) else
+                  '0';
+
+  ram1_enb <= '1' when (ram1_current_state = st_outputlag) else
+              '1' when (ram1_current_state = st_write) else
+              '0';
+
+  da_ram_wea <= "1" when(ram1_current_state = st_write) else
+                "0";
+
+  da_ram_ena <= '1' when(ram1_current_state = st_write) else
+                '0';
+
   da_clk_proc: process(sys_clk, m_reset)
   begin
     if(m_reset = '1') then
@@ -104,14 +148,8 @@ begin
 
   da_proc: process(sys_clk, ctrl_da_mode)
   begin
-    da_ram_addrb  <= count_da_q;
-
     case da_current_state is
       when st_idle =>
-        da_ram_enb    <= '0';
-        count_da_ce   <= '0';
-        count_da_sclr <= '0';
-
         if(s_da_read_enable = '1') then
           da_next_state <= st_clear;
         else
@@ -119,11 +157,6 @@ begin
         end if;
         
       when st_clear =>
-        da_ram_enb    <= '1';
-        da_ram_addrb  <= count_da_q;
-        count_da_ce   <= '0';
-        count_da_sclr <= '1';
-
         if(s_da_read_enable = '0') then
           da_next_state <= st_idle;
         else
@@ -131,11 +164,6 @@ begin
         end if;
 
       when st_write =>
-        da_ram_enb    <= '1';
-        da_ram_addrb  <= count_da_q;
-        count_da_ce   <= '1';
-        count_da_sclr <= '0';
-
         if(s_da_read_enable = '0') then
           da_next_state <= st_idle;
         elsif(unsigned(count_da_q) + 2 = unsigned(count_data_q)) then
@@ -145,11 +173,6 @@ begin
         end if;
 
       when st_writeclear =>
-        da_ram_enb    <= '1';
-        da_ram_addrb  <= count_da_q;
-        count_da_ce   <= '0';
-        count_da_sclr <= '1';
-
         if(s_da_read_enable = '0') then
           da_next_state <= st_idle;
         else
@@ -173,19 +196,8 @@ begin
 
   ram1_proc: process(s_clk, ctrl_da_mode)
   begin
-    da_ram_addra <= count_da2_q;
-     
     case ram1_current_state is
       when st_idle =>
-        count_ram1_ce    <= '0';
-        count_ram1_sclr  <= '0';
-        ram1_enb         <= '0';
-        da_ram_wea       <= "0";
-        da_ram_ena       <= '0';
-        s_da_read_enable <= '0';
-        count_da2_ce     <= '0';
-        count_da2_sclr   <= '0';
-
         if(ctrl_da_mode = '1') then
           ram1_next_state <= st_clear;
         else
@@ -193,10 +205,6 @@ begin
         end if;
 
       when st_clear =>
-        s_da_read_enable <= '1';
-        count_ram1_sclr  <= '1';
-        count_da2_sclr   <= '1';
-
         if(ctrl_da_mode = '0') then
           ram1_next_state <= st_idle;
         else
@@ -204,14 +212,6 @@ begin
         end if;
 
       when st_outputlag =>
-        s_da_read_enable <= '1';
-        ram1_enb         <= '1';
-        count_ram1_ce    <= '1';
-        count_ram1_sclr  <= '0';
-        count_da2_sclr   <= '0';
-        da_ram_wea       <= "0";
-        da_ram_ena       <= '0';
-
         if(ctrl_da_mode = '0') then
           ram1_next_state <= st_idle;
         else
@@ -219,15 +219,6 @@ begin
         end if;
 
       when st_write =>
-        s_da_read_enable <= '1';
-        ram1_enb         <= '1';
-        count_ram1_ce    <= '1';
-        count_da2_ce     <= '1';
-        da_ram_wea       <= "1";
-        da_ram_ena       <= '1';
-        count_ram1_sclr  <= '0';
-        count_da2_sclr   <= '0';
-
         if(ctrl_da_mode = '0') then
           ram1_next_state <= st_idle;
         elsif(unsigned(count_ram1_q) = unsigned(count_data_q)) then
@@ -237,15 +228,6 @@ begin
         end if;
 
       when st_stop_wait =>
-        s_da_read_enable <= '1';
-        ram1_enb         <= '0';
-        count_ram1_ce    <= '0';
-        count_ram1_sclr  <= '0';
-        count_da2_ce     <= '0';
-        count_da2_sclr   <= '0';
-        da_ram_wea       <= "0";
-        da_ram_ena       <= '0';
-
         if(ctrl_da_mode = '0') then
           ram1_next_state <= st_idle;
         else
