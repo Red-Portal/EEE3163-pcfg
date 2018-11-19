@@ -213,10 +213,15 @@ architecture Behavioral of PCFG_TOP is
       dout    : OUT std_logic_vector(7 downto 0);
       done    : out std_logic
       );
-  END COMPONENT;
+  END component;
 
-  signal s_reset_addr : std_logic;
 
+  signal s_address_latch_q : std_logic;
+  signal s_ren_latch_q     : std_logic;
+  signal s_wen_latch_q     : std_logic;
+  signal s_oe_b_latch_q    : std_logic;
+
+  signal s_reset_addr      : std_logic;
   signal s_filter_ce    : std_logic;
   signal s_filter_avg   : std_logic;
   signal s_filter_done  : std_logic;
@@ -292,6 +297,18 @@ architecture Behavioral of PCFG_TOP is
   signal s_led         : std_logic_vector(6 downto 0);
 
 begin
+  s_address <= s_address_latch_q when (s_cmd_data = '1') else
+               (others => '0');
+
+  s_ren <= s_ren_latch_q when(s_cmd_data = '1') else
+               '0';
+
+  s_wen <= s_wen_latch_q when(s_cmd_data = '1') else
+           '0';
+
+  s_oe_b <= s_oe_b_latch_q when(s_cmd_data = '1') else
+            '0';
+  
 --clks
   m_DAC_clk    <= s_clk;    --- ʿ clock ϼ
   m_AD9283_clk <= s_clk; --- ʿ clock ϼx
@@ -428,7 +445,7 @@ begin
 
   address_latch : fdce9 PORT MAP (
     d            => m_address,
-    q            => s_address,
+    q            => s_address_latch_q,
     clock        => s_clk,
     clear        => '0',
     clock_enable => '1'
@@ -436,7 +453,7 @@ begin
 
   ren_latch : fdce1 PORT MAP (
     d            => m_ren,
-    q            => s_ren,
+    q            => s_ren_latch_q,
     clock        => s_clk,
     clear        => '0',
     clock_enable => '1'
@@ -444,7 +461,7 @@ begin
 
   wen_latch : fdce1 PORT MAP (
     d            => m_wen,
-    q            => s_wen,
+    q            => s_wen_latch_q,
     clock        => s_clk,
     clear        => '0',
     clock_enable => '1'
@@ -452,7 +469,7 @@ begin
 
   oe_latch : fdce1 PORT MAP (
     d            => m_oe_b,
-    q            => s_oe_b,
+    q            => s_oe_b_latch_q,
     clock        => s_clk,
     clear        => '0',
     clock_enable => '1'
@@ -547,7 +564,7 @@ begin
     m_TP         => open
     );
 
-  m_led(6 downto 0)<=s_led(6 downto 0);
+  m_led(6 downto 0) <= s_led(6 downto 0);
 
 end Behavioral;
 

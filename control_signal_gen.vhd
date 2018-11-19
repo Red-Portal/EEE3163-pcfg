@@ -410,18 +410,23 @@ begin
     );
 
   ram0_addra <= count_ram0_q;
+
   ram0_addrb <= count_ram0_q;
+
   ram1_addra <= (others=>'0') when (current_state = st_avg_done_mode) else
                 count_ram1_q;
+
   ram1_addrb <= count_ram1_q;
 
   filter_reset <= '1' when (s_filter_reset = '1') else
                   '1' when (current_state = st_reset) else
                   '0';
 
-  ram0_ena <= '1' when (s_pc0_ram_ena = '1' or s_ad_ram0_ena = '1') else
+  ram0_ena <= '1' when (s_pc0_ram_ena = '1') else
+              '1' when (s_ad_ram0_ena = '1') else
               '0';
-  ram0_wea <= "1" when (s_pc0_ram_wea = "1" or s_ad_ram0_wea = "1")  else
+  ram0_wea <= "1" when (s_pc0_ram_wea = "1")
+              "1" when (s_ad_ram0_wea = "1") else
               "0";
   ram0_enb <= '1' when (s_pc0_ram_enb = '1' or s_dt_ram_enb = '1' or s_filter_ram0_enb = '1') else
               '0';
@@ -434,7 +439,7 @@ begin
                      '0';
 
   count_ram0_ce <= '1' when (s_pc0_count_ram_ce = '1') else
-                   '1' when (s_dt_count_ram_ce = '1') else -------------
+                   '1' when (s_dt_count_ram_ce = '1') else
                    '1' when (s_ad_count_ram0_ce = '1') else
                    '1' when (s_filter_count_ram0_ce = '1') else
                    '0';
