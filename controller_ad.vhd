@@ -105,6 +105,47 @@ begin
     q    => count_ad2_q
     );
 
+  s_ad_count_ad_sclr <= '1' when(ad_current_state = st_write) else
+                        '0';
+
+  ad_ram_ena <= '1' when(ad_current_state = st_write) else
+                '0';
+
+  ad_ram_wea <= "1" when(ad_current_state = st_write) else
+                "0";
+  
+  count_ad_ce <= '1' when(ad_current_state = st_write) else
+                 '0';
+
+  s_ram0_write_enable <= '1' when(ad_current_state = st_wait) else
+                         '0';
+
+  count_ram0_sclr <= '1' when(ram0_current_state = st_clear) else
+                     '0';
+
+  count_ram0_ce <= '1' when(ram0_current_state = st_write) else
+                   '0';
+
+  count_ad2_sclr <= '1' when(ram0_current_state = st_clear) else
+                    '0';
+
+  count_ad2_ce <= '1' when(ram0_current_state = st_outputlag) else
+                  '1' when(ram0_current_state = st_write) else
+                  '0';
+
+  ad_ram_enb <= '1' when(ram0_current_state = st_outputlag) else
+                '1' when(ram0_current_state = st_write) else
+                '0';
+
+  ram0_ena <= '1' when(ram0_current_state = st_write) else
+              '0';
+
+  ram0_wea <= "1" when(ram0_current_state = st_write) else
+              "0";
+
+  mux_ram0_sel <= '1' when(ram0_current_state = st_write) else
+                  '0';
+
   ad_clk_proc: process(sys_clk, m_reset)
   begin
     if(m_reset = '1') then
@@ -120,12 +161,6 @@ begin
 
     case ad_current_state is
       when st_idle =>
-        ad_ram_ena          <= '0';
-        ad_ram_wea          <= "0";
-        count_ad_ce         <= '0';
-        count_ad_sclr       <= '0';
-        s_ram0_write_enable <= '0';
-
         if(ctrl_ad_mode = '1') then
           ad_next_state <= st_clear;
         else
@@ -133,16 +168,9 @@ begin
         end if;
 
       when st_clear =>
-        s_ad_count_ad_sclr <= '1';
-
         ad_next_state <= st_write;
 
       when st_write =>
-        ad_ram_ena    <= '1';
-        ad_ram_wea    <= "1";
-        count_ad_sclr <= '0';
-        count_ad_ce   <= '1';
-
         if(unsigned(count_ad_q) >= unsigned(count_data_q)) then
           ad_next_state <= st_wait;
         else
@@ -150,11 +178,6 @@ begin
         end if;
 
       when st_wait =>
-        ad_ram_ena          <= '0';
-        ad_ram_wea          <= "0";
-        count_ad_ce         <= '0';
-        s_ram0_write_enable <= '1';
-
         ad_next_state <= st_idle;
 
       when others =>
@@ -178,16 +201,6 @@ begin
 
     case ram0_current_state is 
       when st_idle =>
-        ad_ram_enb      <= '0';
-        count_ram0_ce   <= '0';
-        count_ram0_sclr <= '0';
-        count_ad2_ce    <= '0';
-        count_ad2_sclr  <= '0';
-        count_ram0_sclr <= '0';
-        ram0_ena        <= '0';
-        ram0_wea        <= "0";
-        mux_ram0_sel    <= '0';
-
         if(s_ram0_write_enable = '1') then
           ram0_next_state <= st_clear;
         else
@@ -195,45 +208,18 @@ begin
         end if;
 
       when st_clear =>
-        count_ram0_sclr <= '1';
-        count_ad2_sclr  <= '1';
 
         ram0_next_state <= st_outputlag;
 
       when st_outputlag =>
-        count_ad2_ce   <= '1';
-        count_ad2_sclr <= '0';
-        ad_ram_enb     <= '1';
-        count_ram0_ce  <= '0';
-
         ram0_next_state <= st_write;
 
       when st_write =>
-        ad_ram_enb      <= '1';
-        count_ad2_ce    <= '1';
-        count_ram0_ce   <= '1';
-        count_ram0_sclr <= '0';
-        ram0_ena        <= '1';
-        ram0_wea        <= "1";
-        mux_ram0_sel    <= '1';
-
         if(unsigned(count_ram0_q) >= unsigned(count_data_q)) then
-        --ram0_next_state <= st_writelag;
           ram0_next_state <= st_idle;
         else
           ram0_next_state <= st_write;
         end if;
-
-      -- when st_writelag =>
-      --   ad_ram_enb      <= '0';
-      --   count_ram0_ce   <= '0';
-      --   count_ram0_sclr <= '0';
-      --   count_ad2_ce    <= '0';
-      --   ram0_ena        <= '1';
-      --   ram0_wea        <= "1";
-      --   mux_ram0_sel    <= '1';
-
-      --   ram0_next_state <= st_idle;
 
       when others =>
         ram0_next_state <= st_idle;
