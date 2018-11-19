@@ -102,7 +102,7 @@ begin
     q    => count_ad2_q
     );
 
-  count_ad_sclr <= '1' when(ad_current_state = st_write) else
+  count_ad_sclr <= '1' when(ad_current_state = st_clear) else
                    '0';
 
   ad_ram_ena <= '1' when(ad_current_state = st_write) else
