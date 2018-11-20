@@ -45,7 +45,7 @@ entity controller_filter is
           );
 end controller_filter;
 architecture Behavioral of controller_filter is
-  type state_t is (st_idle, st_clear, st_outputlag,
+  type state_t is (st_idle, st_clear, st_clear1, st_outputlag,
                    st_write, st_compute, st_wait);
 
   signal current_state : state_t;
@@ -65,8 +65,9 @@ begin
               '1' when (current_state = st_write) else
               '0';
 
-  filter_ce <= '1' when (current_state = st_outputlag) else
-               '1' when (current_state = st_write) else
+  filter_ce <= '1' when (current_state = st_clear) else
+					'1' when (current_state = st_write) else
+					'1' when (current_state = st_outputlag) else
                '0';
 
   filter_avg <= '1' when (current_state = st_wait) else
@@ -94,13 +95,16 @@ begin
         end if;
 
       when st_clear =>
+        next_state <= st_clear1;
+
+      when st_clear1 =>
         next_state <= st_outputlag;
 
       when st_outputlag =>
         next_state <= st_write;
 
       when st_write =>
-        if(unsigned(count_ram0_q) <= unsigned(data_count) + 1) then
+        if(unsigned(count_ram0_q) + 2 <= unsigned(data_count)) then
           next_state <= st_write;
         else
           next_state <= st_compute;

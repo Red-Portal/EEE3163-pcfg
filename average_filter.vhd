@@ -145,7 +145,7 @@ begin
     );
 
   data_counter: load_counter PORT MAP (
-    l    => "00000000001",
+    l    => "00000000000",
     load => count_load,
     clk  => s_clk,
     sclr => count_sclr,
@@ -237,7 +237,7 @@ begin
         next_state <= st_avg;
 
       when st_avg =>
-        if(unsigned(acc_q) < unsigned(reg_q)) then
+        if(unsigned(acc_q) < unsigned(reg_q)*2) then
           next_state <= st_write1;
         else
           next_state <= st_avg;
