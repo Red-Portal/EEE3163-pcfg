@@ -237,7 +237,7 @@ begin
         next_state <= st_avg;
 
       when st_avg =>
-        if(unsigned(acc_q) <= unsigned(reg_q)) then
+        if(unsigned(acc_q) < unsigned(reg_q)) then
           next_state <= st_write1;
         else
           next_state <= st_avg;
