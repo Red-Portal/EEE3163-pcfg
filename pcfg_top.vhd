@@ -300,14 +300,14 @@ begin
   s_address <= s_address_latch_q when (s_cmd_data = '1') else
                (others => '0');
 
-  s_ren <= s_ren_latch_q when(s_cmd_data = '1') else
-           '0';
+  -- s_ren <= s_ren_latch_q when(s_cmd_data = '1') else
+  --          '0';
 
-  s_wen <= s_wen_latch_q when(s_cmd_data = '1') else
-           '0';
+  -- s_wen <= s_wen_latch_q when(s_cmd_data = '1') else
+  --          '0';
 
-  s_oe_b <= s_oe_b_latch_q when(s_cmd_data = '1') else
-            '1';
+  -- s_oe_b <= s_oe_b_latch_q when(s_cmd_data = '1') else
+  --           '1';
   
 --clks
   m_DAC_clk    <= s_clk;    --- ʿ clock ϼ
@@ -445,26 +445,26 @@ begin
 
   ren_latch : fdce1 PORT MAP (
     d            => m_ren,
-    q            => s_ren_latch_q,
+    q            => s_ren,
     clock        => s_clk,
     clear        => '0',
-    clock_enable => m_cmd_data
+    clock_enable => '1'
     );
 
   wen_latch : fdce1 PORT MAP (
     d            => m_wen,
-    q            => s_wen_latch_q,
+    q            => s_wen,
     clock        => s_clk,
     clear        => '0',
-    clock_enable => m_cmd_data
+    clock_enable => '1'
     );
 
   oe_latch : fdce1 PORT MAP (
     d            => m_oe_b,
-    q            => s_oe_b_latch_q,
+    q            => s_oe_b,
     clock        => s_clk,
     clear        => '0',
-    clock_enable => m_cmd_data
+    clock_enable => '1'
     );
 
   cmd_latch : fdce1 PORT MAP (

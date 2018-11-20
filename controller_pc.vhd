@@ -68,11 +68,12 @@ architecture Behavioral of controller_pc is
 --  signal s_mux_ram_sel : std_logic;
 
 begin 
-  count_ram_ce <= '1' when (current_state = st_cntr) else
-                  '1' when (current_state = st_cntw) else
+  count_ram_ce <= '1' when (current_state = st_cntw) else
+                  '1' when (current_state = st_cntr) else
                   '0';
   
   count_data_ce <= '1' when (current_state = st_cntw) else
+                   '1' when (current_state = st_cntr) else
                    '0';
   
   ram_ena <= '1' when (current_state = st_w) else
