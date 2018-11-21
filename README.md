@@ -1,4 +1,4 @@
-# EEE3163 PC Function Generator Controller
+# EEE3163 PC Function Generator
 Project of Sogang University EEE3163 Advanced Digital Circuit Design class.
 Developed on a custom FPGA board with a on board ADC, DAC, and USB comm module.
 
