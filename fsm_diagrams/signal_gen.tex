@@ -1,0 +1,180 @@
+
+\documentclass{scrartcl}
+\usepackage{tikz}
+\usepackage[paperheight=15in,paperwidth=13in]{geometry}
+\usetikzlibrary{arrows,automata}
+\begin{document}
+\begin{tikzpicture}[>=stealth',shorten >=1pt,auto,node distance=3cm]
+  \node [initial,state,accepting] (reset)         {Reset};
+  \node [state, inner sep=7pt,align=center] (idle)         [below of=reset]    {idle};
+  \node [state, inner sep=7pt,align=center] (avg)          [left of=idle]      {avg};
+  \node [state, inner sep=1pt,align=center] (avgdone)      [below of=avg]      {avg\\done};
+  \node [state, inner sep=1pt,align=center] (dtclear)      [left of=avg]       {dt\\clear};
+  \node [state, inner sep=7pt,align=center] (dt)           [below of=dtclear]  {dt};
+  \node [state, inner sep=1pt,align=center] (da)           [left of=dtclear]   {da};
+  \node [state, inner sep=1pt,align=center] (adsetup)      [left of=da]        {ad\\setup};
+  \node [state, inner sep=1pt,align=center] (ad)           [below of=adsetup]  {ad};
+  \node [state, inner sep=1pt,align=center] (pc0clear)     [right of=idle]     {pc0\\clear};
+  \node [state, inner sep=1pt,align=center] (pc0write)     [right of=pc0clear] {pc0\\write};
+  \node [state, inner sep=1pt,align=center] (pc0writewait) [right of=pc0write] {pc0\\write\\wait};
+  \node [state, inner sep=1pt,align=center] (pc0read)      [above of=pc0write] {pc0\\read};
+  \node [state, inner sep=1pt,align=center] (pc0readwait)  [right of=pc0read]  {pc0\\read\\wait};
+  \node [state, inner sep=1pt,align=center] (pc1clear)     [below of=pc0clear] {pc1\\clear};
+  \node [state, inner sep=1pt,align=center] (pc1read)      [right of=pc1clear] {pc1\\read};
+  \node [state, inner sep=1pt,align=center] (pc1readwait)  [right of=pc1read]  {pc1\\read\\wait};
+  \node [state, inner sep=1pt,align=center] (pc1write)     [below of=pc1read]  {pc1\\write};
+  \node [state, inner sep=1pt,align=center] (pc1writewait) [right of=pc1write] {pc1\\write\\wait};
+
+  \path[->]
+  (reset)
+  edge 
+  node 
+  {0} (idle)
+
+  (idle)
+  edge [loop below]
+  node
+  {} (idle)
+  edge [bend right]
+  node [above]
+  {} (avg)
+  edge [bend right]
+  node
+  {} (dtclear)
+  edge [bend right]
+  node
+  {} (adsetup)
+  edge [bend right]
+  node
+  {} (da)
+  edge 
+  node
+  {} (pc0clear)
+  edge 
+  node
+  {} (pc1clear)
+
+  (avg)
+  edge [loop left]
+  node 
+  {} (avg)
+  edge 
+  node
+  {} (avgdone)
+
+  (avgdone)
+  edge 
+  node
+  {} (idle)
+
+  (dtclear)
+  edge 
+  node
+  {} (dt)
+
+  (dt)
+  edge 
+  node
+  {} (idle)
+
+  (da)
+  edge [loop left]
+  node
+  {} (da)
+  edge [bend right]
+  node
+  {} (idle)
+
+  (adsetup)
+  edge 
+  node
+  {} (ad)
+
+  (ad)
+  edge 
+  node
+  {} (idle)
+
+  (pc0clear)
+  edge 
+  node
+  {} (pc0write)
+  edge 
+  node
+  {} (pc0read)
+
+  (pc0read)
+  edge
+  node
+  {} (pc0readwait)
+
+  (pc0write)
+  edge
+  node
+  {} (pc0writewait)
+
+  (pc0readwait)
+  edge [loop right]
+  node
+  {} (pc0readwait)
+  edge [bend left] 
+  node
+  {} (pc0read)
+  edge 
+  node
+  {} (idle)
+
+  (pc0writewait)
+  edge [bend left]
+  node
+  {} (idle)
+  edge [bend left] 
+  node
+  {} (pc0write)
+  edge [loop right] 
+  node
+  {} (pc0write)
+
+  (pc1clear)
+  edge 
+  node
+  {} (pc1read)
+  edge 
+  node
+  {} (pc1write)
+
+  (pc1read)
+  edge 
+  node
+  {} (pc1readwait)
+
+  (pc1write)
+  edge 
+  node
+  {} (pc1writewait)
+
+  (pc1readwait)
+  edge [loop right]
+  node
+  {} (pc1readwait)
+  edge [bend left] 
+  node
+  {} (pc1read)
+  edge 
+  node
+  {} (idle)
+
+  (pc1writewait)
+  edge [loop right]
+  node
+  {} (pc1writewait)
+  edge [bend left] 
+  node
+  {} (pc1write)
+  edge 
+  node
+  {} (idle)
+  ;
+
+\end{tikzpicture}
+\end{document}

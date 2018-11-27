@@ -1,0 +1,55 @@
+
+\documentclass{scrartcl}
+\usepackage{tikz}
+\usetikzlibrary{arrows,automata}
+
+\begin{document}
+\begin{tikzpicture}[>=stealth',shorten >=1pt,auto,node distance=3cm]
+  \node[initial,state,accepting, inner sep=5pt] (idle)                         {$idle$};
+  \node[state, inner sep=7pt]                   (acc)      [right of=idle]     {$acc$};
+  \node[state, align=center,inner sep=4pt]      (avgclear) [right of=acc]      {avg\\clear};
+  \node[state, inner sep=1pt]                   (avg)      [below of=avgclear] {$avg$};
+  \node[state, inner sep=1pt]                   (write)    [below of=avg]      {$write$};
+
+
+  \path[->]
+  (idle)
+  edge [loop above]
+  node 
+  {$\overline{ce}$} (idle)
+  edge
+  node 
+  {$ce$} (acc)
+
+  (acc)
+  edge [loop above]
+  node
+  {$ce$} (acc)
+  edge 
+  node
+  {$avg$} (avgclear)
+  edge [bend left]
+  node
+  {$\overline{avg} \cdot \overline{ce}$} (idle)
+
+  (avgclear)
+  edge 
+  node
+  {} (avg)
+
+  (avg)
+  edge 
+  node
+  {$acc\_q < 2 \cdot reg\_q $} (write)
+  edge [loop right]
+  node
+  {$\overline{acc\_q < 2 \cdot reg\_q }$} (avg)
+
+  (write)
+  edge 
+  node
+  {} (idle)
+;
+
+\end{tikzpicture}
+\end{document}
